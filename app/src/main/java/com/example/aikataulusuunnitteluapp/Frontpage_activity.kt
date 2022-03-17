@@ -24,8 +24,6 @@ class Frontpage_activity : AppCompatActivity() {
         btn_showCalendar.setOnClickListener {
             startActivity(Intent(this@Frontpage_activity, Calendar_activity::class.java))
         }
-
-
     }
 
     override fun onSupportNavigateUp(): Boolean {
