@@ -1,8 +1,14 @@
 <resources>
     <string name="app_name">AikataulusuunnitteluApp</string>
+    <string name="Logo_text">App Logo</string>
     <string name="login">Log in</string>
     <string name="frontpagetext">You have arrived on the frontpage</string>
     <string name="GoToCalendar">Go to calendar</string>
+    <string name="Email">Email</string>
+    <string name="Register">Register</string>
+    <string name="Password">Password</string>
+    <string name="NotAMember">Not a member yet?</string>
+    <string name="TimeOfDay">Monday 21.03.2022</string>
 
 
 </resources>
