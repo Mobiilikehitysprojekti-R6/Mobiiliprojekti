@@ -3,6 +3,7 @@ package com.example.aikataulusuunnitteluapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 
 class Frontpage_activity : AppCompatActivity() {
@@ -28,6 +29,7 @@ class Frontpage_activity : AppCompatActivity() {
         return true
     }
 
-
+    fun actionPreviousDay(view: View) {}
+    fun actionNextDay(view: View) {}
 
 }
