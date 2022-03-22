@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.StringRequestListener
-import okhttp3.OkHttpClient
+import okhttp3.*
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -27,23 +27,38 @@ class MainActivity : AppCompatActivity() {
         val btnRegister = findViewById<Button>(R.id.btn_login2)
         val etUsername = findViewById<EditText>(R.id.etUsername)
         val etPassword = findViewById<EditText>(R.id.etPassword)
-        // napit, edittextit
 
         btnLogin.setOnClickListener{
-            startActivity(Intent(this@MainActivity, Frontpage_activity::class.java))
+
+            Credentials.basic(etUsername.text.toString(), etPassword.text.toString())
+
+            AndroidNetworking.post("http://192.168.1.150:3000/login")
+                .addHeaders("Authorization", Credentials.basic(etUsername.text.toString(), etPassword.text.toString()))
+                .build()
+                .getAsString(object : StringRequestListener {
+                    override fun onResponse(res: String?) {
+                        println(res)
+                        startActivity(Intent(this@MainActivity, Frontpage_activity::class.java))
+                    }
+
+                    override fun onError(error: ANError) {
+                        println(error)
+                        // TODO : if error -> alert with retry & ok buttons
+                    }
+                })
         }
 
         btnRegister.setOnClickListener {
 
             val jsonObject = JSONObject()
             try {
-                jsonObject.put("Username", etUsername.text)
-                jsonObject.put("Password", etPassword.text)
+                jsonObject.put("Username", etUsername.text.toString())
+                jsonObject.put("Password", etPassword.text.toString())
             } catch (e: JSONException) {
                 e.printStackTrace()
             }
 
-            AndroidNetworking.post("http://PISTÄ TÄHÄN OMAN KONEEN IP:3000/register")
+            AndroidNetworking.post("http://192.168.1.150:3000/register")
                 .addJSONObjectBody(jsonObject)
                 .build()
                 .getAsString(object : StringRequestListener {
