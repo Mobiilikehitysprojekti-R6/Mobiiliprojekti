@@ -1,34 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Frontpage_activity">
 
-    <CalendarView
-        android:id="@+id/calendarView"
-        android:layout_width="284dp"
-        android:layout_height="405dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.527" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="actionPreviousDay"
+            android:text="Edellinen"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/monthYear_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="February 2022"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="actionNextDay"
+            android:text="Seuraava"
+            android:textSize="10sp" />
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+        android:id="@+id/weekday_tv"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/TimeOfDay"
-        android:textColor="#000000"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.054" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:text="Monday"
+        android:textAlignment="center"
+        android:textColor="@color/lightGrey"
+        android:textSize="20sp" />
+
+    <ListView
+        android:id="@+id/hour_lv"
+        android:layout_width="match_parent"
+        android:layout_height="600sp" />
+
+    <Button
+        android:id="@+id/addTask_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Lisaa tehtava" />
+
+
+</LinearLayout>
