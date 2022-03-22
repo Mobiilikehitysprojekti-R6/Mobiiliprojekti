@@ -1,5 +1,7 @@
 package com.example.aikataulusuunnitteluapp
 
+import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -14,6 +16,22 @@ import org.json.JSONObject
 
 
 class MainActivity : AppCompatActivity() {
+
+    var failedAPICalls: Int = 0
+
+    fun failedTimes() {
+        failedAPICalls++
+
+        // tein tällaisen funktion seuraamaan käyttäjän burgerointia
+        // ainakun tulee network error niin tämä funktio kutsutaan
+        // tehdään sitten joku 10s odotteluaika kun on tarpeeksi monta network erroria saanut kasaan
+
+        println("Failed API Call count: $failedAPICalls")
+
+        if(failedAPICalls >= 5) {
+            // TODO : jos käyttäjällä >= 5 virheellistä api kutsua, pistää 10s odotteluajan ja resettaa laskimen
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -28,9 +46,10 @@ class MainActivity : AppCompatActivity() {
         val etUsername = findViewById<EditText>(R.id.etUsername)
         val etPassword = findViewById<EditText>(R.id.etPassword)
 
-        btnLogin.setOnClickListener{
+        // KAIKKI alert -liittyvät dialog interface ja which voi nimetä _ _, koska niitä ei käytetä,
+        // jos haluaa
 
-            Credentials.basic(etUsername.text.toString(), etPassword.text.toString())
+        btnLogin.setOnClickListener{
 
             AndroidNetworking.post("http://192.168.1.150:3000/login")
                 .addHeaders("Authorization", Credentials.basic(etUsername.text.toString(), etPassword.text.toString()))
@@ -39,11 +58,23 @@ class MainActivity : AppCompatActivity() {
                     override fun onResponse(res: String?) {
                         println(res)
                         startActivity(Intent(this@MainActivity, Frontpage_activity::class.java))
+                        // kun jwt tulee takas eli login ok, lähtään etusivulle
                     }
 
+                    @SuppressLint("SetTextI18n")
                     override fun onError(error: ANError) {
-                        println(error)
-                        // TODO : if error -> alert with retry & ok buttons
+                        println("Error: ${error.errorBody}")
+                        if(error.errorBody.toString() == "Unauthorized") {
+                            val builder = AlertDialog.Builder(this@MainActivity)
+                            builder.setTitle("Invalid username or password!")
+                            builder.setMessage(error.errorBody.toString())
+                            builder.setPositiveButton("OK"){dialogInterface, which ->
+                                failedTimes()
+                                etUsername.setText("")
+                                etPassword.setText("")
+                            }
+                            builder.show()
+                        }
                     }
                 })
         }
@@ -64,11 +95,52 @@ class MainActivity : AppCompatActivity() {
                 .getAsString(object : StringRequestListener {
                     override fun onResponse(res: String?) {
                         println("Got response from API: $res")
+                        if (res.toString() == "Registered") {
+
+                            val builder = AlertDialog.Builder(this@MainActivity)
+                            builder.setTitle("Account registered!")
+                            builder.setMessage("Your account was successfully registered, please login")
+                            builder.setPositiveButton("OK"){dialogInterface, which ->
+                                failedAPICalls = 0
+                            }
+                            builder.show()
+                        }
+
+                        if (res.toString() == "Username is already taken") {
+
+                            val builder = AlertDialog.Builder(this@MainActivity)
+                            builder.setTitle("Username is taken")
+                            builder.setMessage("Username has been taken!")
+                            builder.setPositiveButton("OK"){dialogInterface, which ->
+
+                                failedTimes()
+                                etUsername.setText("")
+                                etPassword.setText("")
+                            }
+                            builder.show()
+                        }
                     }
 
+                    @SuppressLint("SetTextI18n")
                     override fun onError(error: ANError) {
-                        println(error)
-                        // TODO : if error -> alert with retry & ok buttons
+                        println("Error: ${error.errorBody}")
+
+                        val builder = AlertDialog.Builder(this@MainActivity)
+                        builder.setTitle("Network error!")
+                        if (error.errorBody == null) {
+                            builder.setMessage("Unknown error")
+                        } else {
+                            builder.setMessage(error.errorBody.toString())
+                        }
+
+                        builder.setPositiveButton("OK"){dialogInterface, which ->
+                            failedTimes()
+                        }
+                        builder.setNegativeButton("Retry"){dialogInterface, which ->
+                            btnRegister.performClick()
+                        }
+
+                        builder.show()
                     }
                 })
         }
