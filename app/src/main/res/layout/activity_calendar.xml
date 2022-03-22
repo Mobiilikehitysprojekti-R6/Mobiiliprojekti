@@ -22,10 +22,11 @@
             android:textSize="10sp" />
 
         <TextView
-            android:id="@+id/monthDay_tv"
+            android:id="@+id/monthYear_tv"
             android:layout_width="wrap_content"
             android:layout_height="38dp"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="February 2022"
             android:textColor="#000000"
             android:textSize="16sp" />
