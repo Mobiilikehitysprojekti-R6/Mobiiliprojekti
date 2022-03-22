@@ -2,18 +2,23 @@ package com.example.aikataulusuunnitteluapp
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.error.ANError
+import com.androidnetworking.interfaces.JSONObjectRequestListener
 import com.androidnetworking.interfaces.StringRequestListener
 import okhttp3.*
 import org.json.JSONException
 import org.json.JSONObject
 
+// koodista n. 40% pelkkää AlertDialog -paskaa mitä ei voinut oikein optimoida
+// ilman että appi rupes kaatuileen
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         // tein tällaisen funktion seuraamaan käyttäjän burgerointia
         // ainakun tulee network error niin tämä funktio kutsutaan
         // tehdään sitten joku 10s odotteluaika kun on tarpeeksi monta network erroria saanut kasaan
+        // ei todellakaan pakollinen
 
         println("Failed API Call count: $failedAPICalls")
 
@@ -32,6 +38,7 @@ class MainActivity : AppCompatActivity() {
             // TODO : jos käyttäjällä >= 5 virheellistä api kutsua, pistää 10s odotteluajan ja resettaa laskimen
         }
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -51,14 +58,29 @@ class MainActivity : AppCompatActivity() {
 
         btnLogin.setOnClickListener{
 
+            // okHttp -kirjastossa on Credentials -luokka, johon pistetään tunnukset meidän EditTexteistä,
+            // jotka lähetetään Authorization headerin mukana API:iin
             AndroidNetworking.post("http://192.168.1.150:3000/login")
                 .addHeaders("Authorization", Credentials.basic(etUsername.text.toString(), etPassword.text.toString()))
                 .build()
-                .getAsString(object : StringRequestListener {
-                    override fun onResponse(res: String?) {
-                        println(res)
+                .getAsJSONObject(object : JSONObjectRequestListener {
+                    override fun onResponse(res: JSONObject) {
                         startActivity(Intent(this@MainActivity, Frontpage_activity::class.java))
-                        // kun jwt tulee takas eli login ok, lähtään etusivulle
+                        // kun userID tulee takas eli login ok, lähtään etusivulle
+
+                        println(res.get("idUser"))
+
+                        var prefs: SharedPreferences = getSharedPreferences("myID", Context.MODE_PRIVATE)
+                        var edit: SharedPreferences.Editor = prefs.edit()
+                        try {
+                            edit.putString("idUser", res.get("idUser").toString())
+                            edit.commit()
+                            println("User ID saved to SharedPreferences")
+                        } catch (e: JSONException) {
+                            e.printStackTrace()
+                        }
+                        // tallennetaan User ID SharedPreferences -olioon, jota voi käyttää muualla
+                        // sama idea kuin LocalStorage Reactissa
                     }
 
                     @SuppressLint("SetTextI18n")
@@ -66,14 +88,16 @@ class MainActivity : AppCompatActivity() {
                         println("Error: ${error.errorBody}")
                         if(error.errorBody.toString() == "Unauthorized") {
                             val builder = AlertDialog.Builder(this@MainActivity)
+                            // kasataan AlertDialog -olio MainActivity -kontekstiin (ei ottanut tätä kontekstiksi)
                             builder.setTitle("Invalid username or password!")
                             builder.setMessage(error.errorBody.toString())
+                            // alerttiin title ja message
                             builder.setPositiveButton("OK"){dialogInterface, which ->
                                 failedTimes()
                                 etUsername.setText("")
                                 etPassword.setText("")
-                            }
-                            builder.show()
+                            } // tyhjennetään napista kentät kun on väärä käyttäjätunnus/salasana
+                            builder.show() // olio pitää vielä kutsua näkyviin
                         }
                     }
                 })
@@ -87,7 +111,7 @@ class MainActivity : AppCompatActivity() {
                 jsonObject.put("Password", etPassword.text.toString())
             } catch (e: JSONException) {
                 e.printStackTrace()
-            }
+            } // lähetetään käyttäjätunnus + salasana rekisteröintiä varten JSON-objektina
 
             AndroidNetworking.post("http://192.168.1.150:3000/register")
                 .addJSONObjectBody(jsonObject)
@@ -131,11 +155,14 @@ class MainActivity : AppCompatActivity() {
                             builder.setMessage("Unknown error")
                         } else {
                             builder.setMessage(error.errorBody.toString())
-                        }
+                        } // alerttia ei tule jos errorBody on null
+                        // errorBody on null esim. jos API-yhteyttä ei saada
+                        // siihen tehtiin tarkistus että alert tulee jokatapauxessa
 
                         builder.setPositiveButton("OK"){dialogInterface, which ->
                             failedTimes()
                         }
+
                         builder.setNegativeButton("Retry"){dialogInterface, which ->
                             btnRegister.performClick()
                         }
