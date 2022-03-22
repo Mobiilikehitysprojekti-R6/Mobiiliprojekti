@@ -1,11 +1,13 @@
 package com.example.aikataulusuunnitteluapp
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
 import android.widget.Button
+import android.content.SharedPreferences
 import android.widget.ListView
 import android.widget.PopupMenu
 import android.widget.TextView
@@ -14,6 +16,10 @@ class Frontpage_activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calendar)
+
+        var prefs: SharedPreferences = getSharedPreferences("myID", Context.MODE_PRIVATE)
+        val idUser: String? = prefs.getString("idUser","");
+        println("User ID from SharedPreferences in Frontpage: $idUser")
 
         var monthYearText: TextView;
         var dayOfTheWeek: TextView;
@@ -28,8 +34,6 @@ class Frontpage_activity : AppCompatActivity() {
         actionbar.setDisplayHomeAsUpEnabled(true)
 
         initWidgets();
-
-
 
     }
     fun showPopup(view: View?) {
@@ -48,7 +52,6 @@ class Frontpage_activity : AppCompatActivity() {
         var monthYearText = findViewById<TextView>(R.id.monthYear_tv)
     }
 
-
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
@@ -56,5 +59,4 @@ class Frontpage_activity : AppCompatActivity() {
 
     fun actionPreviousDay(view: View) {}
     fun actionNextDay(view: View) {}
-
 }

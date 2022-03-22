@@ -8,16 +8,16 @@
     tools:context=".MainActivity">
 
     <EditText
-        android:id="@+id/editTextTextEmailAddress"
+        android:id="@+id/etUsername"
         android:layout_width="220dp"
         android:layout_height="70dp"
         android:autofillHints=""
         android:ems="10"
-        android:hint="@string/Email"
+        android:hint="@string/Username"
         android:inputType="textEmailAddress"
         android:textColorHint="#757575"
         android:textSize="17sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPassword"
+        app:layout_constraintBottom_toTopOf="@+id/etPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -64,7 +64,7 @@
         app:layout_constraintVertical_bias="0.275" />
 
     <EditText
-        android:id="@+id/editTextTextPassword"
+        android:id="@+id/etPassword"
         android:layout_width="220dp"
         android:layout_height="70dp"
         android:layout_marginBottom="16dp"
@@ -84,7 +84,7 @@
         android:layout_width="588dp"
         android:layout_height="446dp"
         android:contentDescription="@string/Logo_text"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextEmailAddress"
+        app:layout_constraintBottom_toTopOf="@+id/etUsername"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
