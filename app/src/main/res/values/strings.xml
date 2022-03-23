@@ -9,6 +9,33 @@
     <string name="Password">Password</string>
     <string name="NotAMember">Not a member yet?</string>
     <string name="TimeOfDay">Monday 21.03.2022</string>
+    <string name="seuraava">Seuraava</string>
+    <string name="lisaa_tehtava">Lisaa tehtava</string>
 
+
+    <string name="hour1">00:00</string>
+    <string name="hour2">01:00</string>
+    <string name="hour3">02:00</string>
+    <string name="hour4">03:00</string>
+    <string name="hour5">04:00</string>
+    <string name="hour6">05:00</string>
+    <string name="hour7">06:00</string>
+    <string name="hour8">07:00</string>
+    <string name="hour9">08:00</string>
+    <string name="hour10">09:00</string>
+    <string name="hour11">10:00</string>
+    <string name="hour12">11:00</string>
+    <string name="hour13">12:00</string>
+    <string name="hour14">13:00</string>
+    <string name="hour15">14:00</string>
+    <string name="hour16">15:00</string>
+    <string name="hour17">16:00</string>
+    <string name="hour18">17:00</string>
+    <string name="hour19">18:00</string>
+    <string name="hour20">19:00</string>
+    <string name="hour21">20:00</string>
+    <string name="hour22">21:00</string>
+    <string name="hour23">22:00</string>
+    <string name="hour24">23:00</string>
 
 </resources>

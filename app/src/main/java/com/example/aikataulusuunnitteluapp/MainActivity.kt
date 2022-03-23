@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
 
             // okHttp -kirjastossa on Credentials -luokka, johon pistetään tunnukset meidän EditTexteistä,
             // jotka lähetetään Authorization headerin mukana API:iin
-            AndroidNetworking.post("http://192.168.1.150:3000/login")
+            AndroidNetworking.post("http://87.100.240.27:3000/login")
                 .addHeaders("Authorization", Credentials.basic(etUsername.text.toString(), etPassword.text.toString()))
                 .build()
                 .getAsJSONObject(object : JSONObjectRequestListener {
@@ -113,7 +113,7 @@ class MainActivity : AppCompatActivity() {
                 e.printStackTrace()
             } // lähetetään käyttäjätunnus + salasana rekisteröintiä varten JSON-objektina
 
-            AndroidNetworking.post("http://192.168.1.150:3000/register")
+            AndroidNetworking.post("http://87.100.240.27:3000/register")
                 .addJSONObjectBody(jsonObject)
                 .build()
                 .getAsString(object : StringRequestListener {

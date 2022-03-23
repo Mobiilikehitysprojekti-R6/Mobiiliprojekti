@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Frontpage_activity">
+    tools:context=".Frontpage_activity"
     android:orientation="vertical"
-    tools:context=".Frontpage_activity">
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,29 +38,48 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="actionNextDay"
-            android:text="Seuraava"
+            android:text="@string/seuraava"
             android:textSize="10sp" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/weekday_tv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Monday"
-        android:textAlignment="center"
-        android:textColor="@color/lightGrey"
-        android:textSize="20sp" />
 
-    <ListView
-        android:id="@+id/hour_lv"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="600sp" />
+        android:layout_height="30sp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/weekday_tv"
+            android:layout_width="200sp"
+            android:layout_height="wrap_content"
+            android:text="Monday"
+            android:textAlignment="center"
+            android:textColor="@color/lightGrey"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/date_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="14.05.2022"
+            android:textAlignment="center"
+            android:textColor="@color/lightGrey"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/RecyclerView"
+        app:layoutManager="LinearLayoutManager"
+        android:layout_width="match_parent"
+        android:layout_height="570sp" />
 
     <Button
         android:id="@+id/addTask_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Lisaa tehtava" />
+        android:text="@string/lisaa_tehtava" />
 
 
 </LinearLayout>
