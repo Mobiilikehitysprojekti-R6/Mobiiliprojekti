@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/calendarContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Frontpage_activity">
     android:orientation="vertical"
     tools:context=".Frontpage_activity">
 
@@ -15,52 +15,83 @@
 
         <Button
             android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
             android:onClick="actionPreviousDay"
-            android:text="Edellinen"
-            android:textSize="10sp" />
+            android:text="@string/edellinen"
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/monthYear_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="38dp"
-            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
             android:gravity="center"
-            android:text="February 2022"
+            android:text="@string/february_2022"
             android:textColor="#000000"
             android:textSize="16sp" />
 
         <Button
             android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
             android:onClick="actionNextDay"
-            android:text="Seuraava"
-            android:textSize="10sp" />
+            android:text="@string/seuraava"
+            android:textSize="15sp" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/weekday_tv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Monday"
-        android:textAlignment="center"
-        android:textColor="@color/lightGrey"
-        android:textSize="20sp" />
 
-    <ListView
-        android:id="@+id/hour_lv"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="600sp" />
+        android:layout_height="30sp"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/addTask_btn"
+        <TextView
+            android:id="@+id/weekday_tv"
+            android:layout_width="200sp"
+            android:layout_height="wrap_content"
+            android:text="@string/monday"
+            android:textAlignment="center"
+            android:textColor="@color/lightGrey"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/date_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/date_example"
+            android:textAlignment="center"
+            android:textColor="@color/lightGrey"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Lisaa tehtava" />
+        android:layout_height="match_parent">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/RecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/lisaaTehtava"
+            app:layoutManager="LinearLayoutManager" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/addTask_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="16sp"
+            android:background="@color/red"
+            android:contentDescription="@string/lisaaTehtava"
+            android:onClick="addTask"
+            android:src="@drawable/ic_add_symbol"
+            android:text="@string/lisaaTehtava" />
+
+
+    </FrameLayout>
 
 </LinearLayout>

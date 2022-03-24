@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.aikataulusuunnitteluapp"
-        minSdk 24
+        minSdk 26
         targetSdk 32
         versionCode 1
         versionName "1.0"
@@ -40,8 +40,11 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.4.1'
     implementation 'androidx.navigation:navigation-ui-ktx:2.4.1'
     implementation 'com.github.amitshekhariitbhu.Fast-Android-Networking:android-networking:v1.0.2'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation 'io.github.akri16:timelineview:1.0.0'
+
+
 }

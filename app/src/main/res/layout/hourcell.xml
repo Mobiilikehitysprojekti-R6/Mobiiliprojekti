@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="60dp"
+    android:background="@drawable/customborder"
     android:orientation="horizontal">
 
     <TextView
@@ -27,6 +28,7 @@
             android:layout_margin="5dp"
             android:gravity="center"
             android:text="Event 1"
+            android:visibility="invisible"
             android:lines="2"
             android:textColor="@color/black"
             android:background="@color/teal_200"
@@ -38,6 +40,7 @@
             android:layout_margin="5dp"
             android:gravity="center"
             android:text="Event 2"
+            android:visibility="invisible"
             android:lines="2"
             android:textColor="@color/black"
             android:background="@color/teal_200"
@@ -49,6 +52,7 @@
             android:layout_margin="5dp"
             android:gravity="center"
             android:text="Event 3"
+            android:visibility="invisible"
             android:lines="2"
             android:textColor="@color/black"
             android:background="@color/teal_200"
