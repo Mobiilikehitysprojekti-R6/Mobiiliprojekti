@@ -66,6 +66,7 @@ class MainActivity : AppCompatActivity() {
                 .getAsJSONObject(object : JSONObjectRequestListener {
                     override fun onResponse(res: JSONObject) {
                         startActivity(Intent(this@MainActivity, Frontpage_activity::class.java))
+                        finish()
                         // kun userID tulee takas eli login ok, lähtään etusivulle
 
                         println(res.get("idUser"))

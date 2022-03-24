@@ -12,5 +12,7 @@
     <color name="colorOnPrimary">#FFC107</color>
     <color name="colorOnPrimaryLight">#3F51B5</color>
     <color name="lightGrey">#989191</color>
+    <color name="red">#FF0000</color>
+
 
 </resources>

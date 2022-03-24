@@ -3,6 +3,7 @@ package com.example.aikataulusuunnitteluapp
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -11,10 +12,17 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.androidnetworking.AndroidNetworking
+import com.androidnetworking.common.Priority
+import com.androidnetworking.error.ANError
+import com.androidnetworking.interfaces.JSONArrayRequestListener
 import com.example.aikataulusuunnitteluapp.Data.HoursDatasource
+import org.json.JSONArray
 import java.time.LocalDate
-import java.time.YearMonth
 import java.time.format.DateTimeFormatter
+import java.util.*
+import kotlin.concurrent.schedule
+
 
 class Frontpage_activity : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
 
@@ -53,7 +61,11 @@ class Frontpage_activity : AppCompatActivity(), PopupMenu.OnMenuItemClickListene
     override fun onMenuItemClick(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.logout_item -> {
-                Toast.makeText(baseContext, "Log out", Toast.LENGTH_SHORT).show()
+
+                val toast = Toast.makeText(applicationContext, "Log out", Toast.LENGTH_SHORT)
+                toast.setGravity(Gravity.TOP or Gravity.LEFT, 0, 0)
+                toast.show()
+
                 true
             }
             else -> false
@@ -87,12 +99,7 @@ class Frontpage_activity : AppCompatActivity(), PopupMenu.OnMenuItemClickListene
         return date.format(formatter)
     }
 
-    fun showPopup(view: View?) {
-        val popup = PopupMenu(this, view)
-        //popup.setOnMenuItemClickListener(this)
-        popup.inflate(R.menu.menu)
-        popup.show()
-    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         //adds items to the action bar
         menuInflater.inflate(R.menu.menu, menu)
@@ -113,6 +120,36 @@ class Frontpage_activity : AppCompatActivity(), PopupMenu.OnMenuItemClickListene
         setDates()
     }
 
+    fun addTask(view: View) {
+       // val toast2 = Toast.makeText(applicationContext, "Add task", Toast.LENGTH_SHORT)
+       // toast2.show()
+
+        //TODO: tähän on toistaiseksi hardkoodaattu käyttäjän 2 ja se pitää vaihtaa muuttujaksi
+        AndroidNetworking.get("http://87.100.240.27:3000/tasks/2")
+            //.addPathParameter("pageNumber", "0")
+            //.addQueryParameter("limit", "3")
+            //.addHeaders("token", "1234")
+            //.setTag("test")
+            .setPriority(Priority.HIGH)
+            .build()
+            .getAsJSONArray(object : JSONArrayRequestListener {
+                override fun onResponse(response: JSONArray) {
+                    //TODO: what to do with the response?
+                     val toast2 = Toast.makeText(applicationContext, response.toString(), Toast.LENGTH_SHORT)
+                     toast2.show()
+                    supportFragmentManager.beginTransaction().add(R.id.calendarContainer, TaskAdderFragment()).commit()
+                   // Timer().schedule(2000) {
+                 //       supportFragmentManager.beginTransaction().add(R.id.calendarContainer, TaskAdderFragment()).commit()
+                  //  }ä
+                }
+
+                override fun onError(error: ANError) {
+                    //TODO: handle error on task get request
+                }
+            })
+
+
+    }
 
 
 }

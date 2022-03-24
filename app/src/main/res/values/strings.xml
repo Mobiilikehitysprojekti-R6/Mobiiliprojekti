@@ -10,7 +10,7 @@
     <string name="NotAMember">Not a member yet?</string>
     <string name="TimeOfDay">Monday 21.03.2022</string>
     <string name="seuraava">Seuraava</string>
-    <string name="lisaa_tehtava">Lisaa tehtava</string>
+    <string name="lisaaTehtava">Lisaa tehtava</string>
 
 
     <string name="hour1">00:00</string>
@@ -37,5 +37,10 @@
     <string name="hour22">21:00</string>
     <string name="hour23">22:00</string>
     <string name="hour24">23:00</string>
+    <string name="edellinen">Edellinen</string>
+    <string name="monday">Monday</string>
+    <string name="february_2022">February 2022</string>
+    <string name="date_example">14.05.2022</string>
+
 
 </resources>
