@@ -16,6 +16,7 @@ import com.androidnetworking.interfaces.StringRequestListener
 import okhttp3.*
 import org.json.JSONException
 import org.json.JSONObject
+import com.example.aikataulusuunnitteluapp.Data.SERVER_URL
 
 // koodista n. 40% pelkkää AlertDialog -paskaa mitä ei voinut oikein optimoida
 // ilman että appi rupes kaatuileen
@@ -60,7 +61,7 @@ class MainActivity : AppCompatActivity() {
 
             // okHttp -kirjastossa on Credentials -luokka, johon pistetään tunnukset meidän EditTexteistä,
             // jotka lähetetään Authorization headerin mukana API:iin
-            AndroidNetworking.post("http://87.100.240.27:3000/login")
+            AndroidNetworking.post("$SERVER_URL/login")
                 .addHeaders("Authorization", Credentials.basic(etUsername.text.toString(), etPassword.text.toString()))
                 .build()
                 .getAsJSONObject(object : JSONObjectRequestListener {
@@ -114,7 +115,7 @@ class MainActivity : AppCompatActivity() {
                 e.printStackTrace()
             } // lähetetään käyttäjätunnus + salasana rekisteröintiä varten JSON-objektina
 
-            AndroidNetworking.post("http://87.100.240.27:3000/register")
+            AndroidNetworking.post("$SERVER_URL/register")
                 .addJSONObjectBody(jsonObject)
                 .build()
                 .getAsString(object : StringRequestListener {
