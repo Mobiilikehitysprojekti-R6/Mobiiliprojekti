@@ -31,6 +31,7 @@ class Frontpage_activity : AppCompatActivity(), PopupMenu.OnMenuItemClickListene
     private lateinit var datetext: TextView
     private lateinit var weekdaytext: TextView
     private lateinit var selectedDate: LocalDate
+    lateinit var userId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,8 +39,8 @@ class Frontpage_activity : AppCompatActivity(), PopupMenu.OnMenuItemClickListene
 
         //user authentication
         var prefs: SharedPreferences = getSharedPreferences("myID", Context.MODE_PRIVATE)
-        val idUser: String? = prefs.getString("idUser","")
-        println("User ID from SharedPreferences in Frontpage: $idUser")
+        userId = prefs.getString("idUser","").toString()
+        println("User ID from SharedPreferences in Frontpage: $userId")
 
         //actionbar+back-button
         val actionbar = supportActionBar
@@ -126,7 +127,7 @@ class Frontpage_activity : AppCompatActivity(), PopupMenu.OnMenuItemClickListene
        // toast2.show()
 
         //TODO: tähän on toistaiseksi hardkoodaattu käyttäjän 2 ja se pitää vaihtaa muuttujaksi
-        AndroidNetworking.get("$SERVER_URL/tasks/2")
+        AndroidNetworking.get("$SERVER_URL/tasks/$userId")
             //.addPathParameter("pageNumber", "0")
             //.addQueryParameter("limit", "3")
             //.addHeaders("token", "1234")
