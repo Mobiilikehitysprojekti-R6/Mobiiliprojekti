@@ -22,6 +22,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.concurrent.schedule
+import com.example.aikataulusuunnitteluapp.Data.SERVER_URL
 
 
 class Frontpage_activity : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
@@ -125,7 +126,7 @@ class Frontpage_activity : AppCompatActivity(), PopupMenu.OnMenuItemClickListene
        // toast2.show()
 
         //TODO: tähän on toistaiseksi hardkoodaattu käyttäjän 2 ja se pitää vaihtaa muuttujaksi
-        AndroidNetworking.get("http://87.100.240.27:3000/tasks/2")
+        AndroidNetworking.get("$SERVER_URL/tasks/2")
             //.addPathParameter("pageNumber", "0")
             //.addQueryParameter("limit", "3")
             //.addHeaders("token", "1234")
