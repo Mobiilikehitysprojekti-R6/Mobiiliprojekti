@@ -109,8 +109,8 @@ class MainActivity : AppCompatActivity() {
 
             val jsonObject = JSONObject()
             try {
-                jsonObject.put("Username", etUsername.text.toString())
-                jsonObject.put("Password", etPassword.text.toString())
+                jsonObject.put("username", etUsername.text.toString())
+                jsonObject.put("password", etPassword.text.toString())
             } catch (e: JSONException) {
                 e.printStackTrace()
             } // lähetetään käyttäjätunnus + salasana rekisteröintiä varten JSON-objektina
