@@ -107,6 +107,7 @@ class MainActivity : AppCompatActivity() {
 
         btnRegister.setOnClickListener {
 
+
             val jsonObject = JSONObject()
             try {
                 jsonObject.put("username", etUsername.text.toString())
