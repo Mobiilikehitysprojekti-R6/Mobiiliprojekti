@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
         AndroidNetworking.initialize(applicationContext)
         val okHttpClient = OkHttpClient().newBuilder().build()
         AndroidNetworking.initialize(applicationContext, okHttpClient)

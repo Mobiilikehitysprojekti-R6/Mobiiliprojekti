@@ -3,7 +3,6 @@ package com.example.aikataulusuunnitteluapp
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -17,12 +16,12 @@ import com.androidnetworking.common.Priority
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.JSONArrayRequestListener
 import com.example.aikataulusuunnitteluapp.Data.HoursDatasource
+import com.example.aikataulusuunnitteluapp.Data.SERVER_URL
 import org.json.JSONArray
+import org.json.JSONObject
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
-import kotlin.concurrent.schedule
-import com.example.aikataulusuunnitteluapp.Data.SERVER_URL
 
 
 class Frontpage_activity : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
@@ -32,6 +31,9 @@ class Frontpage_activity : AppCompatActivity(), PopupMenu.OnMenuItemClickListene
     private lateinit var weekdaytext: TextView
     private lateinit var selectedDate: LocalDate
     lateinit var userId: String
+    lateinit var heading: String
+    lateinit var header: String
+    lateinit var jsonString: JSONObject
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,14 +62,36 @@ class Frontpage_activity : AppCompatActivity(), PopupMenu.OnMenuItemClickListene
         setDates()
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        AndroidNetworking.get("$SERVER_URL/tasks/$userId")
+            //.addPathParameter("pageNumber", "0")
+            //.addQueryParameter("limit", "3")
+            //.addHeaders("token", "1234")
+            //.setTag("test")
+            .setPriority(Priority.HIGH)
+            .build()
+            .getAsJSONArray(object : JSONArrayRequestListener {
+                override fun onResponse(response: JSONArray) {
+                    //TODO: what to do with the response?
+                    val toast = Toast.makeText(applicationContext, response.toString(), Toast.LENGTH_SHORT)
+                    toast.show()
+                    
+
+                }
+
+                override fun onError(error: ANError) {
+                    //TODO: handle error on task get request
+                }
+            })
+    }
+
     override fun onMenuItemClick(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.logout_item -> {
-
                 val toast = Toast.makeText(applicationContext, "Log out", Toast.LENGTH_SHORT)
-                toast.setGravity(Gravity.TOP or Gravity.LEFT, 0, 0)
                 toast.show()
-
                 true
             }
             else -> false
@@ -123,33 +147,18 @@ class Frontpage_activity : AppCompatActivity(), PopupMenu.OnMenuItemClickListene
     }
 
     fun addTask(view: View) {
-       // val toast2 = Toast.makeText(applicationContext, "Add task", Toast.LENGTH_SHORT)
-       // toast2.show()
 
-        //TODO: tähän on toistaiseksi hardkoodaattu käyttäjän 2 ja se pitää vaihtaa muuttujaksi
-        AndroidNetworking.get("$SERVER_URL/tasks/$userId")
-            //.addPathParameter("pageNumber", "0")
-            //.addQueryParameter("limit", "3")
-            //.addHeaders("token", "1234")
-            //.setTag("test")
-            .setPriority(Priority.HIGH)
-            .build()
-            .getAsJSONArray(object : JSONArrayRequestListener {
-                override fun onResponse(response: JSONArray) {
-                    //TODO: what to do with the response?
-                     val toast2 = Toast.makeText(applicationContext, response.toString(), Toast.LENGTH_SHORT)
-                     toast2.show()
-                    supportFragmentManager.beginTransaction().add(R.id.calendarContainer, TaskAdderFragment()).commit()
-                   // Timer().schedule(2000) {
-                 //       supportFragmentManager.beginTransaction().add(R.id.calendarContainer, TaskAdderFragment()).commit()
-                  //  }ä
-                }
 
-                override fun onError(error: ANError) {
-                    //TODO: handle error on task get request
-                }
-            })
-
+        //val toast = Toast.makeText(applicationContext, header, Toast.LENGTH_SHORT)
+       // toast.show()
+       /* var addTaskView = supportFragmentManager.beginTransaction()
+        with(addTaskView) {
+            replace(R.id.calendarContainer, TaskAdderFragment())
+            commit()
+        }*/
+        // Timer().schedule(2000) {
+        //       supportFragmentManager.beginTransaction().add(R.id.calendarContainer, TaskAdderFragment()).commit()
+        //  }
 
     }
 
