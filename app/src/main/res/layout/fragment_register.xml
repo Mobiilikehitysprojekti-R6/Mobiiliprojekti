@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterFragment"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Register"
+        android:textSize="22sp"
+        android:gravity="center"
+
+        />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="345dp"
+        android:layout_height="217dp"
+        android:layout_marginTop="32dp"
+        android:background="#D5D3D3"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tvInformation"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:text="Information"
+            android:textColor="#4CAF50" />
+
+        <EditText
+            android:id="@+id/etUsernameRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="@string/Username"
+            android:textColor="#4CAF50"
+            android:textColorHint="#4CAF50" />
+
+        <EditText
+            android:id="@+id/etPasswordRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/Password"
+            android:inputType="textPassword"
+            android:textColor="#4CAF50"
+            android:textColorHint="#4CAF50" />
+
+        <EditText
+            android:id="@+id/etPasswordRegisterRepeat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Repeat password"
+            android:inputType="textPassword"
+            android:textColor="#4CAF50"
+            android:textColorHint="#4CAF50" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnRegisterFragment"
+        android:layout_width="290dp"
+        android:layout_height="49dp"
+        android:text="@string/Register" />
+
+</LinearLayout>
