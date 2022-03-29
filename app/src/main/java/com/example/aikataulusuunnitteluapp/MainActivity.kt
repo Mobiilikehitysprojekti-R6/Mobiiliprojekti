@@ -6,13 +6,14 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.Group
 import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.JSONObjectRequestListener
-import com.androidnetworking.interfaces.StringRequestListener
 import okhttp3.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -23,27 +24,12 @@ import com.example.aikataulusuunnitteluapp.Data.SERVER_URL
 
 class MainActivity : AppCompatActivity() {
 
-    var failedAPICalls: Int = 0
-
-    fun failedTimes() {
-        failedAPICalls++
-
-        // tein tällaisen funktion seuraamaan käyttäjän burgerointia
-        // ainakun tulee network error niin tämä funktio kutsutaan
-        // tehdään sitten joku 10s odotteluaika kun on tarpeeksi monta network erroria saanut kasaan
-        // ei todellakaan pakollinen
-
-        println("Failed API Call count: $failedAPICalls")
-
-        if(failedAPICalls >= 5) {
-            // TODO : jos käyttäjällä >= 5 virheellistä api kutsua, pistää 10s odotteluajan ja resettaa laskimen
-        }
-    }
+    lateinit var groupDetails: Group
+    lateinit var fragmentDetails: Group
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
 
         AndroidNetworking.initialize(applicationContext)
         val okHttpClient = OkHttpClient().newBuilder().build()
@@ -55,10 +41,9 @@ class MainActivity : AppCompatActivity() {
         val etUsername = findViewById<EditText>(R.id.etUsername)
         val etPassword = findViewById<EditText>(R.id.etPassword)
 
-        // KAIKKI alert -liittyvät dialog interface ja which voi nimetä _ _, koska niitä ei käytetä,
-        // jos haluaa
-
         btnLogin.setOnClickListener{
+
+            println("${etUsername.text.toString()}, ${etPassword.text.toString()}")
 
             // okHttp -kirjastossa on Credentials -luokka, johon pistetään tunnukset meidän EditTexteistä,
             // jotka lähetetään Authorization headerin mukana API:iin
@@ -89,14 +74,13 @@ class MainActivity : AppCompatActivity() {
                     @SuppressLint("SetTextI18n")
                     override fun onError(error: ANError) {
                         println("Error: ${error.errorBody}")
-                        if(error.errorBody.toString() == "Unauthorized") {
+                        if(error.errorBody == "Unauthorized") {
                             val builder = AlertDialog.Builder(this@MainActivity)
                             // kasataan AlertDialog -olio MainActivity -kontekstiin (ei ottanut tätä kontekstiksi)
                             builder.setTitle("Invalid username or password!")
-                            builder.setMessage(error.errorBody.toString())
+                            builder.setMessage(error.errorBody)
                             // alerttiin title ja message
                             builder.setPositiveButton("OK"){dialogInterface, which ->
-                                failedTimes()
                                 etUsername.setText("")
                                 etPassword.setText("")
                             } // tyhjennetään napista kentät kun on väärä käyttäjätunnus/salasana
@@ -108,72 +92,22 @@ class MainActivity : AppCompatActivity() {
 
         btnRegister.setOnClickListener {
 
+            val fragment = RegisterFragment()
+            showRegisterFragment(fragment)
 
-            val jsonObject = JSONObject()
-            try {
-                jsonObject.put("username", etUsername.text.toString())
-                jsonObject.put("password", etPassword.text.toString())
-            } catch (e: JSONException) {
-                e.printStackTrace()
-            } // lähetetään käyttäjätunnus + salasana rekisteröintiä varten JSON-objektina
-
-            AndroidNetworking.post("$SERVER_URL/register")
-                .addJSONObjectBody(jsonObject)
-                .build()
-                .getAsString(object : StringRequestListener {
-                    override fun onResponse(res: String?) {
-                        println("Got response from API: $res")
-                        if (res.toString() == "Registered") {
-
-                            val builder = AlertDialog.Builder(this@MainActivity)
-                            builder.setTitle("Account registered!")
-                            builder.setMessage("Your account was successfully registered, please login")
-                            builder.setPositiveButton("OK"){dialogInterface, which ->
-                                failedAPICalls = 0
-                            }
-                            builder.show()
-                        }
-
-                        if (res.toString() == "Username is already taken") {
-
-                            val builder = AlertDialog.Builder(this@MainActivity)
-                            builder.setTitle("Username is taken")
-                            builder.setMessage("Username has been taken!")
-                            builder.setPositiveButton("OK"){dialogInterface, which ->
-
-                                failedTimes()
-                                etUsername.setText("")
-                                etPassword.setText("")
-                            }
-                            builder.show()
-                        }
-                    }
-
-                    @SuppressLint("SetTextI18n")
-                    override fun onError(error: ANError) {
-                        println("Error: ${error.errorBody}")
-
-                        val builder = AlertDialog.Builder(this@MainActivity)
-                        builder.setTitle("Network error!")
-                        if (error.errorBody == null) {
-                            builder.setMessage("Unknown error")
-                        } else {
-                            builder.setMessage(error.errorBody.toString())
-                        } // alerttia ei tule jos errorBody on null
-                        // errorBody on null esim. jos API-yhteyttä ei saada
-                        // siihen tehtiin tarkistus että alert tulee jokatapauxessa
-
-                        builder.setPositiveButton("OK"){dialogInterface, which ->
-                            failedTimes()
-                        }
-
-                        builder.setNegativeButton("Retry"){dialogInterface, which ->
-                            btnRegister.performClick()
-                        }
-
-                        builder.show()
-                    }
-                })
         }
+    }
+
+    private fun showRegisterFragment(fragment: RegisterFragment){
+
+        groupDetails = findViewById(R.id.groupDetails)
+        groupDetails.visibility = View.GONE // Change visibility
+
+        fragmentDetails = findViewById(R.id.fragmentLayoutGroup)
+        fragmentDetails.visibility = View.VISIBLE // Change visibility
+
+        val fragmentmanager = supportFragmentManager.beginTransaction()
+        fragmentmanager.replace(R.id.frameLayout, fragment)
+        fragmentmanager.commit()
     }
 }
