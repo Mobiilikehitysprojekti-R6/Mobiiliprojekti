@@ -31,6 +31,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //actionbar+back-button
+        val actionbar = supportActionBar
+        actionbar!!.title = "TimeCoach 1.0.0 "
+
         AndroidNetworking.initialize(applicationContext)
         val okHttpClient = OkHttpClient().newBuilder().build()
         AndroidNetworking.initialize(applicationContext, okHttpClient)

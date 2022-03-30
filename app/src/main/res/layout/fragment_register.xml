@@ -14,7 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Register"
-        android:textSize="22sp"
+        android:textColor="#343434"
+        android:textSize="23dp"
         android:gravity="center"
 
         />
@@ -24,26 +25,31 @@
         android:layout_width="345dp"
         android:layout_height="217dp"
         android:layout_marginTop="32dp"
-        android:background="#D5D3D3"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:background="#F1F1F1"
+        android:gravity="center"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tvInformation"
             android:layout_width="match_parent"
             android:layout_height="46dp"
+            android:gravity="left"
+            android:left="30.03dp"
             android:text="Information"
-            android:textColor="#4CAF50" />
+            android:textColor="#417610"
+            android:textSize="20dp"
+            android:top="120.4dp" />
 
         <EditText
             android:id="@+id/etUsernameRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName"
             android:hint="@string/Username"
-            android:textColor="#4CAF50"
-            android:textColorHint="#4CAF50" />
+            android:inputType="textPersonName"
+            android:textColor="#417610"
+            android:textColorHint="#417610"
+            android:textSize="18dp" />
 
         <EditText
             android:id="@+id/etPasswordRegister"
@@ -52,8 +58,9 @@
             android:ems="10"
             android:hint="@string/Password"
             android:inputType="textPassword"
-            android:textColor="#4CAF50"
-            android:textColorHint="#4CAF50" />
+            android:textColor="#417610"
+            android:textColorHint="#417610"
+            android:textSize="18dp" />
 
         <EditText
             android:id="@+id/etPasswordRegisterRepeat"
@@ -62,15 +69,18 @@
             android:ems="10"
             android:hint="Repeat password"
             android:inputType="textPassword"
-            android:textColor="#4CAF50"
-            android:textColorHint="#4CAF50" />
+            android:radius="50.5dp"
+            android:textColor="#417610"
+            android:textColorHint="#417610" />
 
     </LinearLayout>
 
     <Button
         android:id="@+id/btnRegisterFragment"
-        android:layout_width="290dp"
-        android:layout_height="49dp"
-        android:text="@string/Register" />
+        android:layout_width="115dp"
+        android:layout_height="44dp"
+        android:backgroundTint="#417610"
+        android:text="@string/Register"
+        android:textColor="#FFFFFF" />
 
 </LinearLayout>
