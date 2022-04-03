@@ -39,7 +39,7 @@ class Frontpage_activity : AppCompatActivity(), PopupMenu.OnMenuItemClickListene
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calendar)
 
-        //user authentication
+        //user authentication/
         var prefs: SharedPreferences = getSharedPreferences("myID", Context.MODE_PRIVATE)
         userId = prefs.getString("idUser","").toString()
         println("User ID from SharedPreferences in Frontpage: $userId")
