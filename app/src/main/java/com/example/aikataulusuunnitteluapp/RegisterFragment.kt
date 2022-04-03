@@ -13,8 +13,7 @@ import androidx.fragment.app.Fragment
 import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.StringRequestListener
-import com.example.aikataulusuunnitteluapp.Data.SERVER_URL
-import androidx.fragment.app.FragmentManager
+import com.example.aikataulusuunnitteluapp.data.SERVER_URL
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -59,7 +58,7 @@ class RegisterFragment : Fragment() {
                                 builder.setTitle("Account registered!")
                                 builder.setMessage("Your account was successfully registered, please login")
                                 builder.setPositiveButton("OK"){dialogInterface, which ->
-                                    val intent = Intent(activity,MainActivity::class.java)
+                                    val intent = Intent(activity, MainActivity::class.java)
                                     startActivity(intent)
                                 }
                                 builder.show()

@@ -17,7 +17,7 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener
 import okhttp3.*
 import org.json.JSONException
 import org.json.JSONObject
-import com.example.aikataulusuunnitteluapp.Data.SERVER_URL
+import com.example.aikataulusuunnitteluapp.data.SERVER_URL
 
 // koodista n. 40% pelkkää AlertDialog -paskaa mitä ei voinut oikein optimoida
 // ilman että appi rupes kaatuileen
@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
                 .build()
                 .getAsJSONObject(object : JSONObjectRequestListener {
                     override fun onResponse(res: JSONObject) {
-                        startActivity(Intent(this@MainActivity, Frontpage_activity::class.java))
+                        startActivity(Intent(this@MainActivity, Frontpage::class.java))
                         finish()
                         // kun userID tulee takas eli login ok, lähtään etusivulle
 

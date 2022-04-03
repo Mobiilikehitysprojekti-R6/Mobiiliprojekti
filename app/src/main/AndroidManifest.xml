@@ -13,7 +13,7 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.AikataulusuunnitteluApp" >
         <activity
-            android:name=".Frontpage_activity"
+            android:name=".Frontpage"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

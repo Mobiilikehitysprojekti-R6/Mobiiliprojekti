@@ -6,92 +6,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Frontpage_activity">
+    tools:context=".Frontpage">
 
-    <LinearLayout
+    <com.alamkanak.weekview.WeekView
+        android:id="@+id/weekView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:onClick="actionPreviousDay"
-            android:text="@string/edellinen"
-            android:textSize="15sp" />
-
-        <TextView
-            android:id="@+id/monthYear_tv"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="center"
-            android:text="@string/february_2022"
-            android:textColor="#000000"
-            android:textSize="16sp" />
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:onClick="actionNextDay"
-            android:text="@string/seuraava"
-            android:textSize="15sp" />
-    </LinearLayout>
+        android:layout_height="match_parent"
+        android:contentDescription="@string/app_name"
+        app:adaptiveEventTextSize="true"
+        app:allDayEventTextSize="13sp"
+        app:columnGap="6dp"
+        app:eventCornerRadius="4dp"
+        app:eventMarginVertical="2dp"
+        app:eventPaddingHorizontal="4dp"
+        app:eventPaddingVertical="5dp"
+        app:eventTextSize="13sp"
+        app:headerBottomShadowRadius="4dp"
+        app:headerPadding="8dp"
+        app:headerTextColor="@color/black"
+        app:hourHeight="60dp"
+        app:nowLineDotRadius="5dp"
+        app:nowLineStrokeWidth="2dp"
+        app:numberOfVisibleDays="1"
+        app:overlappingEventGap="1dp"
+        app:showCurrentTimeFirst="true"
+        app:showHeaderBottomShadow="true"
+        app:showNowLine="true"
+        app:showNowLineDot="true"
+        app:showTimeColumnSeparator="true"
+        app:showWeekNumber="true"
+        app:timeColumnPadding="16dp"
+        app:timeColumnSeparatorStrokeWidth="1dp"
+        app:timeColumnTextColor="@color/lightGrey"
+        app:timeColumnTextSize="12sp"
+        />
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="30sp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/weekday_tv"
-            android:layout_width="200sp"
-            android:layout_height="wrap_content"
-            android:text="@string/monday"
-            android:textAlignment="center"
-            android:textColor="@color/lightGrey"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/date_tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/date_example"
-            android:textAlignment="center"
-            android:textColor="@color/lightGrey"
-            android:textSize="20sp" />
-
-    </LinearLayout>
-
-    <FrameLayout
-        android:id="@+id/frameLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/RecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:contentDescription="@string/lisaaTehtava"
-            app:layoutManager="LinearLayoutManager" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/addTask_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:layout_margin="16sp"
-            android:background="@color/red"
-            android:contentDescription="@string/lisaaTehtava"
-            android:onClick="addTask"
-            android:src="@drawable/ic_add_symbol"
-            android:text="@string/lisaaTehtava" />
-
-    </FrameLayout>
 
 </LinearLayout>
