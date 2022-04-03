@@ -1,9 +1,14 @@
 package com.example.aikataulusuunnitteluapp
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.RectF
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.alamkanak.weekview.WeekViewEntity
@@ -28,12 +33,13 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 
 
-class Frontpage : AppCompatActivity()  {
+class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
 
     lateinit var userId: String
     lateinit var headerList: MutableList<String>
     private val weekdayFormatter = DateTimeFormatter.ofPattern("EEE", Locale.getDefault())
     private val dateFormatter = DateTimeFormatter.ofPattern("MM/dd", Locale.getDefault())
+    lateinit var preferences: SharedPreferences
 
     private val binding: ActivityCalendarBinding by lazy {
         ActivityCalendarBinding.inflate(layoutInflater)
@@ -45,16 +51,19 @@ class Frontpage : AppCompatActivity()  {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+
+
         //user authentication
-        var prefs: SharedPreferences = getSharedPreferences("myID", Context.MODE_PRIVATE)
-        userId = prefs.getString("idUser","").toString()
+        preferences = getSharedPreferences("myID", Context.MODE_PRIVATE)
+        userId = preferences.getString("idUser","").toString()
         println("User ID from SharedPreferences in Frontpage: $userId")
 
         //actionbar+back-button
         val actionbar = supportActionBar
         actionbar!!.title = "Frontpage"
-        actionbar.setDisplayHomeAsUpEnabled(true)
-        actionbar.setDisplayHomeAsUpEnabled(true)
+
+
+
 
         val adapter = BasicActivityWeekViewAdapter(
             loadMoreHandler = viewModel::fetchEvents,
@@ -86,6 +95,12 @@ class Frontpage : AppCompatActivity()  {
 
     }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        //adds items to the action bar
+        menuInflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
     override fun onResume() {
         super.onResume()
 
@@ -112,6 +127,28 @@ class Frontpage : AppCompatActivity()  {
                     //TODO: handle error on task get request
                 }
             })
+    }
+
+    fun openAddTask(view: View) {
+        startActivity(Intent(this@Frontpage, AddTask::class.java))
+    }
+
+    override fun onMenuItemClick(p0: MenuItem?): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    fun logOut(item: MenuItem) {
+
+        val editor : SharedPreferences.Editor = preferences.edit()
+        editor.clear()
+        editor.apply()
+
+        startActivity(Intent(this@Frontpage, MainActivity::class.java))
+        finish()
+    }
+
+    fun toProfileAndSettings(item: MenuItem) {
+        startActivity(Intent(this@Frontpage, ProfileSettings::class.java))
     }
 }
 
