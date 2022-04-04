@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
@@ -23,9 +22,6 @@ import com.example.aikataulusuunnitteluapp.data.SERVER_URL
 // ilman että appi rupes kaatuileen
 
 class MainActivity : AppCompatActivity() {
-
-    lateinit var groupDetails: Group
-    lateinit var fragmentDetails: Group
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,22 +92,8 @@ class MainActivity : AppCompatActivity() {
 
         btnRegister.setOnClickListener {
 
-            val fragment = RegisterFragment()
-            showRegisterFragment(fragment)
+            startActivity(Intent(this@MainActivity, RegisterActivity::class.java))
 
         }
-    }
-
-    private fun showRegisterFragment(fragment: RegisterFragment){
-
-        groupDetails = findViewById(R.id.groupDetails)
-        groupDetails.visibility = View.GONE // Change visibility
-
-        fragmentDetails = findViewById(R.id.fragmentLayoutGroup)
-        fragmentDetails.visibility = View.VISIBLE // Change visibility
-
-        val fragmentmanager = supportFragmentManager.beginTransaction()
-        fragmentmanager.replace(R.id.frameLayout, fragment)
-        fragmentmanager.commit()
     }
 }
