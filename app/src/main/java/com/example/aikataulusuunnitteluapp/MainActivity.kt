@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
@@ -17,15 +16,12 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener
 import okhttp3.*
 import org.json.JSONException
 import org.json.JSONObject
-import com.example.aikataulusuunnitteluapp.Data.SERVER_URL
+import com.example.aikataulusuunnitteluapp.data.SERVER_URL
 
 // koodista n. 40% pelkkää AlertDialog -paskaa mitä ei voinut oikein optimoida
 // ilman että appi rupes kaatuileen
 
 class MainActivity : AppCompatActivity() {
-
-    lateinit var groupDetails: Group
-    lateinit var fragmentDetails: Group
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,7 +52,7 @@ class MainActivity : AppCompatActivity() {
                 .build()
                 .getAsJSONObject(object : JSONObjectRequestListener {
                     override fun onResponse(res: JSONObject) {
-                        startActivity(Intent(this@MainActivity, Frontpage_activity::class.java))
+                        startActivity(Intent(this@MainActivity, Frontpage::class.java))
                         finish()
                         // kun userID tulee takas eli login ok, lähtään etusivulle
 
@@ -96,22 +92,8 @@ class MainActivity : AppCompatActivity() {
 
         btnRegister.setOnClickListener {
 
-            val fragment = RegisterFragment()
-            showRegisterFragment(fragment)
+            startActivity(Intent(this@MainActivity, RegisterActivity::class.java))
 
         }
-    }
-
-    private fun showRegisterFragment(fragment: RegisterFragment){
-
-        groupDetails = findViewById(R.id.groupDetails)
-        groupDetails.visibility = View.GONE // Change visibility
-
-        fragmentDetails = findViewById(R.id.fragmentLayoutGroup)
-        fragmentDetails.visibility = View.VISIBLE // Change visibility
-
-        val fragmentmanager = supportFragmentManager.beginTransaction()
-        fragmentmanager.replace(R.id.frameLayout, fragment)
-        fragmentmanager.commit()
     }
 }

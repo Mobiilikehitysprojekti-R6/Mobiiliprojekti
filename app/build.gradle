@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -21,6 +22,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        buildFeatures {
+            dataBinding true
+            viewBinding true
+        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -32,6 +37,17 @@ android {
 }
 
 dependencies {
+
+    implementation 'com.github.thellmund.Android-Week-View:core:5.2.4'
+    implementation 'com.github.thellmund.Android-Week-View:jsr310:5.2.4'
+    implementation 'com.github.thellmund.Android-Week-View:jodatime:5.2.4'
+    implementation 'com.github.thellmund.Android-Week-View:emoji:5.2.4'
+    implementation 'com.github.thellmund.Android-Week-View:threetenabp:5.2.4'
+    implementation 'androidx.fragment:fragment-ktx:1.4.1'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'androidx.emoji:emoji:1.1.0'
+    implementation 'androidx.emoji:emoji-bundled:1.1.0'
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
