@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddTask">
+
+    <ScrollView
+        android:id="@+id/root_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:showDividers="middle"
+            android:divider="@drawable/layout_divider"
+            android:orientation="vertical">
+
+
+        <ImageButton
+            android:id="@+id/backOutFromSettings"
+            android:layout_width="56dp"
+            android:layout_height="37dp"
+            android:background="@color/white"
+            android:contentDescription="@string/Logo_text"
+            android:onClick="closeTaskSetter"
+            app:srcCompat="@drawable/ic_back_arrow" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add a new task"
+        android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_addTask"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add a header for your task"
+                android:textColor="#000000" />
+
+            <EditText
+                android:id="@+id/et_addTaskHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="Task header"
+                android:textSize="20sp"/>
+
+
+            <TextView
+                android:id="@+id/tv_taskStartTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:text="Add a start time for your task" />
+
+            <EditText
+                android:id="@+id/et_addTaskStartTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="12:30"
+                android:textSize="20sp"
+                android:inputType="time"/>
+
+
+            <TextView
+                android:id="@+id/tv_taskDuration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:text="Add a duration for your task" />
+
+            <EditText
+                android:id="@+id/et_addTaskDuration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="60"
+                android:textSize="20sp"
+                android:inputType="number"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:text="Add a date for your task" />
+
+            <EditText
+                android:id="@+id/et_addTaskDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="11.1.2022"
+                android:textSize="20sp"
+                android:inputType="date"/>
+
+
+            <Button
+                android:id="@+id/btn_submitTask"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Submit task" />
+
+
+        </LinearLayout>
+
+
+
+
+    </ScrollView>
+</LinearLayout>

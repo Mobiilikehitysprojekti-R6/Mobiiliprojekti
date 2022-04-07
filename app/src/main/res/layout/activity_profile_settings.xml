@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ProfileSettings">
+
+    <ScrollView
+        android:id="@+id/root_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:showDividers="middle"
+            android:divider="@drawable/layout_divider"
+            android:orientation="vertical">
+
+
+    <ImageButton
+        android:id="@+id/backOutFromSettings"
+        android:layout_width="56dp"
+        android:layout_height="37dp"
+        android:background="@color/white"
+        android:contentDescription="@string/Logo_text"
+        android:onClick="closeSettings"
+        app:srcCompat="@drawable/ic_back_arrow" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        >
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Settings"
+        android:layout_gravity="center"
+        android:textSize="30sp" />
+
+    <LinearLayout
+        android:layout_width="280sp"
+        android:layout_height="173dp"
+        android:background="@drawable/customborder"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        >
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"
+            android:text="Choose a theme" />
+
+        <Button
+            android:id="@+id/btn_lightTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Light theme"
+            tools:layout_editor_absoluteX="62dp"
+            tools:layout_editor_absoluteY="172dp" />
+
+        <Button
+            android:id="@+id/btn_darkTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dark theme"
+            tools:layout_editor_absoluteX="62dp"
+            tools:layout_editor_absoluteY="112dp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="280sp"
+        android:layout_height="88dp"
+        android:background="@drawable/customborder"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enable notifications"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btn_enableNotifications"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="button"
+            android:textSize="10sp"
+            tools:layout_editor_absoluteX="62dp"
+            tools:layout_editor_absoluteY="172dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="280sp"
+        android:layout_height="234dp"
+        android:background="@drawable/customborder"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Go to bed at:"
+            android:textSize="15sp" />
+
+
+        <EditText
+            android:id="@+id/et_goToBed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="22:00"
+            android:inputType="time"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="What about weekends:"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/et_goToBedONWeekends"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:ems="10"
+            android:hint="23:00"
+            android:inputType="time" />
+
+        <TextView
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+            android:text="I want to sleep for:"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/et_sleephours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:ems="10"
+            android:hint="8"
+            android:inputType="number" />
+
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Save changes"
+        />
+
+    </LinearLayout>
+
+
+            <LinearLayout
+            android:layout_width="280sp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/customborder"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Profile"
+                    android:textSize="20sp"/>
+
+                <EditText
+                    android:id="@+id/et_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:text="Username" />
+
+                <Button
+                    android:id="@+id/btn_orderPremium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Order premium" />
+                <Button
+                    android:id="@+id/btn_logOut"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Log out" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="280sp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/customborder"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New Password"
+                    android:textSize="20sp"/>
+
+                <EditText
+                    android:id="@+id/btn_oldPassword"
+                    android:hint="old password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPassword" />
+
+                <EditText
+                    android:id="@+id/btn_newPassword"
+                    android:hint="New password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPassword" />
+
+                <EditText
+                    android:id="@+id/btn_newPassWord_repeat"
+                    android:hint="Repeat new password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPassword" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="200sp"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:text="Update password" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

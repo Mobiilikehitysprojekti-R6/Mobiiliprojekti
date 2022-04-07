@@ -4,5 +4,16 @@
 
     <item
         android:id="@+id/logout_item"
+        android:onClick="logOut"
         android:title="Logout" />
+    <item
+        android:id="@+id/ProfileAndSettings"
+        android:title="Profile and Settings"
+        android:onClick="toProfileAndSettings"
+        android:visible="true"/>
+    <item
+        android:id="@+id/about_action"
+        android:title="About us"
+        android:onClick="toAboutUsPage"
+        android:visible="true"/>
 </menu>
