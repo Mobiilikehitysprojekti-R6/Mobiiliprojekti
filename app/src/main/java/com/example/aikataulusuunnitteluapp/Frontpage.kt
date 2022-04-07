@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.alamkanak.weekview.WeekViewDisplayable
 import com.alamkanak.weekview.WeekViewEntity
 import com.alamkanak.weekview.jsr310.WeekViewPagingAdapterJsr310
 import com.alamkanak.weekview.jsr310.setDateFormatter
@@ -149,6 +150,10 @@ class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
 
     fun toProfileAndSettings(item: MenuItem) {
         startActivity(Intent(this@Frontpage, ProfileSettings::class.java))
+    }
+
+    fun toAboutUsPage(item: MenuItem) {
+        startActivity(Intent(this@Frontpage, AboutUs::class.java))
     }
 }
 
