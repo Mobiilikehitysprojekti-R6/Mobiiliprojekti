@@ -16,4 +16,32 @@
         android:title="About us"
         android:onClick="toAboutUsPage"
         android:visible="true"/>
+    <item
+        android:id="@+id/scrollToCurrentDay"
+        android:title="Scroll to current day"
+        android:onClick="toCurrentDay"
+        android:visible="true"/>
+    <item
+        android:id="@+id/changeCalendarView"
+        android:title="Change calendar view"
+        android:visible="true">
+        <menu>
+            <item
+                android:id="@+id/clickOnOneDay"
+                android:title="1 day"
+                android:onClick="selectOneDay"
+                android:visible="true" />
+            <item
+                android:id="@+id/clickOnThreeDays"
+                android:title="3 days"
+                android:onClick="selectThreeDays"
+                android:visible="true" />
+            <item
+                android:id="@+id/clickOnSevenDays"
+                android:title="7 days"
+                android:onClick="selectSevenDays"
+                android:visible="true" />
+        </menu>
+    </item>
+
 </menu>
