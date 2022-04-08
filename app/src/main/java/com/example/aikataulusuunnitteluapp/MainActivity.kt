@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 
         btnLogin.setOnClickListener{
 
-            println("${etUsername.text.toString()}, ${etPassword.text.toString()}")
+            println("${etUsername.text}, ${etPassword.text}")
 
             // okHttp -kirjastossa on Credentials -luokka, johon pistetään tunnukset meidän EditTexteistä,
             // jotka lähetetään Authorization headerin mukana API:iin
@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
                     @SuppressLint("SetTextI18n")
                     override fun onError(error: ANError) {
                         println("Error: ${error.errorBody}")
-                        if(error.errorBody == "Unauthorized") {
+                        if(error.errorCode == 401) {
                             val builder = AlertDialog.Builder(this@MainActivity)
                             // kasataan AlertDialog -olio MainActivity -kontekstiin (ei ottanut tätä kontekstiksi)
                             builder.setTitle("Invalid username or password!")

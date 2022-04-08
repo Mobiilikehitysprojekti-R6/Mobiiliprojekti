@@ -118,7 +118,7 @@ class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
                     headerList = mutableListOf()
                     for(i in 0 until res.length()) {
                         val obj : JSONObject = res[i] as JSONObject
-                        headerList.add(obj.get("Header").toString())
+                        headerList.add(obj.get("title").toString())
                     }
                     println(headerList)
 
