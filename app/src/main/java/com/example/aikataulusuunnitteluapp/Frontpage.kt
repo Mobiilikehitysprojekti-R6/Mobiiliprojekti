@@ -8,12 +8,14 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.alamkanak.weekview.WeekViewDisplayable
 import com.alamkanak.weekview.WeekViewEntity
 import com.alamkanak.weekview.jsr310.WeekViewPagingAdapterJsr310
+import com.alamkanak.weekview.jsr310.scrollToDateTime
 import com.alamkanak.weekview.jsr310.setDateFormatter
 import com.example.aikataulusuunnitteluapp.data.model.CalendarEntity
 import com.example.aikataulusuunnitteluapp.data.model.toWeekViewEntity
@@ -41,6 +43,7 @@ class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
     private val weekdayFormatter = DateTimeFormatter.ofPattern("EEE", Locale.getDefault())
     private val dateFormatter = DateTimeFormatter.ofPattern("MM/dd", Locale.getDefault())
     lateinit var preferences: SharedPreferences
+    private lateinit var calendarView: com.alamkanak.weekview.WeekView
 
     private val binding: ActivityCalendarBinding by lazy {
         ActivityCalendarBinding.inflate(layoutInflater)
@@ -62,9 +65,6 @@ class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
         //actionbar+back-button
         val actionbar = supportActionBar
         actionbar!!.title = "Frontpage"
-
-
-
 
         val adapter = BasicActivityWeekViewAdapter(
             loadMoreHandler = viewModel::fetchEvents,
@@ -154,6 +154,40 @@ class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
 
     fun toAboutUsPage(item: MenuItem) {
         startActivity(Intent(this@Frontpage, AboutUs::class.java))
+    }
+
+
+
+    fun selectOneDay(item: MenuItem) {
+        calendarView =  findViewById(R.id.weekView)
+        if(calendarView.numberOfVisibleDays != 1) {
+            calendarView.numberOfVisibleDays = 1
+        } else {
+            val toast = Toast.makeText(applicationContext, "The number of days is already 1!", Toast.LENGTH_SHORT)
+            toast.show()
+        }
+    }
+    fun selectThreeDays(item: MenuItem) {
+        calendarView =  findViewById(R.id.weekView)
+        if(calendarView.numberOfVisibleDays != 3) {
+            calendarView.numberOfVisibleDays = 3
+        } else {
+            val toast = Toast.makeText(applicationContext, "The number of days is already 3!", Toast.LENGTH_SHORT)
+            toast.show()
+        }
+    }
+    fun selectSevenDays(item: MenuItem) {
+        calendarView =  findViewById(R.id.weekView)
+        if(calendarView.numberOfVisibleDays != 7) {
+            calendarView.numberOfVisibleDays = 7
+        } else {
+            val toast = Toast.makeText(applicationContext, "The number of days is already 7!", Toast.LENGTH_SHORT)
+            toast.show()
+        }
+    }
+    fun toCurrentDay(item: MenuItem) {
+        calendarView =  findViewById(R.id.weekView)
+        with(calendarView) { scrollToDateTime(dateTime = LocalDateTime.now()) }
     }
 }
 
