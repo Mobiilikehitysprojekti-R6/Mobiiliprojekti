@@ -227,7 +227,7 @@
                     android:textSize="20sp"/>
 
                 <EditText
-                    android:id="@+id/btn_oldPassword"
+                    android:id="@+id/et_oldPassword"
                     android:hint="old password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -235,7 +235,7 @@
                     android:inputType="textPassword" />
 
                 <EditText
-                    android:id="@+id/btn_newPassword"
+                    android:id="@+id/et_newPassword"
                     android:hint="New password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -243,7 +243,7 @@
                     android:inputType="textPassword" />
 
                 <EditText
-                    android:id="@+id/btn_newPassWord_repeat"
+                    android:id="@+id/et_newPassWord_repeat"
                     android:hint="Repeat new password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -253,7 +253,7 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/btn_update_password"
                 android:layout_width="200sp"
                 android:layout_gravity="center"
                 android:layout_height="wrap_content"
