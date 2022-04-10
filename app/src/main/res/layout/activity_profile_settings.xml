@@ -19,7 +19,6 @@
             android:divider="@drawable/layout_divider"
             android:orientation="vertical">
 
-
     <ImageButton
         android:id="@+id/backOutFromSettings"
         android:layout_width="56dp"
@@ -37,7 +36,7 @@
         >
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tv_settingsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Settings"
@@ -45,8 +44,9 @@
         android:textSize="30sp" />
 
     <LinearLayout
+        android:id="@+id/first_linearLayout"
         android:layout_width="280sp"
-        android:layout_height="173dp"
+        android:layout_height="170sp"
         android:background="@drawable/customborder"
         android:layout_gravity="center"
         android:orientation="vertical"
@@ -56,32 +56,40 @@
         >
 
         <TextView
-            android:id="@+id/textView4"
-            android:layout_width="match_parent"
+            android:id="@+id/tv_chooseATheme"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:text="Choose a theme" />
 
-        <Button
-            android:id="@+id/btn_lightTheme"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Light theme"
-            tools:layout_editor_absoluteX="62dp"
-            tools:layout_editor_absoluteY="172dp" />
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/button"
+            android:layout_width="200dp"
+            android:layout_height="55dp"
+            android:layout_margin="40dp"
+            android:textColor="@color/black"
+            app:cardBackgroundColor="#ebf3fa"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="3dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text">
 
-        <Button
-            android:id="@+id/btn_darkTheme"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Dark theme"
-            tools:layout_editor_absoluteX="62dp"
-            tools:layout_editor_absoluteY="112dp" />
+            <TextView
+                android:id="@+id/buttonTextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Night"
+                android:textColor="@color/black" />
+
+        </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
 
 
     <LinearLayout
+        android:id="@+id/second_linearLayout"
         android:layout_width="280sp"
         android:layout_height="88dp"
         android:background="@drawable/customborder"
@@ -92,6 +100,7 @@
         android:paddingRight="16dp">
 
         <TextView
+            android:id="@+id/tv_enableNotifications"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Enable notifications"
@@ -101,13 +110,14 @@
             android:id="@+id/btn_enableNotifications"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="button"
+            android:text="Enable"
             android:textSize="10sp"
             tools:layout_editor_absoluteX="62dp"
             tools:layout_editor_absoluteY="172dp" />
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/third_linearLayout"
         android:layout_width="280sp"
         android:layout_height="234dp"
         android:background="@drawable/customborder"
@@ -117,6 +127,7 @@
         android:paddingRight="16dp">
 
         <TextView
+            android:id="@+id/tv_goToBedAt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Go to bed at:"
@@ -133,6 +144,7 @@
             android:textSize="20sp" />
 
         <TextView
+            android:id="@+id/tv_whatAboutWeekends"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="What about weekends:"
@@ -149,7 +161,7 @@
 
         <TextView
             android:layout_width="wrap_content"
-
+            android:id="@+id/tv_IwantToSleepFor"
             android:layout_height="wrap_content"
             android:text="I want to sleep for:"
             android:textSize="15sp" />
@@ -177,6 +189,7 @@
 
 
             <LinearLayout
+            android:id="@+id/fourth_linearLayout"
             android:layout_width="280sp"
             android:layout_height="wrap_content"
             android:background="@drawable/customborder"
@@ -185,6 +198,7 @@
             >
 
                 <TextView
+                    android:id="@+id/tv_profile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Profile"
@@ -196,23 +210,27 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="Username" />
+                    android:hint="Username" />
 
                 <Button
                     android:id="@+id/btn_orderPremium"
-                    android:layout_width="match_parent"
+                    android:layout_width="170sp"
+                    android:layout_gravity="center"
                     android:layout_height="wrap_content"
                     android:text="Order premium" />
                 <Button
                     android:id="@+id/btn_logOut"
-                    android:layout_width="match_parent"
+                    android:layout_width="170sp"
+                    android:layout_gravity="center"
                     android:layout_height="wrap_content"
+                    android:onClick="logOut"
                     android:text="Log out" />
 
 
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/fifth_linearLayout"
                 android:layout_width="280sp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/customborder"
@@ -221,6 +239,7 @@
                 >
 
                 <TextView
+                    android:id="@+id/tv_newPassword"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="New Password"

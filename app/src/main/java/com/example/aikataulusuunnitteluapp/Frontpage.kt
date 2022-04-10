@@ -143,7 +143,6 @@ class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
         val editor : SharedPreferences.Editor = preferences.edit()
         editor.clear()
         editor.apply()
-
         startActivity(Intent(this@Frontpage, MainActivity::class.java))
         finish()
     }
