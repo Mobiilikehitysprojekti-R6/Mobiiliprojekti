@@ -37,7 +37,7 @@ android {
 }
 
 dependencies {
-
+    implementation "com.dolatkia:animated-theme-manager:1.1.4"
     implementation 'com.github.thellmund.Android-Week-View:core:5.2.4'
     implementation 'com.github.thellmund.Android-Week-View:jsr310:5.2.4'
     implementation 'com.github.thellmund.Android-Week-View:jodatime:5.2.4'
