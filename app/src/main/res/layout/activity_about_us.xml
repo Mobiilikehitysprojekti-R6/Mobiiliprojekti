@@ -4,42 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".AboutUs">
 
-
-    <ImageButton
-        android:id="@+id/backOutFromSettings"
-        android:layout_width="56dp"
-        android:layout_height="37dp"
-        android:background="@color/white"
-        android:contentDescription="@string/Logo_text"
-        android:onClick="closeAboutUsPage"
-        app:srcCompat="@drawable/ic_back_arrow" />
-
-    <LinearLayout
+    <FrameLayout
+        android:id="@+id/frameLayout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center"
-        android:showDividers="middle"
-        android:divider="@drawable/layout_divider"
-        >
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_timecoachLogo"
+            android:layout_width="404dp"
+            android:layout_height="439dp"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:contentDescription="@string/Logo_text"
+            app:srcCompat="@drawable/timecoach_logo" />
+
+        <ImageButton
+            android:id="@+id/backOutFromSettings"
+            android:layout_width="64dp"
+            android:layout_height="54dp"
+            android:background="@color/white"
+            android:onClick="closeAboutUsPage"
+            android:contentDescription="@string/Logo_text"
+            app:srcCompat="@drawable/ic_back_arrow" />
+
+    </FrameLayout>
 
     <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Loading the about us page. Hold on."
-        android:textSize="15sp" />
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/textView4"
+        android:layout_width="264dp"
+        android:layout_height="153dp"
         android:layout_gravity="center"
-        android:layout_weight="1" />
+        android:gravity="center"
+        android:text="@string/TimeCoachAbout"
+        android:textSize="20sp" />
 
-    </LinearLayout>
 
 </LinearLayout>
