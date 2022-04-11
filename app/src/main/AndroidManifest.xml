@@ -14,15 +14,18 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".AboutUs"
+            android:theme="@style/Theme.AikataulusuunnitteluApp1"
             android:exported="false" />
         <activity
             android:name=".RegisterActivity"
             android:exported="false" />
         <activity
             android:name=".ProfileSettings"
+            android:theme="@style/Theme.AikataulusuunnitteluApp1"
             android:exported="false" />
         <activity
             android:name=".AddTask"
+            android:theme="@style/Theme.AikataulusuunnitteluApp1"
             android:exported="false" />
         <activity
             android:name=".Frontpage"

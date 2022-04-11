@@ -87,7 +87,7 @@ class ProfileSettings : ThemeActivity() {
                     e.printStackTrace()
                 }
 
-                AndroidNetworking.put("$SERVER_URL/settings")
+                AndroidNetworking.put("$SERVER_URL/settings/editpassword")
                     .addJSONObjectBody(jsonObject)
                     //TODO: Change the priority of this request if there are going to be more requests in this file
                     .setPriority(Priority.MEDIUM)
@@ -189,7 +189,7 @@ class ProfileSettings : ThemeActivity() {
             e.printStackTrace()
         }
 
-        AndroidNetworking.put("$SERVER_URL/settings/${userId}")
+        AndroidNetworking.put("$SERVER_URL/settings/edittheme/${userId}")
             .addJSONObjectBody(jsonObject)
             .build()
             .getAsString(object : StringRequestListener {
