@@ -63,7 +63,7 @@
             android:text="Choose a theme" />
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/button"
+            android:id="@+id/btn_changeTheme"
             android:layout_width="200dp"
             android:layout_height="55dp"
             android:layout_margin="40dp"
@@ -179,6 +179,7 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/btn_saveUserSettings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

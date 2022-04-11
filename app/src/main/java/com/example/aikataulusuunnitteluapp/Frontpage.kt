@@ -55,8 +55,6 @@ class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-
-
         //user authentication
         preferences = getSharedPreferences("myID", Context.MODE_PRIVATE)
         userId = preferences.getString("idUser","").toString()

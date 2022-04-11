@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
@@ -23,13 +22,12 @@ import com.example.aikataulusuunnitteluapp.themes.MyAppTheme
 import com.example.aikataulusuunnitteluapp.themes.NightTheme
 import org.json.JSONException
 import org.json.JSONObject
-import java.util.*
-import kotlin.concurrent.schedule
+
 
 class ProfileSettings : ThemeActivity() {
 
     private lateinit var binder: ActivityProfileSettingsBinding
-    lateinit var preferences: SharedPreferences
+    lateinit var prefs: SharedPreferences
     lateinit var userId: String
     lateinit var themeId: String
 
@@ -46,20 +44,43 @@ class ProfileSettings : ThemeActivity() {
         binder = ActivityProfileSettingsBinding.inflate(LayoutInflater.from(this))
         setContentView(binder.root)
 
+        //retrieve userid with sharedPreferences
+        prefs = getSharedPreferences("myID", Context.MODE_PRIVATE)
+        userId = prefs.getString("idUser", "").toString()
+        println("User ID from SharedPreferences in ProfileSettings: $userId")
+
+        //retrieve user theme with sharedPreferences
+        prefs = getSharedPreferences("myTheme", Context.MODE_PRIVATE)
+        themeId = prefs.getString("myTheme","").toString()
+        println("Theme from SharedPreferences in ProfileSettings: $themeId")
+
+
+        //change the theme to users theme
+/*        when {
+            themeId.isNotEmpty() -> {
+
+            }
+            themeId == "#000000" -> {
+                ThemeManager.instance.changeTheme(NightTheme(), it)
+            }
+            themeId == "#FFFFFF" -> {
+                ThemeManager.instance.changeTheme(NightTheme(), it)
+            }
+        }*/
 
         // set change theme click listeners for buttons
         updateButtonText()
-        //TODO:change the name of the button
-        binder.button.setOnClickListener {
+        binder.btnChangeTheme.setOnClickListener {
             if (ThemeManager.instance.getCurrentTheme()
                     ?.id() == NightTheme.ThemeId
             ) {
-                ThemeManager.instance.reverseChangeTheme(LightTheme(), it)
+            ThemeManager.instance.reverseChangeTheme(LightTheme(), it)
+
             } else if (ThemeManager.instance.getCurrentTheme()
                     ?.id() != NightTheme.ThemeId
             ) {
-
-                ThemeManager.instance.changeTheme(NightTheme(), it)
+            //TODO: create a new async function to disable the button for a few seconds
+            ThemeManager.instance.changeTheme(NightTheme(), it)
             }
             updateButtonText()
             updateDatabaseTheme()
@@ -67,16 +88,16 @@ class ProfileSettings : ThemeActivity() {
         }
 
 
-        //retrieve userid with sharedPreferences
-        preferences = getSharedPreferences("myID", Context.MODE_PRIVATE)
-        userId = preferences.getString("idUser", "").toString()
-        println("User ID from SharedPreferences in ProfileSettings: $userId")
 
 
         binder.btnUpdatePassword.setOnClickListener {
 
-            if (binder.etNewPassword.text.toString() == binder.etNewPassWordRepeat.text.toString()) {
-                println("new passwords match")
+            if (binder.etNewPassword.text.toString() == binder.etNewPassWordRepeat.text.toString()
+                && binder.etNewPassword.text.length > 4
+                && binder.etNewPassWordRepeat.text.length > 4
+                && binder.etOldPassword.text.length > 4
+            ) {
+                println("new passwords match and fields are filled")
 
                 val jsonObject = JSONObject()
                 try {
@@ -112,10 +133,19 @@ class ProfileSettings : ThemeActivity() {
                             println("password update failed")
                         }
                     })
+            } else {
+                val toast = Toast.makeText(
+                    applicationContext,
+                    "Error in the password fields.",
+                    Toast.LENGTH_LONG
+                )
+                toast.show()
             }
         }
-
     }
+
+
+
     //this function changes the colors of the different views
     override fun syncTheme(appTheme: AppTheme) {
         // change ui colors with new appThem here
@@ -123,11 +153,13 @@ class ProfileSettings : ThemeActivity() {
 
         // set background color
         binder.root.setBackgroundColor(myAppTheme.activityBackgroundColor(this))
-
-        //TODO:change the color of all the buttons
-
-
-        //change the color of the string values
+        //change the color of the buttons
+        binder.btnEnableNotifications.setBackgroundColor(myAppTheme.activityThemeButtonColor(this))
+        binder.btnSaveUserSettings.setBackgroundColor((myAppTheme.activityThemeButtonColor(this)))
+        binder.btnOrderPremium.setBackgroundColor(myAppTheme.activityThemeButtonColor(this))
+        binder.btnLogOut.setBackgroundColor(myAppTheme.activityThemeButtonColor(this))
+        binder.btnUpdatePassword.setBackgroundColor(myAppTheme.activityThemeButtonColor(this))
+        //change the color of the text views
         binder.tvSettingsText.setTextColor(myAppTheme.activityTextColor(this))
         binder.tvChooseATheme.setTextColor(myAppTheme.activityTextColor(this))
         binder.tvEnableNotifications.setTextColor(myAppTheme.activityTextColor(this))
@@ -136,8 +168,7 @@ class ProfileSettings : ThemeActivity() {
         binder.tvIwantToSleepFor.setTextColor(myAppTheme.activityTextColor(this))
         binder.tvProfile.setTextColor(myAppTheme.activityTextColor(this))
         binder.tvNewPassword.setTextColor(myAppTheme.activityTextColor(this))
-
-        //change the color of all the edittexts
+        //change the color of all the edit texts
         binder.etGoToBed.setHintTextColor(myAppTheme.activityHintColor(this))
         binder.etGoToBedONWeekends.setHintTextColor(myAppTheme.activityHintColor(this))
         binder.etSleephours.setHintTextColor(myAppTheme.activityHintColor(this))
@@ -145,14 +176,12 @@ class ProfileSettings : ThemeActivity() {
         binder.etOldPassword.setHintTextColor(myAppTheme.activityHintColor(this))
         binder.etNewPassword.setHintTextColor(myAppTheme.activityHintColor(this))
         binder.etNewPassWordRepeat.setHintTextColor(myAppTheme.activityHintColor(this))
-
         //change the background of the arrow icon
         binder.backOutFromSettings.setBackgroundColor(myAppTheme.activityBackgroundColor(this))
         //change the color of the arrow
         binder.backOutFromSettings.setColorFilter(myAppTheme.activityIconColor(this))
         //set card view colors
-        binder.button.setCardBackgroundColor(appTheme.activityThemeButtonColor(this))
-
+        binder.btnChangeTheme.setCardBackgroundColor(appTheme.activityThemeButtonColor(this))
         //syncStatusBarIconColors
         syncStatusBarIconColors(appTheme)
     }
@@ -202,6 +231,16 @@ class ProfileSettings : ThemeActivity() {
                     )
                     toast.show()
                     println("Theme color updated to $themeId")
+
+                    prefs = getSharedPreferences("myTheme", Context.MODE_PRIVATE)
+                    val edit: SharedPreferences.Editor = prefs.edit()
+                    try {
+                        edit.putString("myTheme", themeId)
+                        edit.commit()
+                        println("Theme saved to SharedPreferences")
+                    } catch (e: JSONException) {
+                        e.printStackTrace()
+                    }
                 }
 
                 override fun onError(error: ANError?) {
@@ -212,8 +251,6 @@ class ProfileSettings : ThemeActivity() {
                     println("Theme color update failed")
                 }
             })
-
-
     }
 
     override fun getStartTheme(): AppTheme {
@@ -225,7 +262,7 @@ class ProfileSettings : ThemeActivity() {
     }
 
     fun logOut(view: View) {
-        val editor: SharedPreferences.Editor = preferences.edit()
+        val editor: SharedPreferences.Editor = prefs.edit()
         editor.clear()
         editor.apply()
         startActivity(Intent(this@ProfileSettings, MainActivity::class.java))
