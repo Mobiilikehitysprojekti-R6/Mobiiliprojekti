@@ -131,19 +131,9 @@ class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
                 }
                 override fun onError(error: ANError) {
                     //TODO: handle error on task get request
-
+                }})
         //TODO: tee tänne funktio joka kirjoittaa themeidN kohdalle
-        preferencesTheme = getSharedPreferences("myTheme", Context.MODE_PRIVATE)
-        val edit: SharedPreferences.Editor = preferencesTheme.edit()
-        try {
-            edit.putString("myTheme", "#FFFFFF")
-            edit.apply()
-            println("Theme saved to SharedPreferences in frontpage = #FFFFFF")
-        } catch (e: JSONException) {
-            e.printStackTrace()
-        }
 
-        //
         setContentView(binding.root)
         val adapter = BasicActivityWeekViewAdapter(
             loadMoreHandler = viewModel::fetchEvents,
@@ -230,7 +220,7 @@ class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
     fun toCurrentDay(item: MenuItem) {
         calendarView =  findViewById(R.id.weekView)
         with(calendarView) { scrollToDateTime(dateTime = LocalDateTime.now()) }
-    }
+        }
 }
 
 
