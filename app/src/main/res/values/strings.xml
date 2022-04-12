@@ -22,6 +22,8 @@
     <string name="monday">Monday</string>
     <string name="february_2022">February 2022</string>
     <string name="date_example">14.05.2022</string>
+    <string name="choose_color">Choose color</string>
+    <string name="submit_task">Submit task</string>
 
     <string name="TimeCoachAbout">
     Tämä sovellus on luotu opiskelijaprojektina vuoden 2022 huhtikuussa. Projektin jäsenet: SM, SK, VE ja JV.
