@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
+import android.widget.TextView
 import android.widget.Toast
 import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.common.Priority
@@ -189,9 +190,9 @@ class ProfileSettings : ThemeActivity() {
 
     private fun updateDatabaseTheme() {
         themeId = if (ThemeManager.instance.getCurrentTheme()?.id() == NightTheme.ThemeId) {
-            "#FFFFFF"
+            "Night"
         } else {
-            "#000000"
+            "Light"
         }
 
         val jsonObject = JSONObject()
@@ -241,18 +242,17 @@ class ProfileSettings : ThemeActivity() {
         var startTheme = themePreferences.getString("myTheme","").toString()
         println("This is the theme2 in getstarttheme $startTheme")
 
-
-
         //change the theme to match users theme
 
-        if(startTheme.contains("#"))
+        if(startTheme.isNotEmpty()) {
         when {
-            startTheme.contains("#000000") -> {
-                return LightTheme()
-            }
-            startTheme.contains("#FFFFFF") -> {
+            startTheme.contains("Night") -> {
                 return NightTheme()
             }
+            startTheme.contains("Light") -> {
+                return LightTheme()
+            }
+        }
         }
         return LightTheme()
     }
