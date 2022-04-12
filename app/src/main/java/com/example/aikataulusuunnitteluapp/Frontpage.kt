@@ -55,45 +55,60 @@ class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
     private val viewModel by genericViewModel()
 
     override fun onBackPressed() {
-
-        println("Back pressed")
-
         val builder = AlertDialog.Builder(this@Frontpage)
         builder.setTitle("Do you want to log out?")
         builder.setPositiveButton("YES"){dialogInterface, which ->
             val editor : SharedPreferences.Editor = preferences.edit()
             editor.clear()
             editor.apply()
-            println("User logged out")
             startActivity(Intent(this@Frontpage, MainActivity::class.java))
             finish()
         }
         builder.setNegativeButton("NO"){dialogInterface, which ->
-            println("User didn't want to log out, no action")
         }
         builder.show()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
-
-
+        //setContentView(binding.root)
         //user authentication
         preferences = getSharedPreferences("myID", Context.MODE_PRIVATE)
         userId = preferences.getString("idUser","").toString()
-        println("User ID from SharedPreferences in Frontpage: $userId")
-
         preferencesTheme = getSharedPreferences("myTheme", Context.MODE_PRIVATE)
 
         //actionbar+back-button
         val actionbar = supportActionBar
         actionbar!!.title = "Frontpage"
 
+
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        //adds items to the action bar
+        menuInflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        //TODO: tee tänne funktio joka kirjoittaa themeidN kohdalle
+        preferencesTheme = getSharedPreferences("myTheme", Context.MODE_PRIVATE)
+        val edit: SharedPreferences.Editor = preferencesTheme.edit()
+        try {
+            edit.putString("myTheme", "#FFFFFF")
+            edit.apply()
+            println("Theme saved to SharedPreferences in frontpage = #FFFFFF")
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+
+        //
+        setContentView(binding.root)
         val adapter = BasicActivityWeekViewAdapter(
             loadMoreHandler = viewModel::fetchEvents,
         )
-
         binding.weekView.adapter = adapter
 
         binding.weekView.setDateFormatter { date: LocalDate ->
@@ -116,53 +131,6 @@ class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
                 }
             }
         }
-
-
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        //adds items to the action bar
-        menuInflater.inflate(R.menu.menu, menu)
-        return true
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        //TODO: tee tänne funktio joka kirjoittaa themeidN kohdalle
-        preferencesTheme = getSharedPreferences("myTheme", Context.MODE_PRIVATE)
-        val edit: SharedPreferences.Editor = preferencesTheme.edit()
-        try {
-            edit.putString("myTheme", "#FFFFFF")
-            edit.commit()
-            println("Theme saved to SharedPreferences in frontpage = #FFFFFF")
-        } catch (e: JSONException) {
-            e.printStackTrace()
-        }
-
-        AndroidNetworking.get("$SERVER_URL/tasks/$userId")
-            .setPriority(Priority.HIGH)
-            .build()
-            .getAsJSONArray(object : JSONArrayRequestListener {
-                override fun onResponse(response: JSONArray) {
-                    //TODO: what to do with the response?
-                    val toast = Toast.makeText(applicationContext, response.toString(), Toast.LENGTH_SHORT)
-                    toast.show()
-
-                    val res : JSONArray = response
-                    headerList = mutableListOf()
-                    for(i in 0 until res.length()) {
-                        val obj : JSONObject = res[i] as JSONObject
-                        headerList.add(obj.get("title").toString())
-                    }
-                    println(headerList)
-
-                }
-
-                override fun onError(error: ANError) {
-                    //TODO: handle error on task get request
-                }
-            })
     }
 
     fun openAddTask(view: View) {
@@ -176,10 +144,10 @@ class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
     fun logOut(item: MenuItem) {
         var editor : SharedPreferences.Editor = preferences.edit()
         editor.clear()
-        editor.commit()
+        editor.apply()
         editor = preferencesTheme.edit()
         editor.clear()
-        editor.commit()
+        editor.apply()
         startActivity(Intent(this@Frontpage, MainActivity::class.java))
         finish()
     }
