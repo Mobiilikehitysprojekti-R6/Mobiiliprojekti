@@ -57,64 +57,34 @@ class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
     private val viewModel by genericViewModel()
 
     override fun onBackPressed() {
-
-        println("Back pressed")
-
         val builder = AlertDialog.Builder(this@Frontpage)
         builder.setTitle("Do you want to log out?")
         builder.setPositiveButton("YES"){dialogInterface, which ->
             val editor : SharedPreferences.Editor = preferences.edit()
             editor.clear()
             editor.apply()
-            println("User logged out")
             startActivity(Intent(this@Frontpage, MainActivity::class.java))
             finish()
         }
         builder.setNegativeButton("NO"){dialogInterface, which ->
-            println("User didn't want to log out, no action")
         }
         builder.show()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
+
+        //setContentView(binding.root)
 
         //user authentication
         preferences = getSharedPreferences("myID", Context.MODE_PRIVATE)
         userId = preferences.getString("idUser","").toString()
         println("User ID from SharedPreferences in Frontpage: $userId")
 
+
         //actionbar+back-button
         val actionbar = supportActionBar
         actionbar!!.title = "Frontpage"
-
-        val adapter = BasicActivityWeekViewAdapter(
-            loadMoreHandler = viewModel::fetchEvents,
-        )
-
-        binding.weekView.adapter = adapter
-
-        binding.weekView.setDateFormatter { date: LocalDate ->
-            val weekdayLabel = weekdayFormatter.format(date)
-            val dateLabel = dateFormatter.format(date)
-            weekdayLabel + "\n" + dateLabel
-        }
-
-        viewModel.viewState.observe(this) { viewState ->
-            adapter.submitList(viewState.entities)
-        }
-
-        viewModel.actions.subscribeToEvents(this) { action ->
-            when (action) {
-                is GenericAction.ShowSnackbar -> {
-                    Snackbar
-                        .make(binding.weekView, action.message, Snackbar.LENGTH_SHORT)
-                        .setAction("Undo") { action.undoAction() }
-                        .show()
-                }
-            }
-        }
 
 
     }
@@ -127,6 +97,7 @@ class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
 
     override fun onResume() {
         super.onResume()
+
 
         println("OnResume printline")
 
@@ -160,8 +131,46 @@ class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
                 }
                 override fun onError(error: ANError) {
                     //TODO: handle error on task get request
+
+        //TODO: tee tänne funktio joka kirjoittaa themeidN kohdalle
+        preferencesTheme = getSharedPreferences("myTheme", Context.MODE_PRIVATE)
+        val edit: SharedPreferences.Editor = preferencesTheme.edit()
+        try {
+            edit.putString("myTheme", "#FFFFFF")
+            edit.apply()
+            println("Theme saved to SharedPreferences in frontpage = #FFFFFF")
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+
+        //
+        setContentView(binding.root)
+        val adapter = BasicActivityWeekViewAdapter(
+            loadMoreHandler = viewModel::fetchEvents,
+        )
+        binding.weekView.adapter = adapter
+
+        binding.weekView.setDateFormatter { date: LocalDate ->
+            val weekdayLabel = weekdayFormatter.format(date)
+            val dateLabel = dateFormatter.format(date)
+            weekdayLabel + "\n" + dateLabel
+        }
+
+        viewModel.viewState.observe(this) { viewState ->
+            adapter.submitList(viewState.entities)
+        }
+
+        viewModel.actions.subscribeToEvents(this) { action ->
+            when (action) {
+                is GenericAction.ShowSnackbar -> {
+                    Snackbar
+                        .make(binding.weekView, action.message, Snackbar.LENGTH_SHORT)
+                        .setAction("Undo") { action.undoAction() }
+                        .show()
+
                 }
-            })
+            }
+        }
     }
 
     fun openAddTask(view: View) {
@@ -175,10 +184,10 @@ class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
     fun logOut(item: MenuItem) {
         var editor : SharedPreferences.Editor = preferences.edit()
         editor.clear()
-        editor.commit()
+        editor.apply()
         editor = preferencesSettings.edit()
         editor.clear()
-        editor.commit()
+        editor.apply()
         startActivity(Intent(this@Frontpage, MainActivity::class.java))
         finish()
     }
