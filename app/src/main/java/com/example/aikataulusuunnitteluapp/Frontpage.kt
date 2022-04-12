@@ -29,6 +29,7 @@ import com.example.aikataulusuunnitteluapp.databinding.ActivityCalendarBinding
 import com.example.aikataulusuunnitteluapp.util.*
 import com.google.android.material.snackbar.Snackbar
 import org.json.JSONArray
+import org.json.JSONException
 import org.json.JSONObject
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -44,6 +45,7 @@ class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
     private val weekdayFormatter = DateTimeFormatter.ofPattern("EEE", Locale.getDefault())
     private val dateFormatter = DateTimeFormatter.ofPattern("MM/dd", Locale.getDefault())
     lateinit var preferences: SharedPreferences
+    lateinit var preferencesTheme: SharedPreferences
     private lateinit var calendarView: com.alamkanak.weekview.WeekView
 
     private val binding: ActivityCalendarBinding by lazy {
@@ -81,6 +83,8 @@ class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
         preferences = getSharedPreferences("myID", Context.MODE_PRIVATE)
         userId = preferences.getString("idUser","").toString()
         println("User ID from SharedPreferences in Frontpage: $userId")
+
+        preferencesTheme = getSharedPreferences("myTheme", Context.MODE_PRIVATE)
 
         //actionbar+back-button
         val actionbar = supportActionBar
@@ -125,6 +129,17 @@ class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
     override fun onResume() {
         super.onResume()
 
+        //TODO: tee tänne funktio joka kirjoittaa themeidN kohdalle
+        preferencesTheme = getSharedPreferences("myTheme", Context.MODE_PRIVATE)
+        val edit: SharedPreferences.Editor = preferencesTheme.edit()
+        try {
+            edit.putString("myTheme", "#FFFFFF")
+            edit.commit()
+            println("Theme saved to SharedPreferences in frontpage = #FFFFFF")
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+
         AndroidNetworking.get("$SERVER_URL/tasks/$userId")
             .setPriority(Priority.HIGH)
             .build()
@@ -159,10 +174,12 @@ class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
     }
 
     fun logOut(item: MenuItem) {
-
-        val editor : SharedPreferences.Editor = preferences.edit()
+        var editor : SharedPreferences.Editor = preferences.edit()
         editor.clear()
-        editor.apply()
+        editor.commit()
+        editor = preferencesTheme.edit()
+        editor.clear()
+        editor.commit()
         startActivity(Intent(this@Frontpage, MainActivity::class.java))
         finish()
     }

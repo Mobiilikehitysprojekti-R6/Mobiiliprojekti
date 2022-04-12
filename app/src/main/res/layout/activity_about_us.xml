@@ -41,5 +41,4 @@
         android:text="@string/TimeCoachAbout"
         android:textSize="20sp" />
 
-
 </LinearLayout>
