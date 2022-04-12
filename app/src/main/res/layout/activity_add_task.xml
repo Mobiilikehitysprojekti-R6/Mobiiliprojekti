@@ -42,7 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Add a title for your task"
-                android:textColor="#000000" />
+                android:textColor="@color/sunKissed_black" />
 
             <EditText
                 android:id="@+id/et_addTaskHeader"
@@ -59,7 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Location"
-                android:textColor="@color/black" />
+                android:textColor="@color/sunKissed_black" />
 
             <EditText
                 android:id="@+id/et_location"
@@ -75,7 +75,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Add a start time for your task"
-                android:textColor="#000000" />
+                android:textColor="@color/sunKissed_black" />
 
             <Button
                 android:id="@+id/btn_timePicker"
@@ -95,7 +95,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Add a duration for your task"
-                android:textColor="#000000" />
+                android:textColor="@color/sunKissed_black" />
 
             <EditText
                 android:id="@+id/et_addTaskDuration"

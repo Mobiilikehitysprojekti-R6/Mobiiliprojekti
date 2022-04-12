@@ -7,7 +7,6 @@ plugins {
 
 allprojects {
     repositories {
-        // your other repositories ...
         google()
         maven { url 'https://jitpack.io' }
     }

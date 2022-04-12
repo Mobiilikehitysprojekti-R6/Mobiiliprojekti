@@ -15,10 +15,10 @@ class NightTheme : MyAppTheme {
     }
 
     override fun activityBackgroundColor(context: Context): Int {
-        return ContextCompat.getColor(context, R.color.lightGrey)
+        return ContextCompat.getColor(context, R.color.sunKissed_black)
     }
     override fun activityContainerColor(context: Context): Int {
-        return ContextCompat.getColor(context, R.color.purple_200)
+        return ContextCompat.getColor(context, R.color.palm_green)
     }
 
     override fun activityImageRes(context: Context): Int {
@@ -26,17 +26,17 @@ class NightTheme : MyAppTheme {
     }
 
     override fun activityIconColor(context: Context): Int {
-        return ContextCompat.getColor(context, R.color.icon_night)
+        return ContextCompat.getColor(context, R.color.palm_green)
     }
 
     override fun activityTextColor(context: Context): Int {
-        return ContextCompat.getColor(context, R.color.text_night)
+        return ContextCompat.getColor(context, R.color.sunKissed_blue)
     }
     override fun activityHintColor(context: Context): Int {
-        return ContextCompat.getColor(context, R.color.background_pink)
+        return ContextCompat.getColor(context, R.color.dry_orange)
     }
 
     override fun activityThemeButtonColor(context: Context): Int {
-        return ContextCompat.getColor(context, R.color.button_night)
+        return ContextCompat.getColor(context, R.color.sunKissed_black)
     }
 }

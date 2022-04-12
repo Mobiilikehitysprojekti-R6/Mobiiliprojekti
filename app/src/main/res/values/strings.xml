@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AikataulusuunnitteluApp</string>
+    <string name="app_name">TimeCoach</string>
     <string name="Logo_text">App Logo</string>
     <string name="login">Log in</string>
     <string name="frontpagetext">You have arrived on the frontpage</string>

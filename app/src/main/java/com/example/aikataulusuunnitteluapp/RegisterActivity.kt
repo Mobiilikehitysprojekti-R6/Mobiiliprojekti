@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
 import android.widget.Button
 import android.widget.EditText
 import com.androidnetworking.AndroidNetworking
@@ -24,7 +25,7 @@ class RegisterActivity : AppCompatActivity() {
         val etUsername = findViewById<EditText>(R.id.etUsernameRegister)
         val etPassword = findViewById<EditText>(R.id.etPasswordRegister)
         val etPassword2 = findViewById<EditText>(R.id.etPasswordRegisterRepeat)
-        val button: Button = findViewById<Button>(R.id.btnRegisterFragment)
+        val button: Button = findViewById<Button>(R.id.btnRegister)
 
         button.setOnClickListener {
             if (etPassword.text.toString() == etPassword2.text.toString()) {

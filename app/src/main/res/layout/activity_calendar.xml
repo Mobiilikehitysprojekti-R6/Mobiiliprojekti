@@ -28,7 +28,7 @@
         app:eventTextSize="13sp"
         app:headerBottomShadowRadius="4dp"
         app:headerPadding="8dp"
-        app:headerTextColor="@color/black"
+        app:headerTextColor="@color/sunKissed_black"
         app:hourHeight="60dp"
         app:nowLineDotRadius="5dp"
         app:nowLineStrokeWidth="2dp"
@@ -42,7 +42,7 @@
         app:showWeekNumber="true"
         app:timeColumnPadding="16dp"
         app:timeColumnSeparatorStrokeWidth="1dp"
-        app:timeColumnTextColor="@color/lightGrey"
+        app:timeColumnTextColor="@color/sunKissed_black"
         app:timeColumnTextSize="12sp"
         />
 
@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
             android:layout_margin="16sp"
-            android:background="@color/red"
+            android:background="@color/palm_green"
             android:contentDescription="@string/lisaaTehtava"
             android:onClick="openAddTask"
             android:src="@drawable/ic_add_symbol"
