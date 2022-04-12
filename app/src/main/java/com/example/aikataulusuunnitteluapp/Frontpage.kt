@@ -24,6 +24,8 @@ import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.common.Priority
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.JSONArrayRequestListener
+import com.androidnetworking.interfaces.JSONObjectRequestListener
+import com.androidnetworking.interfaces.StringRequestListener
 import com.example.aikataulusuunnitteluapp.data.SERVER_URL
 import com.example.aikataulusuunnitteluapp.databinding.ActivityCalendarBinding
 import com.example.aikataulusuunnitteluapp.util.*
@@ -31,6 +33,7 @@ import com.google.android.material.snackbar.Snackbar
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
+import org.json.JSONStringer
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.YearMonth
@@ -41,11 +44,10 @@ import java.util.*
 class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
 
     lateinit var userId: String
-    lateinit var headerList: MutableList<String>
     private val weekdayFormatter = DateTimeFormatter.ofPattern("EEE", Locale.getDefault())
     private val dateFormatter = DateTimeFormatter.ofPattern("MM/dd", Locale.getDefault())
     lateinit var preferences: SharedPreferences
-    lateinit var preferencesTheme: SharedPreferences
+    lateinit var preferencesSettings: SharedPreferences
     private lateinit var calendarView: com.alamkanak.weekview.WeekView
 
     private val binding: ActivityCalendarBinding by lazy {
@@ -71,11 +73,14 @@ class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         //setContentView(binding.root)
+
         //user authentication
         preferences = getSharedPreferences("myID", Context.MODE_PRIVATE)
         userId = preferences.getString("idUser","").toString()
-        preferencesTheme = getSharedPreferences("myTheme", Context.MODE_PRIVATE)
+        println("User ID from SharedPreferences in Frontpage: $userId")
+
 
         //actionbar+back-button
         val actionbar = supportActionBar
@@ -92,6 +97,40 @@ class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
 
     override fun onResume() {
         super.onResume()
+
+
+        println("OnResume printline")
+
+        AndroidNetworking.get("$SERVER_URL/settings/$userId")
+            .setPriority(Priority.HIGH)
+            .build()
+            .getAsJSONArray(object : JSONArrayRequestListener {
+                override fun onResponse(response: JSONArray) {
+                    val toast = Toast.makeText(applicationContext, response.toString(), Toast.LENGTH_SHORT)
+                    toast.show()
+                    println("response = $response")
+
+                    val objectList: JSONObject = response.get(0) as JSONObject
+                    val theme = objectList.get("ThemeColor").toString()
+                    val enableNotifications = objectList.get("EnableNotifications").toString()
+                    val sleepTimeStart = objectList.get("SleepTimeStart").toString()
+                    val sleepTimeDuration = objectList.get("SleepTimeDuration").toString()
+
+                    preferencesSettings = getSharedPreferences("mySettings", Context.MODE_PRIVATE)
+                    val edit: SharedPreferences.Editor = preferencesSettings.edit()
+                    try {
+                        edit.putString("userTheme", theme)
+                        edit.putString("enableNotifications", enableNotifications)
+                        edit.putString("sleepTimeStart", sleepTimeStart)
+                        edit.putString("sleepTimeDuration", sleepTimeDuration)
+                        edit.apply()
+                        println("Theme saved to SharedPreferences = $theme")
+                    } catch (e: JSONException) {
+                        e.printStackTrace()
+                    }
+                }
+                override fun onError(error: ANError) {
+                    //TODO: handle error on task get request
 
         //TODO: tee tänne funktio joka kirjoittaa themeidN kohdalle
         preferencesTheme = getSharedPreferences("myTheme", Context.MODE_PRIVATE)
@@ -128,6 +167,7 @@ class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
                         .make(binding.weekView, action.message, Snackbar.LENGTH_SHORT)
                         .setAction("Undo") { action.undoAction() }
                         .show()
+
                 }
             }
         }
@@ -145,7 +185,7 @@ class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
         var editor : SharedPreferences.Editor = preferences.edit()
         editor.clear()
         editor.apply()
-        editor = preferencesTheme.edit()
+        editor = preferencesSettings.edit()
         editor.clear()
         editor.apply()
         startActivity(Intent(this@Frontpage, MainActivity::class.java))
@@ -159,8 +199,6 @@ class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
     fun toAboutUsPage(item: MenuItem) {
         startActivity(Intent(this@Frontpage, AboutUs::class.java))
     }
-
-
 
     fun selectOneDay(item: MenuItem) {
         calendarView =  findViewById(R.id.weekView)
