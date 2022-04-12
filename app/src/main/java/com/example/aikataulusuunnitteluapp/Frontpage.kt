@@ -1,5 +1,6 @@
 package com.example.aikataulusuunnitteluapp
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -53,9 +54,30 @@ class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
 
     private val viewModel by genericViewModel()
 
+    override fun onBackPressed() {
+
+        println("Back pressed")
+
+        val builder = AlertDialog.Builder(this@Frontpage)
+        builder.setTitle("Do you want to log out?")
+        builder.setPositiveButton("YES"){dialogInterface, which ->
+            val editor : SharedPreferences.Editor = preferences.edit()
+            editor.clear()
+            editor.apply()
+            println("User logged out")
+            startActivity(Intent(this@Frontpage, MainActivity::class.java))
+            finish()
+        }
+        builder.setNegativeButton("NO"){dialogInterface, which ->
+            println("User didn't want to log out, no action")
+        }
+        builder.show()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
 
         //user authentication
         preferences = getSharedPreferences("myID", Context.MODE_PRIVATE)
