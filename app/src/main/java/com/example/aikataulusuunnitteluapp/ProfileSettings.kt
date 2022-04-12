@@ -27,7 +27,8 @@ import org.json.JSONObject
 class ProfileSettings : ThemeActivity() {
 
     private lateinit var binder: ActivityProfileSettingsBinding
-    lateinit var prefs: SharedPreferences
+    lateinit var myIdPreferences: SharedPreferences
+    lateinit var themePreferences: SharedPreferences
     lateinit var userId: String
     lateinit var themeId: String
 
@@ -45,28 +46,14 @@ class ProfileSettings : ThemeActivity() {
         setContentView(binder.root)
 
         //retrieve userid with sharedPreferences
-        prefs = getSharedPreferences("myID", Context.MODE_PRIVATE)
-        userId = prefs.getString("idUser", "").toString()
+        myIdPreferences = getSharedPreferences("myID", Context.MODE_PRIVATE)
+        userId = myIdPreferences.getString("idUser", "").toString()
         println("User ID from SharedPreferences in ProfileSettings: $userId")
 
-        //retrieve user theme with sharedPreferences
-        prefs = getSharedPreferences("myTheme", Context.MODE_PRIVATE)
-        themeId = prefs.getString("myTheme","").toString()
+        //retrieve theme with sharedPreferences
+        themePreferences = getSharedPreferences("myTheme", Context.MODE_PRIVATE)
+        themeId = themePreferences.getString("myTheme","").toString()
         println("Theme from SharedPreferences in ProfileSettings: $themeId")
-
-
-        //change the theme to users theme
-/*        when {
-            themeId.isNotEmpty() -> {
-
-            }
-            themeId == "#000000" -> {
-                ThemeManager.instance.changeTheme(NightTheme(), it)
-            }
-            themeId == "#FFFFFF" -> {
-                ThemeManager.instance.changeTheme(NightTheme(), it)
-            }
-        }*/
 
         // set change theme click listeners for buttons
         updateButtonText()
@@ -84,11 +71,7 @@ class ProfileSettings : ThemeActivity() {
             }
             updateButtonText()
             updateDatabaseTheme()
-
         }
-
-
-
 
         binder.btnUpdatePassword.setOnClickListener {
 
@@ -230,14 +213,13 @@ class ProfileSettings : ThemeActivity() {
                         Toast.LENGTH_SHORT
                     )
                     toast.show()
-                    println("Theme color updated to $themeId")
 
-                    prefs = getSharedPreferences("myTheme", Context.MODE_PRIVATE)
-                    val edit: SharedPreferences.Editor = prefs.edit()
+                    themePreferences = getSharedPreferences("myTheme", Context.MODE_PRIVATE)
+                    val edit: SharedPreferences.Editor = themePreferences.edit()
                     try {
                         edit.putString("myTheme", themeId)
                         edit.commit()
-                        println("Theme saved to SharedPreferences")
+                        println("Theme saved to SharedPreferences = $themeId")
                     } catch (e: JSONException) {
                         e.printStackTrace()
                     }
@@ -252,8 +234,26 @@ class ProfileSettings : ThemeActivity() {
                 }
             })
     }
-
+    //set default theme
     override fun getStartTheme(): AppTheme {
+
+        themePreferences = getSharedPreferences("myTheme", Context.MODE_PRIVATE)
+        var startTheme = themePreferences.getString("myTheme","").toString()
+        println("This is the theme2 in getstarttheme $startTheme")
+
+
+
+        //change the theme to match users theme
+
+        if(startTheme.contains("#"))
+        when {
+            startTheme.contains("#000000") -> {
+                return LightTheme()
+            }
+            startTheme.contains("#FFFFFF") -> {
+                return NightTheme()
+            }
+        }
         return LightTheme()
     }
 
@@ -262,10 +262,15 @@ class ProfileSettings : ThemeActivity() {
     }
 
     fun logOut(view: View) {
-        val editor: SharedPreferences.Editor = prefs.edit()
+        var editor: SharedPreferences.Editor = myIdPreferences.edit()
+        editor.clear()
+        editor.apply()
+        editor = themePreferences.edit()
         editor.clear()
         editor.apply()
         startActivity(Intent(this@ProfileSettings, MainActivity::class.java))
         finish()
     }
 }
+
+
