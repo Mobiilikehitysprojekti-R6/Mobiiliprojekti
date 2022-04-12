@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
@@ -31,7 +32,7 @@ class AddTask : AppCompatActivity(), DatePickerDialog.OnDateSetListener, TimePic
     private var dayOfMonth = cal.get(Calendar.DAY_OF_MONTH)
     private var month = cal.get(Calendar.MONTH)
     private var year = cal.get(Calendar.YEAR)
-    private var hour = cal.get(Calendar.HOUR)
+    private var hour = cal.get(Calendar.HOUR_OF_DAY)
     private var minute = cal.get(Calendar.MINUTE)
 
     private lateinit var startingTime: TextView
@@ -77,6 +78,8 @@ class AddTask : AppCompatActivity(), DatePickerDialog.OnDateSetListener, TimePic
                 .getAsString(object : StringRequestListener {
                     override fun onResponse(res: String?) {
                         finish()
+                        val intent = Intent(this@AddTask, Frontpage::class.java)
+                        startActivity(intent)
                         Toast.makeText(applicationContext,"$res",Toast.LENGTH_SHORT).show()
                     }
 
@@ -123,7 +126,19 @@ class AddTask : AppCompatActivity(), DatePickerDialog.OnDateSetListener, TimePic
         cal.set(Calendar.HOUR_OF_DAY, hourOfDay)
         cal.set(Calendar.MINUTE, minute)
     }
-    fun closeTaskSetter(view: View) {
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(this@AddTask, Frontpage::class.java)
+        startActivity(intent)
         finish()
     }
+
+    fun closeTaskSetter(view: View) {
+        val intent = Intent(this@AddTask, Frontpage::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+
 }

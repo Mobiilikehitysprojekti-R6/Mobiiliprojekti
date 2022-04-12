@@ -131,7 +131,9 @@ class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
                 }
                 override fun onError(error: ANError) {
                     //TODO: handle error on task get request
-                }})
+                }
+            })
+
         //TODO: tee tänne funktio joka kirjoittaa themeidN kohdalle
 
         setContentView(binding.root)
@@ -165,6 +167,7 @@ class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
 
     fun openAddTask(view: View) {
         startActivity(Intent(this@Frontpage, AddTask::class.java))
+        finish()
     }
 
     override fun onMenuItemClick(p0: MenuItem?): Boolean {
