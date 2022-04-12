@@ -9,8 +9,10 @@ import android.widget.Button
 import android.widget.EditText
 import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.error.ANError
+import com.androidnetworking.interfaces.JSONObjectRequestListener
 import com.androidnetworking.interfaces.StringRequestListener
 import com.example.aikataulusuunnitteluapp.data.SERVER_URL
+import com.google.gson.JsonObject
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -38,17 +40,18 @@ class RegisterActivity : AppCompatActivity() {
                 AndroidNetworking.post("$SERVER_URL/register")
                     .addJSONObjectBody(jsonObject)
                     .build()
-                    .getAsString(object : StringRequestListener {
-                        override fun onResponse(res: String?) {
+                    .getAsJSONObject(object : JSONObjectRequestListener {
+                        override fun onResponse(res: JSONObject?) {
                             println("Got response from API: $res")
-                            if (res.toString() == "Registered") {
+                            if (res?.get("message").toString() == "Created") {
 
                                 val builder = AlertDialog.Builder(this@RegisterActivity)
                                 builder.setTitle("Account registered!")
-                                builder.setMessage("Your account was successfully registered, please login")
+                                builder.setMessage("Your account was successfully registered, please add some settings")
                                 builder.setPositiveButton("OK") { dialogInterface, which ->
                                     val intent =
-                                        Intent(this@RegisterActivity, MainActivity::class.java)
+                                        Intent(this@RegisterActivity, SettingsActivity::class.java)
+                                    intent.putExtra("userID", res?.get("userID").toString())
                                     startActivity(intent)
                                     finish()
                                 }
