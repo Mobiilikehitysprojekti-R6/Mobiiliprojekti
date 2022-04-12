@@ -13,27 +13,30 @@
         android:theme="@style/Theme.AikataulusuunnitteluApp"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".AboutUs"
-            android:theme="@style/Theme.AikataulusuunnitteluApp1"
+            android:name=".SettingsActivity"
             android:exported="false" />
+        <activity
+            android:name=".AboutUs"
+            android:exported="false"
+            android:theme="@style/Theme.AikataulusuunnitteluApp1" />
         <activity
             android:name=".RegisterActivity"
             android:exported="false" />
         <activity
             android:name=".ProfileSettings"
-            android:theme="@style/Theme.AikataulusuunnitteluApp1"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AikataulusuunnitteluApp1" />
         <activity
             android:name=".AddTask"
-            android:theme="@style/Theme.AikataulusuunnitteluApp1"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AikataulusuunnitteluApp1" />
         <activity
             android:name=".Frontpage"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:theme="@style/Theme.AikataulusuunnitteluApp1"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.AikataulusuunnitteluApp1">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -7,11 +7,15 @@
     <string name="Username">Username</string>
     <string name="Register">Register</string>
     <string name="Password">Password</string>
+    <string name="Notifications">Do you want to enable notifications? (y/n)</string>
+    <string name="ThemeColor">What theme color do you want?</string>
+    <string name="SleepTimeStart">When do you want to go to sleep? Example: 21:00</string>
+    <string name="SleepTimeDuration">How many hours do you want to sleep for? Example: 9</string>
     <string name="NotAMember">Not a member yet?</string>
     <string name="TimeOfDay">Monday 21.03.2022</string>
     <string name="seuraava">Seuraava</string>
     <string name="lisaaTehtava">Lisaa tehtava</string>
-
+    <string name="Apply">Apply</string>
 
 
     <string name="edellinen">Edellinen</string>
@@ -23,7 +27,6 @@
     Tämä sovellus on luotu opiskelijaprojektina vuoden 2022 huhtikuussa. Projektin jäsenet: SM, SK, VE ja JV.
 
     </string>
-
 
 
 </resources>
