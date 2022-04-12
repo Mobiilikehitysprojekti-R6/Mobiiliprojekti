@@ -3,6 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Koulujuttuja/Mobiiliprojekti/Mobiiliprojekti/app/src/main/res/drawable/circleshape.xml" value="0.286" />
+        <entry key="..\:/Koulujuttuja/Mobiiliprojekti/Mobiiliprojekti/app/src/main/res/drawable/customborder.xml" value="0.286" />
+        <entry key="..\:/Koulujuttuja/Mobiiliprojekti/Mobiiliprojekti/app/src/main/res/drawable/red_circle.xml" value="0.286" />
+        <entry key="..\:/Koulujuttuja/Mobiiliprojekti/Mobiiliprojekti/app/src/main/res/layout/activity_about_us.xml" value="0.22447916666666667" />
+        <entry key="..\:/Koulujuttuja/Mobiiliprojekti/Mobiiliprojekti/app/src/main/res/layout/activity_add_task.xml" value="0.33" />
         <entry key="..\:/Users/admin/Documents/Mobiiliprojekti/6opMobiiliprojekti/app/src/main/res/layout/activity_calendar.xml" value="0.33967391304347827" />
         <entry key="..\:/Users/admin/Documents/Mobiiliprojekti/6opMobiiliprojekti/app/src/main/res/layout/activity_main.xml" value="0.33967391304347827" />
         <entry key="..\:/Users/admin/Documents/Mobiiliprojekti/main/Mobiiliprojekti/app/src/main/res/layout/activity_main.xml" value="0.3875" />
