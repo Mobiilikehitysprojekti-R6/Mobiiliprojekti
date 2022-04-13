@@ -73,9 +73,33 @@ class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(binding.root)
+        val adapter = BasicActivityWeekViewAdapter(
+            loadMoreHandler = viewModel::fetchEvents,
+        )
+        binding.weekView.adapter = adapter
 
-        //setContentView(binding.root)
+        binding.weekView.setDateFormatter { date: LocalDate ->
+            val weekdayLabel = weekdayFormatter.format(date)
+            val dateLabel = dateFormatter.format(date)
+            weekdayLabel + "\n" + dateLabel
+        }
 
+        viewModel.viewState.observe(this) { viewState ->
+            adapter.submitList(viewState.entities)
+        }
+
+        viewModel.actions.subscribeToEvents(this) { action ->
+            when (action) {
+                is GenericAction.ShowSnackbar -> {
+                    Snackbar
+                        .make(binding.weekView, action.message, Snackbar.LENGTH_SHORT)
+                        .setAction("Undo") { action.undoAction() }
+                        .show()
+
+                }
+            }
+        }
         //user authentication
         preferences = getSharedPreferences("myID", Context.MODE_PRIVATE)
         userId = preferences.getString("idUser","").toString()
@@ -136,33 +160,7 @@ class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
 
         //TODO: tee tänne funktio joka kirjoittaa themeidN kohdalle
 
-        setContentView(binding.root)
-        val adapter = BasicActivityWeekViewAdapter(
-            loadMoreHandler = viewModel::fetchEvents,
-        )
-        binding.weekView.adapter = adapter
 
-        binding.weekView.setDateFormatter { date: LocalDate ->
-            val weekdayLabel = weekdayFormatter.format(date)
-            val dateLabel = dateFormatter.format(date)
-            weekdayLabel + "\n" + dateLabel
-        }
-
-        viewModel.viewState.observe(this) { viewState ->
-            adapter.submitList(viewState.entities)
-        }
-
-        viewModel.actions.subscribeToEvents(this) { action ->
-            when (action) {
-                is GenericAction.ShowSnackbar -> {
-                    Snackbar
-                        .make(binding.weekView, action.message, Snackbar.LENGTH_SHORT)
-                        .setAction("Undo") { action.undoAction() }
-                        .show()
-
-                }
-            }
-        }
     }
 
     fun openAddTask(view: View) {
