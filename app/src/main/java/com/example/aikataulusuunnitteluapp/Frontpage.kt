@@ -12,28 +12,30 @@ import android.view.View
 import android.widget.Button
 import android.widget.PopupMenu
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import com.alamkanak.weekview.WeekViewDisplayable
 import com.alamkanak.weekview.WeekViewEntity
 import com.alamkanak.weekview.jsr310.WeekViewPagingAdapterJsr310
 import com.alamkanak.weekview.jsr310.scrollToDateTime
 import com.alamkanak.weekview.jsr310.setDateFormatter
-import com.example.aikataulusuunnitteluapp.data.model.CalendarEntity
-import com.example.aikataulusuunnitteluapp.data.model.toWeekViewEntity
 import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.common.Priority
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.JSONArrayRequestListener
-import com.androidnetworking.interfaces.JSONObjectRequestListener
-import com.androidnetworking.interfaces.StringRequestListener
+import com.dolatkia.animatedThemeManager.AppTheme
+import com.dolatkia.animatedThemeManager.ThemeActivity
+import com.dolatkia.animatedThemeManager.ThemeManager
 import com.example.aikataulusuunnitteluapp.data.SERVER_URL
+import com.example.aikataulusuunnitteluapp.data.model.CalendarEntity
+import com.example.aikataulusuunnitteluapp.data.model.toWeekViewEntity
 import com.example.aikataulusuunnitteluapp.databinding.ActivityCalendarBinding
+import com.example.aikataulusuunnitteluapp.databinding.ActivityProfileSettingsBinding
+import com.example.aikataulusuunnitteluapp.themes.LightTheme
+import com.example.aikataulusuunnitteluapp.themes.MyAppTheme
+import com.example.aikataulusuunnitteluapp.themes.NightTheme
 import com.example.aikataulusuunnitteluapp.util.*
 import com.google.android.material.snackbar.Snackbar
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
-import org.json.JSONStringer
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.YearMonth
@@ -41,7 +43,7 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 
 
-class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
+class Frontpage : ThemeActivity(), PopupMenu.OnMenuItemClickListener  {
 
     lateinit var userId: String
     private val weekdayFormatter = DateTimeFormatter.ofPattern("EEE", Locale.getDefault())
@@ -49,12 +51,31 @@ class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
     lateinit var preferences: SharedPreferences
     lateinit var preferencesSettings: SharedPreferences
     private lateinit var calendarView: com.alamkanak.weekview.WeekView
+    private lateinit var binder: ActivityCalendarBinding
 
     private val binding: ActivityCalendarBinding by lazy {
         ActivityCalendarBinding.inflate(layoutInflater)
     }
 
     private val viewModel by genericViewModel()
+    override fun getStartTheme(): AppTheme {
+        preferencesSettings = getSharedPreferences("myTheme", Context.MODE_PRIVATE)
+        val startTheme = preferencesSettings.getString("myTheme","").toString()
+        println("This is the theme2 in getstarttheme $startTheme")
+
+        //change the theme to match users theme
+        if(startTheme.isNotEmpty()) {
+            when {
+                startTheme.contains("Night") -> {
+                    return NightTheme()
+                }
+                startTheme.contains("Light") -> {
+                    return LightTheme()
+                }
+            }
+        }
+        return LightTheme()
+    }
 
     override fun onBackPressed() {
         val builder = AlertDialog.Builder(this@Frontpage)
@@ -97,9 +118,6 @@ class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
 
     override fun onResume() {
         super.onResume()
-
-
-        println("OnResume printline")
 
         AndroidNetworking.get("$SERVER_URL/settings/$userId")
             .setPriority(Priority.HIGH)
@@ -163,6 +181,32 @@ class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
                 }
             }
         }
+    }
+
+    override fun syncTheme(appTheme: AppTheme) {
+        // change ui colors with new appThem here
+        val myAppTheme = appTheme as MyAppTheme
+        val weekView: com.alamkanak.weekview.WeekView = findViewById(R.id.weekView)
+        weekView.setBackgroundColor(myAppTheme.activityBackgroundColor(this))
+        val makeTaskButton: Button = findViewById(R.id.addTask_btn)
+        makeTaskButton.setBackgroundColor(myAppTheme.activityThemeButtonColor(this))
+       // binder.weekView.
+       // binder.addTaskBtn.setBackgroundColor(myAppTheme.activityThemeButtonColor(this))
+
+        //syncStatusBarIconColors
+        syncStatusBarIconColors(appTheme)
+
+    }
+
+    private fun syncStatusBarIconColors(theme: MyAppTheme) {
+        ThemeManager.instance.syncStatusBarIconsColorWithBackground(
+            this,
+            theme.activityBackgroundColor(this)
+        )
+        ThemeManager.instance.syncNavigationBarButtonsColorWithBackground(
+            this,
+            theme.activityBackgroundColor(this)
+        )
     }
 
     fun openAddTask(view: View) {
