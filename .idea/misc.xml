@@ -29,6 +29,7 @@
         <entry key="..\:/Users/sanna/AndroidStudioProjects/Mobiiliprojekti/app/src/main/res/drawable/button_radius30.xml" value="0.3785" />
         <entry key="..\:/Users/sanna/AndroidStudioProjects/Mobiiliprojekti/app/src/main/res/drawable/circle_shape_with_border.xml" value="0.344" />
         <entry key="..\:/Users/sanna/AndroidStudioProjects/Mobiiliprojekti/app/src/main/res/drawable/customborder.xml" value="0.344" />
+        <entry key="..\:/Users/sanna/AndroidStudioProjects/Mobiiliprojekti/app/src/main/res/drawable/customborder_grey.xml" value="0.5475" />
         <entry key="..\:/Users/sanna/AndroidStudioProjects/Mobiiliprojekti/app/src/main/res/drawable/ic_add_symbol.xml" value="0.344" />
         <entry key="..\:/Users/sanna/AndroidStudioProjects/Mobiiliprojekti/app/src/main/res/drawable/ic_back_arrow.xml" value="0.344" />
         <entry key="..\:/Users/sanna/AndroidStudioProjects/Mobiiliprojekti/app/src/main/res/drawable/ic_launcher_background.xml" value="0.344" />
@@ -37,7 +38,7 @@
         <entry key="..\:/Users/sanna/AndroidStudioProjects/Mobiiliprojekti/app/src/main/res/layout/activity_add_task.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/sanna/AndroidStudioProjects/Mobiiliprojekti/app/src/main/res/layout/activity_calendar.xml" value="0.2695035460992908" />
         <entry key="..\:/Users/sanna/AndroidStudioProjects/Mobiiliprojekti/app/src/main/res/layout/activity_main.xml" value="0.2259963768115942" />
-        <entry key="..\:/Users/sanna/AndroidStudioProjects/Mobiiliprojekti/app/src/main/res/layout/activity_profile_settings.xml" value="0.39895833333333336" />
+        <entry key="..\:/Users/sanna/AndroidStudioProjects/Mobiiliprojekti/app/src/main/res/layout/activity_profile_settings.xml" value="0.3605072463768116" />
         <entry key="..\:/Users/sanna/AndroidStudioProjects/Mobiiliprojekti/app/src/main/res/layout/activity_register.xml" value="0.39895833333333336" />
         <entry key="..\:/Users/sanna/AndroidStudioProjects/Mobiiliprojekti/app/src/main/res/layout/activity_settings.xml" value="0.39895833333333336" />
         <entry key="..\:/Users/sanna/AndroidStudioProjects/Mobiiliprojekti/app/src/main/res/menu/menu.xml" value="0.5541666666666667" />

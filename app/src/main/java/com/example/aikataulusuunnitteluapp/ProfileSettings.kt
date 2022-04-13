@@ -141,7 +141,6 @@ class ProfileSettings : ThemeActivity() {
         binder.btnEnableNotifications.setBackgroundColor(myAppTheme.activityThemeButtonColor(this))
         binder.btnSaveUserSettings.setBackgroundColor((myAppTheme.activityThemeButtonColor(this)))
         binder.btnOrderPremium.setBackgroundColor(myAppTheme.activityThemeButtonColor(this))
-        binder.btnLogOut.setBackgroundColor(myAppTheme.activityThemeButtonColor(this))
         binder.btnUpdatePassword.setBackgroundColor(myAppTheme.activityThemeButtonColor(this))
         //change the color of the text views
         binder.tvSettingsText.setTextColor(myAppTheme.activityTextColor(this))

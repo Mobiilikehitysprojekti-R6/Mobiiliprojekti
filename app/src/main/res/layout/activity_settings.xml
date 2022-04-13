@@ -25,7 +25,7 @@
     <LinearLayout
         android:id="@+id/second_linearLayout"
         android:layout_width="365dp"
-        android:layout_height="264dp"
+        android:layout_height="265dp"
         android:layout_marginLeft="15dp"
         android:background="@drawable/customborder_grey"
         android:orientation="vertical"
