@@ -69,10 +69,16 @@
                     android:hint="Vaihda että näyttää username "
                     android:inputType="textPersonName" />
 
-                <Button
-                    android:id="@+id/btn_orderPremium"
-                    android:layout_width="200sp"
+                <Switch
+                    android:id="@+id/switch_changePremiumStatus"
+                    android:layout_width="170sp"
+                    android:layout_gravity="center"
                     android:layout_height="wrap_content"
+                    android:text="Order premium"
+                    tools:ignore="UseSwitchCompatOrMaterialXml" />
+                <Button
+                    android:id="@+id/btn_logOut"
+                    android:layout_width="170sp"
                     android:layout_gravity="center"
                     android:layout_marginTop="5dp"
                     android:text="@string/tilaa_premium"
