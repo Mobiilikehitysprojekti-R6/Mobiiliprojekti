@@ -24,7 +24,6 @@ import com.example.aikataulusuunnitteluapp.themes.NightTheme
 import org.json.JSONException
 import org.json.JSONObject
 
-
 class ProfileSettings : ThemeActivity() {
 
     private lateinit var binder: ActivityProfileSettingsBinding
@@ -32,6 +31,7 @@ class ProfileSettings : ThemeActivity() {
     lateinit var themePreferences: SharedPreferences
     lateinit var userId: String
     lateinit var themeId: String
+    lateinit var premiumMessage: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -126,8 +126,6 @@ class ProfileSettings : ThemeActivity() {
             }
         }
 
-
-
         binder.switchChangePremiumStatus.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
             // do something, the isChecked will be
             // true if the switch is in the On position
@@ -141,17 +139,17 @@ class ProfileSettings : ThemeActivity() {
                 //if premium status is checked
                 try {
                     jsonObject.put("premiumStatus", 1)
+                    premiumMessage = "Premium ordered"
                 } catch (e: JSONException) {
                     e.printStackTrace()
-                }
-            } else {
+                } } else {
                 //if premium status is unchecked
                 try {
                     jsonObject.put("premiumStatus", 0)
+                    premiumMessage = "Premium cancelled"
                 } catch (e: JSONException) {
                     e.printStackTrace()
-                }
-            }
+                }}
 
             AndroidNetworking.put("$SERVER_URL/settings/editpremiumstatus/$userId")
                 .addJSONObjectBody(jsonObject)
@@ -162,8 +160,8 @@ class ProfileSettings : ThemeActivity() {
                     override fun onResponse(response: String?) {
                         val toast = Toast.makeText(
                             applicationContext,
-                            response.toString(),
-                            Toast.LENGTH_LONG
+                            premiumMessage,
+                            Toast.LENGTH_SHORT
                         )
                         toast.show()
                         println("premium status updated")
@@ -175,7 +173,6 @@ class ProfileSettings : ThemeActivity() {
                 })
         })
     }
-
 
     //this function changes the colors of the different views
     override fun syncTheme(appTheme: AppTheme) {
