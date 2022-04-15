@@ -18,6 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:contentDescription="@string/app_name"
+        android:background="@color/lightGrey"
         app:adaptiveEventTextSize="true"
         app:allDayEventTextSize="13sp"
         app:columnGap="6dp"
@@ -29,6 +30,10 @@
         app:headerBottomShadowRadius="4dp"
         app:headerPadding="8dp"
         app:headerTextColor="@color/black"
+        app:timeColumnTextColor="@color/lightGrey"
+        app:timeColumnBackgroundColor="@color/actionbar_night"
+        app:headerBackgroundColor="@color/white"
+        app:dayBackgroundColor="@color/white"
         app:hourHeight="60dp"
         app:nowLineDotRadius="5dp"
         app:nowLineStrokeWidth="2dp"
@@ -42,21 +47,22 @@
         app:showWeekNumber="true"
         app:timeColumnPadding="16dp"
         app:timeColumnSeparatorStrokeWidth="1dp"
-        app:timeColumnTextColor="@color/lightGrey"
         app:timeColumnTextSize="12sp"
         />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/addTask_btn"
+            app:backgroundTint="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
             android:layout_margin="16sp"
-            android:background="@color/red"
             android:contentDescription="@string/lisaaTehtava"
             android:onClick="openAddTask"
             android:src="@drawable/ic_add_symbol"
             android:text="@string/lisaaTehtava" />
+
+
 
 
     </FrameLayout>

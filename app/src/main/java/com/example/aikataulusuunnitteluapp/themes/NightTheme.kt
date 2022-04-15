@@ -37,6 +37,6 @@ class NightTheme : MyAppTheme {
     }
 
     override fun activityThemeButtonColor(context: Context): Int {
-        return ContextCompat.getColor(context, R.color.button_night)
+        return ContextCompat.getColor(context, R.color.actionbar_light)
     }
 }

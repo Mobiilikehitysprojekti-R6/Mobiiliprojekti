@@ -17,15 +17,17 @@
             android:exported="false" />
         <activity
             android:name=".AboutUs"
+            android:theme="@style/Theme.AikataulusuunnitteluApp1"
             android:exported="false"
-            android:theme="@style/Theme.AikataulusuunnitteluApp1" />
+             />
         <activity
             android:name=".RegisterActivity"
             android:exported="false" />
         <activity
             android:name=".ProfileSettings"
+            android:theme="@style/Theme.AikataulusuunnitteluApp1"
             android:exported="false"
-            android:theme="@style/Theme.AikataulusuunnitteluApp1" />
+             />
         <activity
             android:name=".AddTask"
             android:exported="false"

@@ -24,7 +24,6 @@ import com.example.aikataulusuunnitteluapp.themes.NightTheme
 import org.json.JSONException
 import org.json.JSONObject
 
-
 class ProfileSettings : ThemeActivity() {
 
     private lateinit var binder: ActivityProfileSettingsBinding
@@ -36,12 +35,6 @@ class ProfileSettings : ThemeActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // full screen app
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
-
         // create and bind views
         binder = ActivityProfileSettingsBinding.inflate(LayoutInflater.from(this))
         setContentView(binder.root)
@@ -52,8 +45,8 @@ class ProfileSettings : ThemeActivity() {
         println("User ID from SharedPreferences in ProfileSettings: $userId")
 
         //retrieve theme with sharedPreferences
-        themePreferences = getSharedPreferences("myTheme", Context.MODE_PRIVATE)
-        themeId = themePreferences.getString("myTheme","").toString()
+        themePreferences = getSharedPreferences("mySettings", Context.MODE_PRIVATE)
+        themeId = themePreferences.getString("userTheme","").toString()
         println("Theme from SharedPreferences in ProfileSettings: $themeId")
 
         // set change theme click listeners for buttons
@@ -215,10 +208,10 @@ class ProfileSettings : ThemeActivity() {
                     )
                     toast.show()
 
-                    themePreferences = getSharedPreferences("myTheme", Context.MODE_PRIVATE)
+                    themePreferences = getSharedPreferences("my Settings", Context.MODE_PRIVATE)
                     val edit: SharedPreferences.Editor = themePreferences.edit()
                     try {
-                        edit.putString("myTheme", themeId)
+                        edit.putString("userTheme", themeId)
                         edit.commit()
                         println("Theme saved to SharedPreferences = $themeId")
                     } catch (e: JSONException) {
@@ -238,8 +231,8 @@ class ProfileSettings : ThemeActivity() {
     //set default theme
     override fun getStartTheme(): AppTheme {
 
-        themePreferences = getSharedPreferences("myTheme", Context.MODE_PRIVATE)
-        var startTheme = themePreferences.getString("myTheme","").toString()
+        themePreferences = getSharedPreferences("mySettings", Context.MODE_PRIVATE)
+        val startTheme = themePreferences.getString("userTheme","").toString()
         println("This is the theme2 in getstarttheme $startTheme")
 
         //change the theme to match users theme
