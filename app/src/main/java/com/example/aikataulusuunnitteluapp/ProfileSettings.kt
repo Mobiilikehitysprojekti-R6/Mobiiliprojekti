@@ -55,6 +55,11 @@ class ProfileSettings : ThemeActivity() {
             binder.switchChangePremiumStatus.isChecked = true
         }
 
+        myIdPreferences = getSharedPreferences("myID", Context.MODE_PRIVATE)
+        userId = myIdPreferences.getString("idUser","").toString()
+        val username = myIdPreferences.getString("username","").toString()
+        binder.tvUsername.text = "Tervetuloa takaisin: $username"
+
         // set change theme click listeners for buttons
         updateButtonText()
         binder.btnChangeTheme.setOnClickListener {
@@ -131,8 +136,8 @@ class ProfileSettings : ThemeActivity() {
             // true if the switch is in the On position
             val jsonObject = JSONObject()
             myIdPreferences = getSharedPreferences("myID", Context.MODE_PRIVATE)
-            val premiumStatus = myIdPreferences.getString("premiumStatus","").toString()
-            println("This is the premium status in SettingsProfile: $premiumStatus")
+            val usersPremiumStatus = myIdPreferences.getString("premiumStatus","").toString()
+            println("This is the premium status in SettingsProfile: $usersPremiumStatus")
             val userId = myIdPreferences.getString("idUser","").toString()
 
             if(binder.switchChangePremiumStatus.isChecked) {
@@ -178,14 +183,12 @@ class ProfileSettings : ThemeActivity() {
     override fun syncTheme(appTheme: AppTheme) {
         // change ui colors with new appThem here
         val myAppTheme = appTheme as MyAppTheme
-
         // set background color
         binder.root.setBackgroundColor(myAppTheme.activityBackgroundColor(this))
         //change the color of the buttons
         binder.btnEnableNotifications.setBackgroundColor(myAppTheme.activityThemeButtonColor(this))
         binder.btnSaveUserSettings.setBackgroundColor((myAppTheme.activityThemeButtonColor(this)))
-        binder.switchChangePremiumStatus.setBackgroundColor(myAppTheme.activityThemeButtonColor(this))
-        binder.btnLogOut.setBackgroundColor(myAppTheme.activityThemeButtonColor(this))
+        binder.switchChangePremiumStatus.setBackgroundColor(myAppTheme.activityBackgroundColor(this))
         binder.btnUpdatePassword.setBackgroundColor(myAppTheme.activityThemeButtonColor(this))
         //change the color of the text views
         binder.tvSettingsText.setTextColor(myAppTheme.activityTextColor(this))
@@ -196,14 +199,18 @@ class ProfileSettings : ThemeActivity() {
         binder.tvIwantToSleepFor.setTextColor(myAppTheme.activityTextColor(this))
         binder.tvProfile.setTextColor(myAppTheme.activityTextColor(this))
         binder.tvNewPassword.setTextColor(myAppTheme.activityTextColor(this))
+        binder.tvUsername.setTextColor(myAppTheme.activityTextColor(this))
         //change the color of all the edit texts
         binder.etGoToBed.setHintTextColor(myAppTheme.activityHintColor(this))
         binder.etGoToBedONWeekends.setHintTextColor(myAppTheme.activityHintColor(this))
         binder.etSleephours.setHintTextColor(myAppTheme.activityHintColor(this))
-        binder.etUsername.setHintTextColor(myAppTheme.activityHintColor(this))
+        binder.tvUsername.setHintTextColor(myAppTheme.activityHintColor(this))
         binder.etOldPassword.setHintTextColor(myAppTheme.activityHintColor(this))
         binder.etNewPassword.setHintTextColor(myAppTheme.activityHintColor(this))
         binder.etNewPassWordRepeat.setHintTextColor(myAppTheme.activityHintColor(this))
+        //switch
+        binder.switchChangePremiumStatus.setTextColor(myAppTheme.activityTextColor(this))
+        binder.switchChangePremiumStatus.setBackgroundColor(myAppTheme.activityBackgroundColor(this))
         //change the background of the arrow icon
         binder.backOutFromSettings.setBackgroundColor(myAppTheme.activityBackgroundColor(this))
         //change the color of the arrow
@@ -263,7 +270,7 @@ class ProfileSettings : ThemeActivity() {
                     val edit: SharedPreferences.Editor = themePreferences.edit()
                     try {
                         edit.putString("myTheme", themeId)
-                        edit.commit()
+                        edit.apply()
                         println("Theme saved to SharedPreferences = $themeId")
                     } catch (e: JSONException) {
                         e.printStackTrace()
@@ -281,9 +288,8 @@ class ProfileSettings : ThemeActivity() {
     }
     //set default theme
     override fun getStartTheme(): AppTheme {
-
         themePreferences = getSharedPreferences("myTheme", Context.MODE_PRIVATE)
-        var startTheme = themePreferences.getString("myTheme","").toString()
+        val startTheme = themePreferences.getString("myTheme","").toString()
         println("This is the theme2 in getstarttheme $startTheme")
 
         //change the theme to match users theme
@@ -302,17 +308,6 @@ class ProfileSettings : ThemeActivity() {
     }
 
     fun closeSettings(view: View) {
-        finish()
-    }
-
-    fun logOut(view: View) {
-        var editor: SharedPreferences.Editor = myIdPreferences.edit()
-        editor.clear()
-        editor.apply()
-        editor = themePreferences.edit()
-        editor.clear()
-        editor.apply()
-        startActivity(Intent(this@ProfileSettings, MainActivity::class.java))
         finish()
     }
 }

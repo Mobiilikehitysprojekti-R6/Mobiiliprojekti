@@ -10,7 +10,9 @@
     <ScrollView
         android:id="@+id/root_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_marginBottom="10dp"
+        android:layout_height="wrap_content"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -61,30 +63,25 @@
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
-                <EditText
-                    android:id="@+id/et_username"
+                <TextView
+                    android:id="@+id/tv_username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="Tervetuloa"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
                     android:ems="10"
-                    android:hint="Vaihda että näyttää username "
                     android:inputType="textPersonName" />
 
                 <Switch
                     android:id="@+id/switch_changePremiumStatus"
-                    android:layout_width="170sp"
+                    android:layout_width="match_parent"
                     android:layout_gravity="center"
                     android:layout_height="wrap_content"
                     android:text="Order premium"
+                    android:textSize="18sp"
                     tools:ignore="UseSwitchCompatOrMaterialXml" />
-                <Button
-                    android:id="@+id/btn_logOut"
-                    android:layout_width="170sp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="5dp"
-                    android:text="@string/tilaa_premium"
-                    android:textColor="@color/white" />
-
-
             </LinearLayout>
 
             //change password
