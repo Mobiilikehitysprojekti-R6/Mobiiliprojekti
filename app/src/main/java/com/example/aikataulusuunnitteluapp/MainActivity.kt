@@ -63,7 +63,8 @@ class MainActivity : AppCompatActivity() {
                         var edit: SharedPreferences.Editor = prefs.edit()
                         try {
                             edit.putString("idUser", res.get("idUser").toString())
-                            edit.commit()
+                            edit.putString("premiumStatus", res.get("premiumAccount").toString())
+                            edit.apply()
                             println("User ID saved to SharedPreferences")
                         } catch (e: JSONException) {
                             e.printStackTrace()

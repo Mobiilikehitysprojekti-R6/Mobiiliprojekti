@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
-import android.widget.TextView
+import android.widget.CompoundButton
 import android.widget.Toast
 import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.common.Priority
@@ -34,7 +34,7 @@ class ProfileSettings : ThemeActivity() {
     lateinit var themeId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    super.onCreate(savedInstanceState)
 
         // full screen app
         window.setFlags(
@@ -46,15 +46,14 @@ class ProfileSettings : ThemeActivity() {
         binder = ActivityProfileSettingsBinding.inflate(LayoutInflater.from(this))
         setContentView(binder.root)
 
-        //retrieve userid with sharedPreferences
         myIdPreferences = getSharedPreferences("myID", Context.MODE_PRIVATE)
-        userId = myIdPreferences.getString("idUser", "").toString()
-        println("User ID from SharedPreferences in ProfileSettings: $userId")
-
-        //retrieve theme with sharedPreferences
-        themePreferences = getSharedPreferences("myTheme", Context.MODE_PRIVATE)
-        themeId = themePreferences.getString("myTheme","").toString()
-        println("Theme from SharedPreferences in ProfileSettings: $themeId")
+        val premiumStatus = myIdPreferences.getString("premiumStatus","").toString()
+        println("This is the premiumstatus: $premiumStatus")
+        if(premiumStatus == "1") {
+            //if premium status is checked
+                println("premiumstatus if function works")
+            binder.switchChangePremiumStatus.isChecked = true
+        }
 
         // set change theme click listeners for buttons
         updateButtonText()
@@ -126,8 +125,56 @@ class ProfileSettings : ThemeActivity() {
                 toast.show()
             }
         }
-    }
 
+
+
+        binder.switchChangePremiumStatus.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
+            // do something, the isChecked will be
+            // true if the switch is in the On position
+            val jsonObject = JSONObject()
+            myIdPreferences = getSharedPreferences("myID", Context.MODE_PRIVATE)
+            val premiumStatus = myIdPreferences.getString("premiumStatus","").toString()
+            println("This is the premium status in SettingsProfile: $premiumStatus")
+            val userId = myIdPreferences.getString("idUser","").toString()
+
+            if(binder.switchChangePremiumStatus.isChecked) {
+                //if premium status is checked
+                try {
+                    jsonObject.put("premiumStatus", 1)
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            } else {
+                //if premium status is unchecked
+                try {
+                    jsonObject.put("premiumStatus", 0)
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }
+
+            AndroidNetworking.put("$SERVER_URL/settings/editpremiumstatus/$userId")
+                .addJSONObjectBody(jsonObject)
+                //TODO: Change the priority of this request if there are going to be more requests in this file
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getAsString(object : StringRequestListener {
+                    override fun onResponse(response: String?) {
+                        val toast = Toast.makeText(
+                            applicationContext,
+                            response.toString(),
+                            Toast.LENGTH_LONG
+                        )
+                        toast.show()
+                        println("premium status updated")
+                    }
+                    override fun onError(error: ANError?) {
+                        if (error != null) { println("Error: ${error.errorBody}")}
+                        println("premium status update failed")
+                    }
+                })
+        })
+    }
 
 
     //this function changes the colors of the different views
@@ -140,7 +187,7 @@ class ProfileSettings : ThemeActivity() {
         //change the color of the buttons
         binder.btnEnableNotifications.setBackgroundColor(myAppTheme.activityThemeButtonColor(this))
         binder.btnSaveUserSettings.setBackgroundColor((myAppTheme.activityThemeButtonColor(this)))
-        binder.btnOrderPremium.setBackgroundColor(myAppTheme.activityThemeButtonColor(this))
+        binder.switchChangePremiumStatus.setBackgroundColor(myAppTheme.activityThemeButtonColor(this))
         binder.btnLogOut.setBackgroundColor(myAppTheme.activityThemeButtonColor(this))
         binder.btnUpdatePassword.setBackgroundColor(myAppTheme.activityThemeButtonColor(this))
         //change the color of the text views

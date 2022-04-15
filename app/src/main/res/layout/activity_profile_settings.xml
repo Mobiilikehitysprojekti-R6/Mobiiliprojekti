@@ -213,12 +213,13 @@
                     android:inputType="textPersonName"
                     android:hint="Username" />
 
-                <Button
-                    android:id="@+id/btn_orderPremium"
+                <Switch
+                    android:id="@+id/switch_changePremiumStatus"
                     android:layout_width="170sp"
                     android:layout_gravity="center"
                     android:layout_height="wrap_content"
-                    android:text="Order premium" />
+                    android:text="Order premium"
+                    tools:ignore="UseSwitchCompatOrMaterialXml" />
                 <Button
                     android:id="@+id/btn_logOut"
                     android:layout_width="170sp"
