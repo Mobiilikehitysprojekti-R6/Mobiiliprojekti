@@ -86,6 +86,7 @@
 
             //change password
 
+
             <LinearLayout
                 android:id="@+id/second_linearLayout"
                 android:layout_width="365dp"

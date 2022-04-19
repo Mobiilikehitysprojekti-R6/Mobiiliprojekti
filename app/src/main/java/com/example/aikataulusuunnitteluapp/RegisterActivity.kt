@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.JSONObjectRequestListener
@@ -46,18 +47,16 @@ class RegisterActivity : AppCompatActivity() {
                             println("Got response from API: $res")
                             if (res?.get("message").toString() == "Created") {
 
-                                val builder = AlertDialog.Builder(this@RegisterActivity)
-                                builder.setTitle("Account registered!")
-                                builder.setMessage("Your account was successfully registered, please add some settings")
-                                builder.setPositiveButton("OK") { dialogInterface, which ->
-                                    val intent =
-                                        Intent(this@RegisterActivity, SettingsActivity::class.java)
-                                    intent.putExtra("userID", res?.get("userID").toString())
-                                    startActivity(intent)
-                                    finish()
+                                val toast = Toast.makeText(applicationContext, "Account created," +
+                                        " please create starting settings", Toast.LENGTH_SHORT)
+                                toast.show()
+
+                                val intent = Intent(this@RegisterActivity,
+                                        SettingsActivity::class.java)
+                                intent.putExtra("userID", res?.get("userID").toString())
+                                startActivity(intent)
+                                finish()
                                 }
-                                builder.show()
-                            }
 
                             if (res.toString() == "Username is already taken") {
 
