@@ -38,7 +38,7 @@
     <string name="p_ivit_salasana">Päivitä salasana</string>
     <string name="vaihda_teema">Vaihda teema</string>
     <string name="notifikaatiot">Notifikaatiot</string>
-    <string name="p_ivit_uniaika">Päivitä uniaika</string>
+    <string name="paivitaUniaika">Päivitä uniaika</string>
 
 
 </resources>

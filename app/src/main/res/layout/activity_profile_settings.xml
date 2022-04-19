@@ -235,11 +235,11 @@
                 android:paddingRight="16dp">
 
                 <TextView
-                    android:id="@+id/UniAika"
+                    android:id="@+id/tv_sleepDurationHeader"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:text="@string/p_ivit_uniaika"
+                    android:text="@string/paivitaUniaika"
                     android:textColor="@color/palm_green"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -252,46 +252,39 @@
                     android:text="Menen nukkumaan arkisin kello:"
                     android:textSize="18sp" />
 
-                <EditText
-                    android:id="@+id/et_goToBed"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="22:00"
-                    android:inputType="time"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/tv_whatAboutWeekends"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Viikonloppusin:"
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:id="@+id/et_goToBedONWeekends"
-                    android:layout_width="match_parent"
+                <Button
+                    android:id="@+id/btn_goToBedAt"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="23:00"
-                    android:inputType="time"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/tv_IwantToSleepFor"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Tavoite uniaika on:"
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:id="@+id/et_sleephours"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="8"
                     android:inputType="number"
+                    android:textColor="@color/white"
                     android:textSize="18sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="111dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvHours"
+                        android:layout_width="44dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="Tunnit"
+                        android:textColor="@color/palm_green"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <NumberPicker
+                        android:id="@+id/numberPickerHours"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp" />
+
+                </LinearLayout>
 
                 <Button
                     android:id="@+id/btn_saveUserSettings"
@@ -299,7 +292,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textColor="@color/white"
-                    android:text="@string/p_ivit_uniaika" />
+                    android:text="@string/paivitaUniaika" />
 
             </LinearLayout>
 
