@@ -9,6 +9,7 @@
         <item name="colorSecondary">@color/dry_orange</item>
         <item name="colorSecondaryVariant">@color/sunKissed_green</item>
         <item name="colorOnSecondary">@color/sunKissed_black</item>
+
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->

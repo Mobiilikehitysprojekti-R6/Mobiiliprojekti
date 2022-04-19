@@ -24,6 +24,7 @@
         <ImageButton
             android:id="@+id/backOutFromAboutUs"
             android:background="@null"
+
             android:layout_width="64dp"
             android:layout_height="54dp"
             android:onClick="closeAboutUsPage"

@@ -18,6 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:contentDescription="@string/app_name"
+        android:background="@color/lightGrey"
         app:adaptiveEventTextSize="true"
         app:allDayEventTextSize="13sp"
         app:columnGap="6dp"
@@ -58,6 +59,8 @@
             android:onClick="openAddTask"
             android:src="@drawable/ic_add_symbol"
             android:text="@string/lisaaTehtava" />
+
+
 
 
     </FrameLayout>

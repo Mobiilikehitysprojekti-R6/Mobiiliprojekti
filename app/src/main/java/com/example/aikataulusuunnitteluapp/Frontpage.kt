@@ -13,6 +13,9 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.*
+import android.widget.Button
+import android.widget.PopupMenu
 import android.widget.Toast
 import com.alamkanak.weekview.WeekViewEntity
 import com.alamkanak.weekview.jsr310.WeekViewPagingAdapterJsr310
@@ -24,6 +27,8 @@ import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.JSONArrayRequestListener
 import com.dolatkia.animatedThemeManager.AppTheme
 import com.dolatkia.animatedThemeManager.ThemeActivity
+import com.dolatkia.animatedThemeManager.ThemeManager
+
 import com.example.aikataulusuunnitteluapp.data.SERVER_URL
 import com.example.aikataulusuunnitteluapp.data.model.CalendarEntity
 import com.example.aikataulusuunnitteluapp.data.model.toWeekViewEntity
@@ -41,9 +46,9 @@ import java.time.LocalDateTime
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 import java.util.*
+import com.example.aikataulusuunnitteluapp.BasicActivityWeekViewAdapter
 
-
-class Frontpage : ThemeActivity()  {
+class Frontpage : ThemeActivity(){
 
     lateinit var userId: String
     private val weekdayFormatter = DateTimeFormatter.ofPattern("EEE", Locale.getDefault())
@@ -53,12 +58,7 @@ class Frontpage : ThemeActivity()  {
     private lateinit var calendarView: com.alamkanak.weekview.WeekView
     private lateinit var binder: ActivityCalendarBinding
 
-/*    private val binding: ActivityCalendarBinding by lazy {
-        ActivityCalendarBinding.inflate(layoutInflater)
-    }*/
-
     private val viewModel by genericViewModel()
-
 
 
     override fun onBackPressed() {
@@ -80,6 +80,7 @@ class Frontpage : ThemeActivity()  {
         super.onCreate(savedInstanceState)
         binder = ActivityCalendarBinding.inflate(LayoutInflater.from(this))
         setContentView(binder.root)
+
         val adapter = BasicActivityWeekViewAdapter(
             loadMoreHandler = viewModel::fetchEvents,
         )
@@ -95,6 +96,7 @@ class Frontpage : ThemeActivity()  {
             adapter.submitList(viewState.entities)
         }
 
+
         viewModel.actions.subscribeToEvents(this) { action ->
             when (action) {
                 is GenericAction.ShowSnackbar -> {
@@ -103,6 +105,7 @@ class Frontpage : ThemeActivity()  {
                         .setAction("Undo") { action.undoAction() }
                         .show()
 
+
                 }
             }
         }
@@ -110,11 +113,6 @@ class Frontpage : ThemeActivity()  {
         preferences = getSharedPreferences("myID", Context.MODE_PRIVATE)
         userId = preferences.getString("idUser","").toString()
         println("User ID from SharedPreferences in Frontpage: $userId")
-
-
-        //actionbar+back-button
-        val actionbar = supportActionBar
-        actionbar!!.title = "Frontpage"
 
 
     }
@@ -127,9 +125,6 @@ class Frontpage : ThemeActivity()  {
 
     override fun onResume() {
         super.onResume()
-
-
-        println("OnResume printline")
 
         AndroidNetworking.get("$SERVER_URL/settings/$userId")
             .setPriority(Priority.HIGH)
@@ -190,6 +185,7 @@ class Frontpage : ThemeActivity()  {
                 Color.parseColor("#9E9696"))
         )
 
+
         preferencesSettings = getSharedPreferences("mySettings", Context.MODE_PRIVATE)
         val startTheme = preferencesSettings.getString("userTheme","").toString()
         println("This is the theme in frontpage: $startTheme")
@@ -218,7 +214,6 @@ class Frontpage : ThemeActivity()  {
         startActivity(Intent(this@Frontpage, AddTask::class.java))
         finish()
     }
-
 
     fun logOut(item: MenuItem) {
         var editor : SharedPreferences.Editor = preferences.edit()
@@ -272,8 +267,7 @@ class Frontpage : ThemeActivity()  {
         }
 }
 
-
-private class BasicActivityWeekViewAdapter(
+class BasicActivityWeekViewAdapter(
     private val loadMoreHandler: (List<YearMonth>) -> Unit
 ) : WeekViewPagingAdapterJsr310<CalendarEntity>() {
 

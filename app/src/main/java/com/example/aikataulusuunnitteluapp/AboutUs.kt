@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+
 import com.dolatkia.animatedThemeManager.AppTheme
 import com.dolatkia.animatedThemeManager.ThemeActivity
 import com.example.aikataulusuunnitteluapp.databinding.ActivityAboutUsBinding
@@ -24,6 +25,7 @@ class AboutUs : ThemeActivity() {
         super.onCreate(savedInstanceState)
         binder = ActivityAboutUsBinding.inflate(LayoutInflater.from(this))
         setContentView(binder.root)
+
 
     }
 
@@ -54,7 +56,10 @@ class AboutUs : ThemeActivity() {
         return LightTheme()
     }
 
+
     fun closeAboutUsPage(view: View) {
         finish()
     }
-}
+
+
+ }

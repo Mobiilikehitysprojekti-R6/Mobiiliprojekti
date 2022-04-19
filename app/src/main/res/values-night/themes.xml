@@ -23,10 +23,6 @@
         <item name="colorSecondary">@color/sunKissed_black</item>
         <item name="colorSecondaryVariant">@color/dry_orange</item>
         <item name="colorOnSecondary">@color/light_grey</item>
-
     </style>
-
-
-
 
 </resources>
