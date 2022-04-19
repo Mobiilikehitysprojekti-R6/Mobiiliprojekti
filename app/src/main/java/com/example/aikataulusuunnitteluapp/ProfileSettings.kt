@@ -148,13 +148,11 @@ class ProfileSettings : ThemeActivity() {
         binder.tvChooseATheme.setTextColor(myAppTheme.activityTextColor(this))
         binder.tvEnableNotifications.setTextColor(myAppTheme.activityTextColor(this))
         binder.tvGoToBedAt.setTextColor(myAppTheme.activityTextColor(this))
-        binder.tvWhatAboutWeekends.setTextColor(myAppTheme.activityTextColor(this))
         binder.tvIwantToSleepFor.setTextColor(myAppTheme.activityTextColor(this))
         binder.tvProfile.setTextColor(myAppTheme.activityTextColor(this))
         binder.tvNewPassword.setTextColor(myAppTheme.activityTextColor(this))
         //change the color of all the edit texts
         binder.etGoToBed.setHintTextColor(myAppTheme.activityHintColor(this))
-        binder.etGoToBedONWeekends.setHintTextColor(myAppTheme.activityHintColor(this))
         binder.etSleephours.setHintTextColor(myAppTheme.activityHintColor(this))
         binder.etUsername.setHintTextColor(myAppTheme.activityHintColor(this))
         binder.etOldPassword.setHintTextColor(myAppTheme.activityHintColor(this))

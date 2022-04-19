@@ -25,7 +25,7 @@
     <LinearLayout
         android:id="@+id/second_linearLayout"
         android:layout_width="365dp"
-        android:layout_height="264dp"
+        android:layout_height="313dp"
         android:layout_marginLeft="15dp"
         android:background="@drawable/customborder_grey"
         android:orientation="vertical"
@@ -45,49 +45,62 @@
             android:textStyle="bold"
             android:top="120.4dp" />
 
-        <EditText
-            android:id="@+id/etNotifications"
+        <Button
+            android:id="@+id/btn_SleepStart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Enable notifications (y/n)"
-            android:inputType="text"
-            android:textColor="@color/palm_green"
-            android:textColorHint="@color/palm_green"
-            android:textSize="18dp" />
+            android:text="Please choose your bedtime" />
 
-        <EditText
-            android:id="@+id/etSleepTimeStart"
+        <TextView
+            android:id="@+id/tvSleepDuration"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="I want to go to bed at"
-            android:inputType="textPersonName"
+            android:layout_height="37dp"
+            android:gravity="left"
+            android:left="30.03dp"
+            android:text="How long do you want to sleep for?"
             android:textColor="@color/palm_green"
-            android:textColorHint="@color/palm_green"
-            android:textSize="18dp" />
+            android:textSize="17dp"
+            android:textStyle="bold"
+            android:top="120.4dp" />
 
-        <EditText
-            android:id="@+id/etSleepTimeDuration"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="I want to sleep for"
-            android:inputType="number"
-            android:textColor="@color/palm_green"
-            android:textColorHint="@color/palm_green"
-            android:textSize="18dp" />
+            android:layout_height="111dp"
+            android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/etThemeColor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Themecolor (light/dark)"
-            android:inputType="textPersonName"
-            android:radius="50.5dp"
-            android:textColor="@color/palm_green"
-            android:textColorHint="@color/palm_green" />
+            <NumberPicker
+                android:id="@+id/numberPickerHours"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp" />
+
+            <TextView
+                android:id="@+id/tvHours"
+                android:layout_width="44dp"
+                android:layout_height="match_parent"
+                android:gravity=""
+                android:text="Hours"
+                android:textColor="@color/palm_green"
+                android:textSize="12dp"
+                android:textStyle="bold" />
+
+            <NumberPicker
+                android:id="@+id/numberPickerMinutes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp" />
+
+            <TextView
+                android:id="@+id/tvMinutes"
+                android:layout_width="55dp"
+                android:layout_height="match_parent"
+                android:gravity=""
+                android:text="Minutes"
+                android:textColor="@color/palm_green"
+                android:textSize="12dp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

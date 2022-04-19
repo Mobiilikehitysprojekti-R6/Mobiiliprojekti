@@ -119,7 +119,7 @@
         <LinearLayout
             android:id="@+id/third_linearLayout"
             android:layout_width="280sp"
-            android:layout_height="234dp"
+            android:layout_height="180dp"
             android:layout_gravity="center"
             android:background="@drawable/customborder_grey"
             android:orientation="vertical"
@@ -140,22 +140,6 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="22:00"
-                android:inputType="time"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/tv_whatAboutWeekends"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="What about weekends:"
-                android:textSize="15sp" />
-
-            <EditText
-                android:id="@+id/et_goToBedONWeekends"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="23:00"
                 android:inputType="time"
                 android:textSize="20sp" />
 
