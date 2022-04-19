@@ -14,16 +14,10 @@
     <string name="NotAMember">Not a member yet?</string>
     <string name="TimeOfDay">Monday 21.03.2022</string>
     <string name="seuraava">Seuraava</string>
-    <string name="lisaaTehtava">Lisaa tehtava</string>
+    <string name="lisaaTehtava">Lisää tehtävä</string>
     <string name="Apply">Apply</string>
 
 
-    <string name="edellinen">Edellinen</string>
-    <string name="monday">Monday</string>
-    <string name="february_2022">February 2022</string>
-    <string name="date_example">14.05.2022</string>
-    <string name="choose_color">Choose color</string>
-    <string name="submit_task">Submit task</string>
 
     <string name="TimeCoachAbout">
     Tämä sovellus on luotu opiskelijaprojektina vuoden 2022 huhtikuussa. Projektin jäsenet: SM, SK, VE ja JV.
@@ -38,11 +32,19 @@
     <string name="p_ivit_salasana">Päivitä salasana</string>
     <string name="vaihda_teema">Vaihda teema</string>
     <string name="notifikaatiot">Notifikaatiot</string>
-    <string name="paivitaUniaika">Päivitä uniaika</string>
-    <string name="hoursStringResource">Tunnit</string>
-    <string name="exampleTime">23:00</string>
-    <string name="WhenToGoToBed">Menen nukkumaan arkisin kello:</string>
-    <string name="ChangeNofticationSettings">Vaihda ilmoitusasetuksia</string>
+    <string name="p_ivit_uniaika">Päivitä uniaika</string>
+    <string name="uusi_tapahtuma">Uusi tapahtuma</string>
+    <string name="lisaa_otsikko">Lisää otsikko</string>
+    <string name="valitse_kategoria">Valitse kategoria</string>
+    <string name="vapaa_aika">Vapaa-aika</string>
+    <string name="tyo">Työ</string>
+    <string name="kokous">Kokous</string>
+    <string name="harrastus">Harrastus</string>
+    <string name="muu">Muu</string>
+    <string name="lisaa_sijainti">Lisää sijainti</string>
+    <string name="valitse_aloitusaika">Valitse aloitusaika</string>
+    <string name="valitse_kesto">Valitse kesto</string>
+    <string name="_60">60</string>
 
 
 </resources>

@@ -22,118 +22,228 @@
 
 
             <ImageButton
-                android:id="@+id/backOutFromAddTask"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@null"
+                android:id="@+id/backOutFromSettings"
+                android:layout_width="56dp"
+                android:layout_height="37dp"
+                android:background="@color/white"
                 android:contentDescription="@string/Logo_text"
                 android:onClick="closeTaskSetter"
                 android:src="@drawable/ic_back_arrow" />
 
             <TextView
-                android:id="@+id/tv_AddNewTaskTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Add a new task"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/tv_addTask"
+                android:id="@+id/tv_taskSetterText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Add a title for your task"
-                android:textColor="@color/sunKissed_black" />
+                android:layout_height="match_parent"
+                android:layout_marginStart="25dp"
+                android:text="@string/uusi_tapahtuma"
+                android:textColor="@color/sunKissed_black"
+                android:textSize="23sp"
+                android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/et_addTaskHeader"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Task title"
-                android:inputType="textPersonName"
-                android:textSize="20sp" />
-
-
-            <TextView
-                android:id="@+id/tv_taskLocation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Location"
-                android:textColor="@color/sunKissed_black" />
-
-            <EditText
-                android:id="@+id/et_location"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Location"
-                android:inputType="textPersonName"
-                android:minHeight="48dp" />
-
-            <TextView
-                android:id="@+id/tv_taskStartTime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Add a start time for your task"
-                android:textColor="@color/sunKissed_black" />
-
-            <Button
-                android:id="@+id/btn_timePicker"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Pick starting time" />
-
-
-            <TextView
-                android:id="@+id/tv_startingtime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Time: " />
-
-            <TextView
-                android:id="@+id/tv_taskDuration"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Add a duration for your task"
-                android:textColor="@color/sunKissed_black" />
-
-            <EditText
-                android:id="@+id/et_addTaskDuration"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="60"
-                android:inputType="number"
-                android:textSize="20sp" />
-
-
+            //Add title
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="54dp"
-                android:orientation="horizontal">
+                android:id="@+id/first_linearLayout"
+                android:layout_width="354dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:background="@drawable/customborder_grey"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
 
-                <Button
-                    android:id="@+id/btn_color"
+                <EditText
+                    android:id="@+id/et_addTaskHeader"
                     android:layout_width="match_parent"
-                    android:layout_height="53dp"
-                    android:layout_weight="1"
-                    android:text="@string/choose_color" />
+                    android:layout_height="58dp"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:hint="@string/lisaa_otsikko"
+                    android:textColorHint="@color/palm_green"
+                    android:textSize="20sp" />
 
-                <View
-                    android:id="@+id/view_colorPreview"
-                    android:layout_width="60dp"
-                    android:minHeight="140dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginHorizontal="10dp"
-                    android:background="@drawable/circle_shape_with_border" />
+
             </LinearLayout>
 
-            <Button
-                android:id="@+id/btn_submitTask"
-                android:layout_width="match_parent"
+            //Choose category
+            <LinearLayout
+                android:id="@+id/second_linearLayout"
+                android:layout_width="354dp"
                 android:layout_height="wrap_content"
-                android:text="@string/submit_task"
-                />
+                android:layout_marginStart="25dp"
+                android:background="@drawable/customborder_grey"
+                android:orientation="vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+
+                <TextView
+                    android:id="@+id/tv_chooseCategoty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/valitse_kategoria"
+                    android:textColor="@color/palm_green"
+                    android:textSize="20sp" />
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp" />
+
+                <Button
+                    android:id="@+id/btn_freeTime"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:backgroundTint="@color/beach"
+                    android:text="@string/vapaa_aika"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/btn_work"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:backgroundTint="@color/sunKissed_green"
+                    android:text="@string/tyo"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/btn_meeting"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:backgroundTint="@color/pastel_green"
+                    android:text="@string/kokous"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/btn_hobby"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:backgroundTint="@color/dry_orange"
+                    android:text="@string/harrastus"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/btn_other"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:backgroundTint="@color/sunKissed_blue"
+                    android:text="@string/muu"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
+
+            //Add location
+            <LinearLayout
+                android:id="@+id/third_linearLayout"
+                android:layout_width="354dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:background="@drawable/customborder_grey"
+                android:orientation="vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+
+                <EditText
+                    android:id="@+id/et_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="58dp"
+                    android:ems="10"
+                    android:hint="@string/lisaa_sijainti"
+                    android:inputType="textPersonName"
+                    android:textColorHint="@color/palm_green"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+            // Add starting time
+            <LinearLayout
+                android:id="@+id/fourth_linearLayout"
+                android:layout_width="354dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:background="@drawable/customborder_grey"
+                android:baselineAligned="false"
+                android:fadingEdge="horizontal"
+                android:orientation="vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+
+                <TextView
+                    android:id="@+id/tv_startingTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:hint="@string/valitse_aloitusaika"
+                    android:textColorHint="@color/palm_green"
+                    android:textSize="20sp" />
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp" />
+
+                <Button
+                    android:id="@+id/btn_timePicker"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="10dp"
+                    android:background="#00FFFFFF"
+                    android:checkable="true"
+                    android:clickable="true"
+                    android:text="@string/valitse_aloitusaika"
+                    android:textColor="@color/sunKissed_black"/>
+
+                <TextView
+                    android:id="@+id/tv_taskDuration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="@string/valitse_kesto"
+                    android:textColor="@color/palm_green"
+                    android:textSize="20sp" />
+
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"/>
+
+                <EditText
+                    android:id="@+id/et_addTaskDuration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:hint="@string/_60"
+                    android:textColorHint="@color/sunKissed_black"
+                    android:inputType="number"
+                    android:textSize="15sp"
+                    />
+
+            </LinearLayout>
+
+            //save task button
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btn_submitTask"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="30dp"
+                android:backgroundTint="@color/beach"
+                android:src="@drawable/ic_ok"
+                tools:ignore="RtlHardcoded" />
 
 
         </LinearLayout>

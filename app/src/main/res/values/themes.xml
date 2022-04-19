@@ -23,7 +23,7 @@
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/beach</item>
         <item name="colorSecondaryVariant">@color/light_grey</item>
-        <item name="colorOnSecondary">@color/pastel_green</item>
+        <item name="colorOnSecondary">@color/sunKissed_black</item>
 
         <!-- Customize your theme here. -->
     </style>

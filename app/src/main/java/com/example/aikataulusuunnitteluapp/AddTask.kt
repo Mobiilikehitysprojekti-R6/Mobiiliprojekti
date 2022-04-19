@@ -6,8 +6,6 @@ import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.graphics.Color
-import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -22,8 +20,6 @@ import com.example.aikataulusuunnitteluapp.databinding.ActivityAddTaskBinding
 import com.example.aikataulusuunnitteluapp.themes.MyAppTheme
 import com.example.aikataulusuunnitteluapp.themes.NightTheme
 import org.json.JSONObject
-import vadiole.colorpicker.ColorModel
-import vadiole.colorpicker.ColorPickerDialog
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -45,7 +41,6 @@ class AddTask : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePickerD
     private lateinit var title: EditText
     private lateinit var duration: EditText
     private lateinit var location: EditText
-    private lateinit var colorPreview: View
 
     private lateinit var binder: ActivityAddTaskBinding
 
@@ -57,14 +52,16 @@ class AddTask : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePickerD
 
         val submitTaskButton: Button = findViewById(R.id.btn_submitTask)
         val timepickerButton: Button = findViewById(R.id.btn_timePicker)
-        val colorPickerButton: Button = findViewById(R.id.btn_color)
+        val btnFreeTime: Button = findViewById(R.id.btn_freeTime)
+        val btnWork: Button = findViewById(R.id.btn_work)
+        val btnMeeting: Button = findViewById(R.id.btn_meeting)
+        val btnHobby: Button = findViewById(R.id.btn_hobby)
+        val btnOther: Button = findViewById(R.id.btn_other)
+
 
         title = findViewById(R.id.et_addTaskHeader)
         duration = findViewById(R.id.et_addTaskDuration)
         location = findViewById(R.id.et_location)
-        startingTime = findViewById(R.id.tv_startingtime)
-        colorPreview = findViewById(R.id.view_colorPreview)
-
 
         sharedPreferences = getSharedPreferences("myID", Context.MODE_PRIVATE)
         userId = sharedPreferences.getString("idUser","").toString()
@@ -102,21 +99,26 @@ class AddTask : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePickerD
             DatePickerDialog(this, this, year, month, dayOfMonth).show()
         }
 
-        colorPickerButton.setOnClickListener{
-            @Suppress("DEPRECATION") val colorPicker: ColorPickerDialog = ColorPickerDialog.Builder()
-                .setInitialColor(-65536)
-                .setColorModel(ColorModel.HSV)
-                .setColorModelSwitchEnabled(true)
-                .setButtonOkText(android.R.string.ok)
-                .setButtonCancelText(android.R.string.cancel)
-                //  callback for picked color (required)
-                .onColorSelected { color: Int ->
-                    hexColor = java.lang.String.format("#%06X", 0xFFFFFF and color)
-                    val colorPreviewColor: GradientDrawable = colorPreview.background as GradientDrawable
-                    colorPreviewColor.setColor(Color.parseColor(hexColor))
-                }
-                .create()
-            colorPicker.show(supportFragmentManager, "color_picker")
+        //Category color buttons
+        btnFreeTime.setOnClickListener{
+            hexColor = java.lang.String.format("#E5BB7A")
+            println(hexColor)
+        }
+        btnWork.setOnClickListener{
+            hexColor = java.lang.String.format("#96A88C")
+            println(hexColor)
+        }
+        btnMeeting.setOnClickListener{
+            hexColor = java.lang.String.format("#A7CB92")
+            println(hexColor)
+        }
+        btnHobby.setOnClickListener{
+            hexColor = java.lang.String.format("#DB813C")
+            println(hexColor)
+        }
+        btnOther.setOnClickListener{
+            hexColor = java.lang.String.format("#5493D6")
+            println(hexColor)
         }
 
     }
@@ -158,6 +160,9 @@ class AddTask : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePickerD
 
         cal.set(Calendar.HOUR_OF_DAY, hourOfDay)
         cal.set(Calendar.MINUTE, minute)
+
+        val timepickerButton: Button = findViewById(R.id.btn_timePicker)
+        timepickerButton.text = String.format(Locale.getDefault(),"%02d.%02d.%02d  %02d:%02d",dayOfMonth,month, year, hour, minute);
     }
 
     override fun getStartTheme(): AppTheme {
