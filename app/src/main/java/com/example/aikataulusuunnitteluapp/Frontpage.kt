@@ -4,36 +4,38 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.graphics.RectF
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
-import android.widget.PopupMenu
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import com.alamkanak.weekview.WeekViewDisplayable
 import com.alamkanak.weekview.WeekViewEntity
 import com.alamkanak.weekview.jsr310.WeekViewPagingAdapterJsr310
 import com.alamkanak.weekview.jsr310.scrollToDateTime
 import com.alamkanak.weekview.jsr310.setDateFormatter
-import com.example.aikataulusuunnitteluapp.data.model.CalendarEntity
-import com.example.aikataulusuunnitteluapp.data.model.toWeekViewEntity
 import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.common.Priority
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.JSONArrayRequestListener
-import com.androidnetworking.interfaces.JSONObjectRequestListener
-import com.androidnetworking.interfaces.StringRequestListener
+import com.dolatkia.animatedThemeManager.AppTheme
+import com.dolatkia.animatedThemeManager.ThemeActivity
 import com.example.aikataulusuunnitteluapp.data.SERVER_URL
+import com.example.aikataulusuunnitteluapp.data.model.CalendarEntity
+import com.example.aikataulusuunnitteluapp.data.model.toWeekViewEntity
 import com.example.aikataulusuunnitteluapp.databinding.ActivityCalendarBinding
+import com.example.aikataulusuunnitteluapp.themes.LightTheme
+import com.example.aikataulusuunnitteluapp.themes.MyAppTheme
+import com.example.aikataulusuunnitteluapp.themes.NightTheme
 import com.example.aikataulusuunnitteluapp.util.*
 import com.google.android.material.snackbar.Snackbar
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
-import org.json.JSONStringer
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.YearMonth
@@ -41,7 +43,7 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 
 
-class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
+class Frontpage : ThemeActivity()  {
 
     lateinit var userId: String
     private val weekdayFormatter = DateTimeFormatter.ofPattern("EEE", Locale.getDefault())
@@ -49,12 +51,15 @@ class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
     lateinit var preferences: SharedPreferences
     lateinit var preferencesSettings: SharedPreferences
     private lateinit var calendarView: com.alamkanak.weekview.WeekView
+    private lateinit var binder: ActivityCalendarBinding
 
-    private val binding: ActivityCalendarBinding by lazy {
+/*    private val binding: ActivityCalendarBinding by lazy {
         ActivityCalendarBinding.inflate(layoutInflater)
-    }
+    }*/
 
     private val viewModel by genericViewModel()
+
+
 
     override fun onBackPressed() {
         val builder = AlertDialog.Builder(this@Frontpage)
@@ -73,13 +78,14 @@ class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
+        binder = ActivityCalendarBinding.inflate(LayoutInflater.from(this))
+        setContentView(binder.root)
         val adapter = BasicActivityWeekViewAdapter(
             loadMoreHandler = viewModel::fetchEvents,
         )
-        binding.weekView.adapter = adapter
+        binder.weekView.adapter = adapter
 
-        binding.weekView.setDateFormatter { date: LocalDate ->
+        binder.weekView.setDateFormatter { date: LocalDate ->
             val weekdayLabel = weekdayFormatter.format(date)
             val dateLabel = dateFormatter.format(date)
             weekdayLabel + "\n" + dateLabel
@@ -93,7 +99,7 @@ class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
             when (action) {
                 is GenericAction.ShowSnackbar -> {
                     Snackbar
-                        .make(binding.weekView, action.message, Snackbar.LENGTH_SHORT)
+                        .make(binder.weekView, action.message, Snackbar.LENGTH_SHORT)
                         .setAction("Undo") { action.undoAction() }
                         .show()
 
@@ -137,8 +143,7 @@ class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
                     val objectList: JSONObject = response.get(0) as JSONObject
                     val theme = objectList.get("ThemeColor").toString()
                     val enableNotifications = objectList.get("EnableNotifications").toString()
-                    val weekdaySleepTimeStart = objectList.get("WeekdaySleepTimeStart").toString()
-                    //val weekendSleepTimeStart = objectList.get("WeekendSleepTimeStart").toString()
+                    val sleepTimeStart = objectList.get("SleepTimeStart").toString()
                     val sleepTimeDuration = objectList.get("SleepTimeDuration").toString()
 
                     preferencesSettings = getSharedPreferences("mySettings", Context.MODE_PRIVATE)
@@ -146,8 +151,7 @@ class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
                     try {
                         edit.putString("userTheme", theme)
                         edit.putString("enableNotifications", enableNotifications)
-                        edit.putString("weekdaySleepTimeStart", weekdaySleepTimeStart)
-                        //edit.putString("weekendSleepTimeStart", weekendSleepTimeStart)
+                        edit.putString("sleepTimeStart", sleepTimeStart)
                         edit.putString("sleepTimeDuration", sleepTimeDuration)
                         edit.apply()
                         println("Theme saved to SharedPreferences = $theme")
@@ -159,10 +163,55 @@ class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
                     //TODO: handle error on task get request
                 }
             })
+    }
 
-        //TODO: tee tänne funktio joka kirjoittaa themeidN kohdalle
+    override fun syncTheme(appTheme: AppTheme) {
+        // change ui colors with new appThem here
+        val myAppTheme = appTheme as MyAppTheme
 
+        binder.root.setBackgroundColor(myAppTheme.activityBackgroundColor(this))
+        binder.weekView.headerBackgroundColor = myAppTheme.activityBackgroundColor(this)
+        binder.weekView.timeColumnBackgroundColor = myAppTheme.activityBackgroundColor(this)
+        //binder.weekView.todayBackgroundColor = myAppTheme.activityBackgroundColor(this)
+        binder.weekView.timeColumnTextColor = myAppTheme.activityTextColor(this)
+        //the color change of the days doesn't work
+        binder.weekView.dayBackgroundColor = myAppTheme.activityHintColor(this)
+        //change the color of the floating action button
+        //binder.addTaskBtn.backgroundTintList = ColorStateList.valueOf(myAppTheme.activityThemeButtonColor(this))
+        binder.addTaskBtn.backgroundTintList = ColorStateList.valueOf(myAppTheme.activityThemeButtonColor(this))
+    }
 
+    override fun getStartTheme(): AppTheme {
+        //actionbar+back-button
+        val actionbar = supportActionBar
+        actionbar!!.title = ""
+        supportActionBar!!.setBackgroundDrawable(
+            ColorDrawable(
+                Color.parseColor("#9E9696"))
+        )
+
+        preferencesSettings = getSharedPreferences("mySettings", Context.MODE_PRIVATE)
+        val startTheme = preferencesSettings.getString("userTheme","").toString()
+        println("This is the theme in frontpage: $startTheme")
+
+        //change the theme to match users theme
+        if(startTheme.isNotEmpty()) {
+            when {
+                startTheme.contains("Night") -> {
+                    supportActionBar!!.setBackgroundDrawable(
+                        ColorDrawable(
+                            Color.parseColor("#373232")))
+                    return NightTheme()
+                }
+                startTheme.contains("Light") -> {
+                    supportActionBar!!.setBackgroundDrawable(
+                        ColorDrawable(
+                            Color.parseColor("#9E9696")))
+                    return LightTheme()
+                }
+            }
+        }
+        return LightTheme()
     }
 
     fun openAddTask(view: View) {
@@ -170,9 +219,6 @@ class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
         finish()
     }
 
-    override fun onMenuItemClick(p0: MenuItem?): Boolean {
-        TODO("Not yet implemented")
-    }
 
     fun logOut(item: MenuItem) {
         var editor : SharedPreferences.Editor = preferences.edit()

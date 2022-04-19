@@ -22,16 +22,16 @@
 
 
             <ImageButton
-                android:id="@+id/backOutFromSettings"
-                android:layout_width="56dp"
-                android:layout_height="37dp"
-                android:background="@color/white"
+                android:id="@+id/backOutFromAddTask"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@null"
                 android:contentDescription="@string/Logo_text"
                 android:onClick="closeTaskSetter"
                 android:src="@drawable/ic_back_arrow" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/tv_AddNewTaskTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Add a new task"
@@ -104,7 +104,6 @@
                 android:ems="10"
                 android:hint="60"
                 android:inputType="number"
-                android:text="60"
                 android:textSize="20sp" />
 
 
