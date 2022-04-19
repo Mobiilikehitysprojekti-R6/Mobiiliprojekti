@@ -25,7 +25,7 @@
                 android:id="@+id/backOutFromSettings"
                 android:layout_width="56dp"
                 android:layout_height="37dp"
-                android:background="@color/white"
+                android:background="@null"
                 android:contentDescription="@string/Logo_text"
                 android:onClick="closeSettings"
                 app:srcCompat="@drawable/ic_back_arrow" />
@@ -209,16 +209,17 @@
                     android:layout_marginBottom="10dp"
                     android:text="@string/notifikaatiot"
                     android:textColor="@color/palm_green"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <Button
-                    android:id="@+id/btn_enableNotifications"
+                <Switch
+                    android:id="@+id/switch_changeNotificationStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="vaihda swich"
-                    android:textColor="@color/white" />
-
+                    android:textSize="18sp"
+                    android:text="@string/ChangeNofticationSettings"
+                    tools:ignore="UseSwitchCompatOrMaterialXml"
+                />
             </LinearLayout>
 
             //bedtimes
@@ -249,7 +250,7 @@
                     android:id="@+id/tv_goToBedAt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Menen nukkumaan arkisin kello:"
+                    android:text="@string/WhenToGoToBed"
                     android:textSize="18sp" />
 
                 <Button
@@ -257,7 +258,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="23:00"
+                    android:hint="@string/exampleTime"
                     android:inputType="number"
                     android:textColor="@color/white"
                     android:textSize="18sp" />
@@ -273,7 +274,7 @@
                         android:layout_width="44dp"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
-                        android:text="Tunnit"
+                        android:text="@string/hoursStringResource"
                         android:textColor="@color/palm_green"
                         android:textSize="15sp"
                         android:textStyle="bold" />

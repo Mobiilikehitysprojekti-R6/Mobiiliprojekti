@@ -23,15 +23,15 @@
 
             <ImageButton
                 android:id="@+id/backOutFromAddTask"
-                android:layout_width="56dp"
-                android:layout_height="37dp"
-                android:background="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@null"
                 android:contentDescription="@string/Logo_text"
                 android:onClick="closeTaskSetter"
                 android:src="@drawable/ic_back_arrow" />
 
             <TextView
-                android:id="@+id/tv_addNewTaskTitle"
+                android:id="@+id/tv_AddNewTaskTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Add a new task"

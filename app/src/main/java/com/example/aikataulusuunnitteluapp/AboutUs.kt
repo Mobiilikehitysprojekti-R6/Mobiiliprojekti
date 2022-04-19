@@ -5,6 +5,8 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+
 import com.dolatkia.animatedThemeManager.AppTheme
 import com.dolatkia.animatedThemeManager.ThemeActivity
 import com.example.aikataulusuunnitteluapp.databinding.ActivityAboutUsBinding
@@ -23,6 +25,8 @@ class AboutUs : ThemeActivity() {
         super.onCreate(savedInstanceState)
         binder = ActivityAboutUsBinding.inflate(LayoutInflater.from(this))
         setContentView(binder.root)
+
+
     }
 
     override fun syncTheme(appTheme: AppTheme) {
@@ -30,31 +34,27 @@ class AboutUs : ThemeActivity() {
         val myAppTheme = appTheme as MyAppTheme
         binder.root.setBackgroundColor(myAppTheme.activityBackgroundColor(this))
         //change the background of the arrow icon
-        binder.backOutFromAboutUs.setBackgroundColor(myAppTheme.activityBackgroundColor(this))
         //change the color of the arrow
         binder.backOutFromAboutUs.setColorFilter(myAppTheme.activityIconColor(this))
         binder.tvCredits.setTextColor(myAppTheme.activityTextColor(this))
     }
-
-     override fun getStartTheme(): AppTheme {
-         themePreferences = getSharedPreferences("mySettings", Context.MODE_PRIVATE)
-         val startTheme = themePreferences.getString("userTheme","").toString()
-         println("This is the theme2 in getstarttheme $startTheme")
-
-         //change the theme to match users theme
-
-         if(startTheme.isNotEmpty()) {
-             when {
-                 startTheme.contains("Night") -> {
-                     return NightTheme()
-                 }
-                 startTheme.contains("Light") -> {
-                     return LightTheme()
-                 }
-             }
-         }
-         return LightTheme()
-     }
+    override fun getStartTheme(): AppTheme {
+        themePreferences = getSharedPreferences("mySettings", Context.MODE_PRIVATE)
+        val startTheme = themePreferences.getString("userTheme","").toString()
+        println("This is the theme2 in getstarttheme $startTheme")
+        //change the theme to match users theme
+        if(startTheme.isNotEmpty()) {
+            when {
+                startTheme.contains("Night") -> {
+                    return NightTheme()
+                }
+                startTheme.contains("Light") -> {
+                    return LightTheme()
+                }
+            }
+        }
+        return LightTheme()
+    }
 
 
     fun closeAboutUsPage(view: View) {

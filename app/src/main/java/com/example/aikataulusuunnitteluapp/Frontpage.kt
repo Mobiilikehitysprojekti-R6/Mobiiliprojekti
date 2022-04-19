@@ -9,6 +9,10 @@ import android.graphics.Color
 import android.graphics.RectF
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
 import android.view.*
 import android.widget.Button
 import android.widget.PopupMenu
@@ -24,11 +28,11 @@ import com.androidnetworking.interfaces.JSONArrayRequestListener
 import com.dolatkia.animatedThemeManager.AppTheme
 import com.dolatkia.animatedThemeManager.ThemeActivity
 import com.dolatkia.animatedThemeManager.ThemeManager
+
 import com.example.aikataulusuunnitteluapp.data.SERVER_URL
 import com.example.aikataulusuunnitteluapp.data.model.CalendarEntity
 import com.example.aikataulusuunnitteluapp.data.model.toWeekViewEntity
 import com.example.aikataulusuunnitteluapp.databinding.ActivityCalendarBinding
-import com.example.aikataulusuunnitteluapp.databinding.ActivityProfileSettingsBinding
 import com.example.aikataulusuunnitteluapp.themes.LightTheme
 import com.example.aikataulusuunnitteluapp.themes.MyAppTheme
 import com.example.aikataulusuunnitteluapp.themes.NightTheme
@@ -44,7 +48,6 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 import com.example.aikataulusuunnitteluapp.BasicActivityWeekViewAdapter
 
-
 class Frontpage : ThemeActivity(){
 
     lateinit var userId: String
@@ -54,10 +57,6 @@ class Frontpage : ThemeActivity(){
     lateinit var preferencesSettings: SharedPreferences
     private lateinit var calendarView: com.alamkanak.weekview.WeekView
     private lateinit var binder: ActivityCalendarBinding
-
-    /*private val binding: ActivityCalendarBinding by lazy {
-        ActivityCalendarBinding.inflate(layoutInflater)
-    }*/
 
     private val viewModel by genericViewModel()
 
@@ -79,14 +78,15 @@ class Frontpage : ThemeActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
         binder = ActivityCalendarBinding.inflate(LayoutInflater.from(this))
+        setContentView(binder.root)
+
         val adapter = BasicActivityWeekViewAdapter(
             loadMoreHandler = viewModel::fetchEvents,
         )
-        binding.weekView.adapter = adapter
+        binder.weekView.adapter = adapter
 
-        binding.weekView.setDateFormatter { date: LocalDate ->
+        binder.weekView.setDateFormatter { date: LocalDate ->
             val weekdayLabel = weekdayFormatter.format(date)
             val dateLabel = dateFormatter.format(date)
             weekdayLabel + "\n" + dateLabel
@@ -101,7 +101,7 @@ class Frontpage : ThemeActivity(){
             when (action) {
                 is GenericAction.ShowSnackbar -> {
                     Snackbar
-                        .make(binding.weekView, action.message, Snackbar.LENGTH_SHORT)
+                        .make(binder.weekView, action.message, Snackbar.LENGTH_SHORT)
                         .setAction("Undo") { action.undoAction() }
                         .show()
 
@@ -138,8 +138,7 @@ class Frontpage : ThemeActivity(){
                     val objectList: JSONObject = response.get(0) as JSONObject
                     val theme = objectList.get("ThemeColor").toString()
                     val enableNotifications = objectList.get("EnableNotifications").toString()
-                    val weekdaySleepTimeStart = objectList.get("WeekdaySleepTimeStart").toString()
-                    //val weekendSleepTimeStart = objectList.get("WeekendSleepTimeStart").toString()
+                    val sleepTimeStart = objectList.get("SleepTimeStart").toString()
                     val sleepTimeDuration = objectList.get("SleepTimeDuration").toString()
 
                     preferencesSettings = getSharedPreferences("mySettings", Context.MODE_PRIVATE)
@@ -147,8 +146,7 @@ class Frontpage : ThemeActivity(){
                     try {
                         edit.putString("userTheme", theme)
                         edit.putString("enableNotifications", enableNotifications)
-                        edit.putString("weekdaySleepTimeStart", weekdaySleepTimeStart)
-                        //edit.putString("weekendSleepTimeStart", weekendSleepTimeStart)
+                        edit.putString("sleepTimeStart", sleepTimeStart)
                         edit.putString("sleepTimeDuration", sleepTimeDuration)
                         edit.apply()
                         println("Theme saved to SharedPreferences = $theme")
@@ -174,18 +172,19 @@ class Frontpage : ThemeActivity(){
         //the color change of the days doesn't work
         binder.weekView.dayBackgroundColor = myAppTheme.activityHintColor(this)
         //change the color of the floating action button
+        //binder.addTaskBtn.backgroundTintList = ColorStateList.valueOf(myAppTheme.activityThemeButtonColor(this))
         binder.addTaskBtn.backgroundTintList = ColorStateList.valueOf(myAppTheme.activityThemeButtonColor(this))
-
     }
 
     override fun getStartTheme(): AppTheme {
-
         //actionbar+back-button
         val actionbar = supportActionBar
         actionbar!!.title = ""
         supportActionBar!!.setBackgroundDrawable(
             ColorDrawable(
-                Color.parseColor("#9E9696")))
+                Color.parseColor("#9E9696"))
+        )
+
 
         preferencesSettings = getSharedPreferences("mySettings", Context.MODE_PRIVATE)
         val startTheme = preferencesSettings.getString("userTheme","").toString()
