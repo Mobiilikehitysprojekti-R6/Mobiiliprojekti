@@ -75,7 +75,7 @@ fun CalendarEntity.Event.toWeekViewEntity(): WeekViewEntity {
 
 fun CalendarEntity.BlockedTimeSlot.toWeekViewEntity(): WeekViewEntity {
     val style = WeekViewEntity.Style.Builder()
-        .setBackgroundColorResource(R.color.black)
+        .setBackgroundColorResource(R.color.sunKissed_black)
         .setCornerRadius(0)
         .build()
 

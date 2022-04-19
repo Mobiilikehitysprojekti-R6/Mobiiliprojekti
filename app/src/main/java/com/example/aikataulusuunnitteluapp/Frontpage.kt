@@ -79,10 +79,36 @@ class Frontpage : ThemeActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        setContentView(binding.root)
         binder = ActivityCalendarBinding.inflate(LayoutInflater.from(this))
-        setContentView(binder.root)
+        val adapter = BasicActivityWeekViewAdapter(
+            loadMoreHandler = viewModel::fetchEvents,
+        )
+        binding.weekView.adapter = adapter
 
+        binding.weekView.setDateFormatter { date: LocalDate ->
+            val weekdayLabel = weekdayFormatter.format(date)
+            val dateLabel = dateFormatter.format(date)
+            weekdayLabel + "\n" + dateLabel
+        }
+
+        viewModel.viewState.observe(this) { viewState ->
+            adapter.submitList(viewState.entities)
+        }
+
+
+        viewModel.actions.subscribeToEvents(this) { action ->
+            when (action) {
+                is GenericAction.ShowSnackbar -> {
+                    Snackbar
+                        .make(binding.weekView, action.message, Snackbar.LENGTH_SHORT)
+                        .setAction("Undo") { action.undoAction() }
+                        .show()
+
+
+                }
+            }
+        }
         //user authentication
         preferences = getSharedPreferences("myID", Context.MODE_PRIVATE)
         userId = preferences.getString("idUser","").toString()
@@ -112,7 +138,8 @@ class Frontpage : ThemeActivity(){
                     val objectList: JSONObject = response.get(0) as JSONObject
                     val theme = objectList.get("ThemeColor").toString()
                     val enableNotifications = objectList.get("EnableNotifications").toString()
-                    val sleepTimeStart = objectList.get("SleepTimeStart").toString()
+                    val weekdaySleepTimeStart = objectList.get("WeekdaySleepTimeStart").toString()
+                    //val weekendSleepTimeStart = objectList.get("WeekendSleepTimeStart").toString()
                     val sleepTimeDuration = objectList.get("SleepTimeDuration").toString()
 
                     preferencesSettings = getSharedPreferences("mySettings", Context.MODE_PRIVATE)
@@ -120,7 +147,8 @@ class Frontpage : ThemeActivity(){
                     try {
                         edit.putString("userTheme", theme)
                         edit.putString("enableNotifications", enableNotifications)
-                        edit.putString("sleepTimeStart", sleepTimeStart)
+                        edit.putString("weekdaySleepTimeStart", weekdaySleepTimeStart)
+                        //edit.putString("weekendSleepTimeStart", weekendSleepTimeStart)
                         edit.putString("sleepTimeDuration", sleepTimeDuration)
                         edit.apply()
                         println("Theme saved to SharedPreferences = $theme")
@@ -132,36 +160,6 @@ class Frontpage : ThemeActivity(){
                     //TODO: handle error on task get request
                 }
             })
-
-
-        //setContentView(binding.root)
-        val adapter = BasicActivityWeekViewAdapter(
-            loadMoreHandler = viewModel::fetchEvents,
-        )
-        binder.weekView.adapter = adapter
-
-
-        binder.weekView.setDateFormatter { date: LocalDate ->
-            val weekdayLabel = weekdayFormatter.format(date)
-            val dateLabel = dateFormatter.format(date)
-            weekdayLabel + "\n" + dateLabel
-        }
-
-        viewModel.viewState.observe(this) { viewState ->
-            adapter.submitList(viewState.entities)
-        }
-
-        viewModel.actions.subscribeToEvents(this) { action ->
-            when (action) {
-                is GenericAction.ShowSnackbar -> {
-                    Snackbar
-                        .make(binder.weekView, action.message, Snackbar.LENGTH_SHORT)
-                        .setAction("Undo") { action.undoAction() }
-                        .show()
-
-                }
-            }
-        }
     }
 
     override fun syncTheme(appTheme: AppTheme) {

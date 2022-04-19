@@ -59,7 +59,6 @@ EventsRepository(private val context: Context) {
             return emptyList()
         }
         return gson.fromJson(response.result.toString(), eventResponseType)
-
     }
 
     private fun fetchBlockedTimes(): List<ApiResult> {

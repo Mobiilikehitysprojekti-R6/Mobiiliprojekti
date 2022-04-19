@@ -2,13 +2,13 @@
     <!-- Base application theme. -->
     <style name="Theme.AikataulusuunnitteluApp" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">#004703</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorPrimary">@color/sunKissed_black</item>
+        <item name="colorPrimaryVariant">@color/palm_green</item>
+        <item name="colorOnPrimary">@color/sunKissed_blue</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSecondary">@color/sunKissed_black</item>
+        <item name="colorSecondaryVariant">@color/dry_orange</item>
+        <item name="colorOnSecondary">@color/palm_green</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
@@ -16,17 +16,13 @@
 
     <style name="Theme.AikataulusuunnitteluApp1" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/primaryPurple</item>
-        <item name="colorPrimaryVariant">@color/colorOnPrimary</item>
-        <item name="colorOnPrimary">#004703</item>
+        <item name="colorPrimary">@color/sunKissed_black</item>
+        <item name="colorPrimaryVariant">@color/palm_green</item>
+        <item name="colorOnPrimary">@color/dry_orange</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/colorOnPrimary</item>
-        <item name="colorSecondaryVariant">#8BC34A</item>
-        <item name="colorOnSecondary">@color/white</item>
-
+        <item name="colorSecondary">@color/sunKissed_black</item>
+        <item name="colorSecondaryVariant">@color/dry_orange</item>
+        <item name="colorOnSecondary">@color/light_grey</item>
     </style>
-
-
-
 
 </resources>

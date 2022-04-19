@@ -59,11 +59,13 @@ class MainActivity : AppCompatActivity() {
 
                         println(res.get("idUser"))
 
-                        var prefs: SharedPreferences = getSharedPreferences("myID", Context.MODE_PRIVATE)
-                        var edit: SharedPreferences.Editor = prefs.edit()
+                        val prefs: SharedPreferences = getSharedPreferences("myID", Context.MODE_PRIVATE)
+                        val edit: SharedPreferences.Editor = prefs.edit()
                         try {
                             edit.putString("idUser", res.get("idUser").toString())
-                            edit.commit()
+                            edit.putString("premiumStatus", res.get("premiumAccount").toString())
+                            edit.putString("username", res.get("username").toString())
+                            edit.apply()
                             println("User ID saved to SharedPreferences")
                         } catch (e: JSONException) {
                             e.printStackTrace()

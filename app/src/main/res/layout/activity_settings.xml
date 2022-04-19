@@ -9,79 +9,98 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/tvSettingsHeader"
+        android:id="@+id/tvRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Settings"
-        android:textColor="#343434"
+        android:layout_marginTop="80dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="15dp"
+        android:text="Information"
+        android:textColor="@color/sunKissed_black"
         android:textSize="23dp"
+        android:textStyle="bold"
         android:gravity="center"
         />
 
     <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="222dp"
-        android:layout_marginTop="32dp"
-        android:background="#F1F1F1"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:id="@+id/second_linearLayout"
+        android:layout_width="365dp"
+        android:layout_height="313dp"
+        android:layout_marginLeft="15dp"
+        android:background="@drawable/customborder_grey"
+        android:orientation="vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
 
         <TextView
-            android:id="@+id/tvInformation"
+            android:id="@+id/tvPersonalSettings"
             android:layout_width="match_parent"
             android:layout_height="46dp"
             android:gravity="left"
             android:left="30.03dp"
-            android:text="Information needed for your account"
-            android:textColor="#417610"
+            android:text="Personal settings"
+            android:textColor="@color/palm_green"
             android:textSize="20dp"
+            android:textStyle="bold"
             android:top="120.4dp" />
 
-        <EditText
-            android:id="@+id/etNotifications"
+        <Button
+            android:id="@+id/btn_SleepStart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/Notifications"
-            android:inputType="text"
-            android:textColor="#417610"
-            android:textColorHint="#417610"
-            android:textSize="18dp" />
+            android:text="Please choose your bedtime" />
 
-        <EditText
-            android:id="@+id/etSleepTimeStart"
+        <TextView
+            android:id="@+id/tvSleepDuration"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/SleepTimeStart"
-            android:inputType="textPersonName"
-            android:textColor="#417610"
-            android:textColorHint="#417610"
-            android:textSize="18dp" />
+            android:layout_height="37dp"
+            android:gravity="left"
+            android:left="30.03dp"
+            android:text="How long do you want to sleep for?"
+            android:textColor="@color/palm_green"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            android:top="120.4dp" />
 
-        <EditText
-            android:id="@+id/etSleepTimeDuration"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/SleepTimeDuration"
-            android:inputType="number"
-            android:textColor="#417610"
-            android:textColorHint="#417610"
-            android:textSize="18dp" />
+            android:layout_height="111dp"
+            android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/etThemeColor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/ThemeColor"
-            android:inputType="textPersonName"
-            android:radius="50.5dp"
-            android:textColor="#417610"
-            android:textColorHint="#417610" />
+            <NumberPicker
+                android:id="@+id/numberPickerHours"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp" />
+
+            <TextView
+                android:id="@+id/tvHours"
+                android:layout_width="44dp"
+                android:layout_height="match_parent"
+                android:gravity=""
+                android:text="Hours"
+                android:textColor="@color/palm_green"
+                android:textSize="12dp"
+                android:textStyle="bold" />
+
+            <NumberPicker
+                android:id="@+id/numberPickerMinutes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp" />
+
+            <TextView
+                android:id="@+id/tvMinutes"
+                android:layout_width="55dp"
+                android:layout_height="match_parent"
+                android:gravity=""
+                android:text="Minutes"
+                android:textColor="@color/palm_green"
+                android:textSize="12dp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -89,8 +108,11 @@
         android:id="@+id/btnApply"
         android:layout_width="115dp"
         android:layout_height="44dp"
-        android:backgroundTint="#417610"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/palm_green"
         android:text="@string/Apply"
-        android:textColor="#FFFFFF" />
+        android:textColor="@color/white" />
+
 
 </LinearLayout>

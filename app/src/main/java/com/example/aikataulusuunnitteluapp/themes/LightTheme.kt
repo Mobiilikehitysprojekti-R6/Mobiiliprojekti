@@ -18,7 +18,7 @@ class LightTheme : MyAppTheme {
         return ContextCompat.getColor(context, R.color.white)
     }
     override fun activityContainerColor(context: Context): Int {
-        return ContextCompat.getColor(context, R.color.button_light)
+        return ContextCompat.getColor(context, R.color.beach)
     }
 
     override fun activityImageRes(context: Context): Int {
@@ -26,17 +26,17 @@ class LightTheme : MyAppTheme {
     }
 
     override fun activityIconColor(context: Context): Int {
-        return ContextCompat.getColor(context, R.color.purple_200)
+        return ContextCompat.getColor(context, R.color.pastel_green)
     }
 
     override fun activityTextColor(context: Context): Int {
-        return ContextCompat.getColor(context, R.color.purple_500)
+        return ContextCompat.getColor(context, R.color.sunKissed_black)
     }
     override fun activityHintColor(context: Context): Int {
-        return ContextCompat.getColor(context, R.color.purple_200)
+        return ContextCompat.getColor(context, R.color.sunKissed_blue)
     }
 
     override fun activityThemeButtonColor(context: Context): Int {
-        return ContextCompat.getColor(context, R.color.purple_200)
+        return ContextCompat.getColor(context, R.color.pastel_green)
     }
 }
