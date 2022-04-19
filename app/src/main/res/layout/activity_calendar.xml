@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:contentDescription="@string/app_name"
-        android:background="@color/lightGrey"
+        android:background="@color/cardview_dark_background"
         app:adaptiveEventTextSize="true"
         app:allDayEventTextSize="13sp"
         app:columnGap="6dp"
