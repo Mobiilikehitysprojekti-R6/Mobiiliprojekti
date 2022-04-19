@@ -5,19 +5,14 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.WindowManager
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.dolatkia.animatedThemeManager.AppTheme
 import com.dolatkia.animatedThemeManager.ThemeActivity
-import com.dolatkia.animatedThemeManager.ThemeManager
 import com.example.aikataulusuunnitteluapp.databinding.ActivityAboutUsBinding
-import com.example.aikataulusuunnitteluapp.databinding.ActivityCalendarBinding
 import com.example.aikataulusuunnitteluapp.themes.LightTheme
 import com.example.aikataulusuunnitteluapp.themes.MyAppTheme
 import com.example.aikataulusuunnitteluapp.themes.NightTheme
 
- class AboutUs : ThemeActivity() {
+class AboutUs : ThemeActivity() {
 
     lateinit var themePreferences: SharedPreferences
     lateinit var theme: String
