@@ -30,6 +30,7 @@ import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.*
 
+
 class ProfileSettings : ThemeActivity(), TimePickerDialog.OnTimeSetListener {
 
     private val cal: Calendar = Calendar.getInstance()
@@ -47,12 +48,6 @@ class ProfileSettings : ThemeActivity(), TimePickerDialog.OnTimeSetListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // full screen app
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
-
         // create and bind views
         binder = ActivityProfileSettingsBinding.inflate(LayoutInflater.from(this))
         setContentView(binder.root)
@@ -66,6 +61,7 @@ class ProfileSettings : ThemeActivity(), TimePickerDialog.OnTimeSetListener {
             binder.switchChangePremiumStatus.isChecked = true
         }
         userId = myIdPreferences.getString("idUser", "").toString()
+
         val username = myIdPreferences.getString("username", "").toString()
         binder.tvUsername.text = "Tervetuloa takaisin: $username"
 
@@ -75,6 +71,7 @@ class ProfileSettings : ThemeActivity(), TimePickerDialog.OnTimeSetListener {
         sleepTimeDuration = themePreferences.getString("sleepTimeDuration", "").toString()
         println("This sleep duration of the user: $sleepTimeDuration")
         binder.btnGoToBedAt.text = sleepTimeStart
+      themeId = themePreferences.getString("userTheme","").toString()
 
         //Number picker
         val numberPickerHours = findViewById<NumberPicker>(R.id.numberPickerHours)
@@ -334,12 +331,18 @@ class ProfileSettings : ThemeActivity(), TimePickerDialog.OnTimeSetListener {
                         applicationContext,
                         "Your theme color has been updated to $themeId",
                         Toast.LENGTH_SHORT
-                    ).show()
-                    themePreferences = getSharedPreferences("myTheme", Context.MODE_PRIVATE)
+                       ).show()
+
+                    )
+                    toast.show()
+
+                    themePreferences = getSharedPreferences("mySettings", Context.MODE_PRIVATE)
                     val edit: SharedPreferences.Editor = themePreferences.edit()
                     try {
-                        edit.putString("myTheme", themeId)
-                        edit.apply()
+                        edit.putString("userTheme", themeId)
+                        edit.commit()
+                        println("Theme saved to SharedPreferences = $themeId")
+
                     } catch (e: JSONException) {
                         e.printStackTrace()
                     }
@@ -357,8 +360,10 @@ class ProfileSettings : ThemeActivity(), TimePickerDialog.OnTimeSetListener {
 
     //set default theme
     override fun getStartTheme(): AppTheme {
-        themePreferences = getSharedPreferences("myTheme", Context.MODE_PRIVATE)
-        val startTheme = themePreferences.getString("myTheme", "").toString()
+        themePreferences = getSharedPreferences("mySettings", Context.MODE_PRIVATE)
+        val startTheme = themePreferences.getString("userTheme","").toString()
+        println("This is the theme2 in getstarttheme $startTheme")
+
         //change the theme to match users theme
         if (startTheme.isNotEmpty()) {
             when {
