@@ -55,7 +55,7 @@ import java.util.*
 import com.example.aikataulusuunnitteluapp.BasicActivityWeekViewAdapter
 import kotlin.properties.Delegates
 
-class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener, ThemeActivity()  {
+class Frontpage : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener  {
 
     lateinit var userId: String
     private val weekdayFormatter = DateTimeFormatter.ofPattern("EEE", Locale.getDefault())
