@@ -50,7 +50,7 @@ class AddTask : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePickerD
         binder = ActivityAddTaskBinding.inflate(LayoutInflater.from(this))
         setContentView(binder.root)
 
-        val submitTaskButton: Button = findViewById(R.id.btn_submitTask)
+        val submitTaskButton: com.google.android.material.floatingactionbutton.FloatingActionButton = findViewById(R.id.btn_submitTask)
         val timepickerButton: Button = findViewById(R.id.btn_timePicker)
         val btnFreeTime: Button = findViewById(R.id.btn_freeTime)
         val btnWork: Button = findViewById(R.id.btn_work)
