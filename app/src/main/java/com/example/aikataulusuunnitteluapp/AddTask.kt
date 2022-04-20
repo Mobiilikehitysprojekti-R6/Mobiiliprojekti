@@ -37,7 +37,6 @@ class AddTask : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePickerD
     private var hour = cal.get(Calendar.HOUR_OF_DAY)
     private var minute = cal.get(Calendar.MINUTE)
 
-    private lateinit var startingTime: TextView
     private lateinit var title: EditText
     private lateinit var duration: EditText
     private lateinit var location: EditText
@@ -62,13 +61,12 @@ class AddTask : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePickerD
         title = findViewById(R.id.et_addTaskHeader)
         duration = findViewById(R.id.et_addTaskDuration)
         location = findViewById(R.id.et_location)
-
         sharedPreferences = getSharedPreferences("myID", Context.MODE_PRIVATE)
         userId = sharedPreferences.getString("idUser","").toString()
 
         submitTaskButton.setOnClickListener {
             val timeFormat = SimpleDateFormat("HH:mm")
-            val jsonObject: JSONObject = JSONObject()
+            val jsonObject = JSONObject()
             jsonObject.put("idUser", userId.toInt())
             jsonObject.put("title", title.editableText.toString())
             jsonObject.put("location", location.editableText.toString())
@@ -127,23 +125,22 @@ class AddTask : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePickerD
         // change ui colors with new appThem here
         val myAppTheme = appTheme as MyAppTheme
         binder.root.setBackgroundColor(myAppTheme.activityBackgroundColor(this))
-        //change the background of the arrow icon
         //change the color of the arrow
         binder.backOutFromAddTask.setColorFilter(myAppTheme.activityIconColor(this))
+        binder.backOutFromAddTask.setBackgroundColor(myAppTheme.activityBackgroundColor(this))
         //buttons
-        binder.btnTimePicker.setBackgroundColor(myAppTheme.activityThemeButtonColor(this))
         binder.btnSubmitTask.setBackgroundColor(myAppTheme.activityThemeButtonColor(this))
+        binder.btnTimePicker.setTextColor(myAppTheme.activityTextColor(this))
         //texts
-        //binder.tvAddNewTaskTitle.setTextColor(myAppTheme.activityTextColor(this))
-        //binder.tvAddTask.setTextColor(myAppTheme.activityTextColor(this))
-        //binder.tvTaskLocation.setTextColor(myAppTheme.activityTextColor(this))
-        //binder.tvTaskStartTime.setTextColor(myAppTheme.activityTextColor(this))
-        //binder.tvStartingtime.setTextColor(myAppTheme.activityTextColor(this))
-        binder.tvTaskDuration.setTextColor(myAppTheme.activityTextColor(this))
+        binder.tvTaskSetterText.setTextColor(myAppTheme.activityTextColor(this))
+        binder.etAddTaskHeader.setHintTextColor(myAppTheme.activityHintColor(this))
+        binder.tvChooseCategoty.setTextColor(myAppTheme.activityHintColor(this))
+        binder.tvTaskDuration.setTextColor(myAppTheme.activityHintColor(this))
+        binder.tvStartingTime.setTextColor(myAppTheme.activityHintColor(this))
         //edit texts
         binder.etAddTaskHeader.setHintTextColor(myAppTheme.activityHintColor(this))
         binder.etLocation.setHintTextColor(myAppTheme.activityHintColor(this))
-        binder.etAddTaskDuration.setHintTextColor(myAppTheme.activityHintColor(this))
+        binder.etAddTaskDuration.setHintTextColor(myAppTheme.activityTextColor(this))
     }
 
     // This function takes year, month and day values from DatePicker widget and puts them in variables
@@ -161,7 +158,7 @@ class AddTask : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePickerD
         cal.set(Calendar.MINUTE, minute)
 
         val timepickerButton: Button = findViewById(R.id.btn_timePicker)
-        timepickerButton.text = String.format(Locale.getDefault(),"%02d.%02d.%02d  %02d:%02d",dayOfMonth,month, year, hour, minute);
+        timepickerButton.text = String.format(Locale.getDefault(),"%02d.%02d.%02d  %02d:%02d",dayOfMonth,month, year, hourOfDay, minute);
     }
 
     override fun getStartTheme(): AppTheme {

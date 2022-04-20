@@ -26,17 +26,17 @@ class LightTheme : MyAppTheme {
     }
 
     override fun activityIconColor(context: Context): Int {
-        return ContextCompat.getColor(context, R.color.pastel_green)
+        return ContextCompat.getColor(context, R.color.beach)
     }
 
     override fun activityTextColor(context: Context): Int {
         return ContextCompat.getColor(context, R.color.sunKissed_black)
     }
     override fun activityHintColor(context: Context): Int {
-        return ContextCompat.getColor(context, R.color.sunKissed_blue)
+        return ContextCompat.getColor(context, R.color.sunKissed_green)
     }
 
     override fun activityThemeButtonColor(context: Context): Int {
-        return ContextCompat.getColor(context, R.color.pastel_green)
+        return ContextCompat.getColor(context, R.color.beach)
     }
 }

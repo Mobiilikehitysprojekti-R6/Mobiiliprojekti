@@ -15,9 +15,9 @@
         android:layout_marginTop="80dp"
         android:layout_marginLeft="15dp"
         android:layout_marginBottom="15dp"
-        android:text="Register"
+        android:text="@string/rekisteroidy"
         android:textColor="@color/sunKissed_black"
-        android:textSize="23dp"
+        android:textSize="23sp"
         android:textStyle="bold"
         android:gravity="center"
         />
@@ -39,40 +39,44 @@
             android:gravity="left"
             android:left="30.03dp"
             android:textStyle="bold"
-            android:text="Information"
+            android:text="@string/kayttaj_tiedot"
             android:textColor="@color/palm_green"
             android:textSize="20dp"
             android:top="120.4dp" />
 
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp" />
 
         <EditText
             android:id="@+id/etUsernameRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="@string/Username"
+            android:hint="@string/kayttaja_tunnuts"
             android:inputType="textPersonName"
             android:textColor="@color/palm_green"
             android:textColorHint="@color/palm_green"
-            android:textSize="18dp" />
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/etPasswordRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="@string/Password"
+            android:hint="@string/salasana"
             android:inputType="textPassword"
             android:textColor="@color/palm_green"
             android:textColorHint="@color/palm_green"
-            android:textSize="18dp" />
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/etPasswordRegisterRepeat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Repeat password"
+            android:hint="@string/toista_salasana"
             android:inputType="textPassword"
             android:radius="50.5dp"
             android:textColor="@color/palm_green"
@@ -82,12 +86,12 @@
 
     <Button
         android:id="@+id/btnRegister"
-        android:layout_width="115dp"
-        android:layout_height="44dp"
-        android:layout_marginTop="5dp"
+        android:layout_width="190dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="25dp"
         android:layout_gravity="center"
         android:backgroundTint="@color/palm_green"
-        android:text="@string/Register"
+        android:text="@string/rekisteroidy"
         android:textColor="@color/white" />
 
 </LinearLayout>

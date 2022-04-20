@@ -26,17 +26,18 @@ class NightTheme : MyAppTheme {
     }
 
     override fun activityIconColor(context: Context): Int {
-        return ContextCompat.getColor(context, R.color.palm_green)
-    }
-
-    override fun activityTextColor(context: Context): Int {
-        return ContextCompat.getColor(context, R.color.sunKissed_blue)
-    }
-    override fun activityHintColor(context: Context): Int {
         return ContextCompat.getColor(context, R.color.dry_orange)
     }
 
-    override fun activityThemeButtonColor(context: Context): Int {
-        return ContextCompat.getColor(context, R.color.sunKissed_black)
+    override fun activityTextColor(context: Context): Int {
+        return ContextCompat.getColor(context, R.color.light_grey)
     }
+    override fun activityHintColor(context: Context): Int {
+        return ContextCompat.getColor(context, R.color.palm_green)
+    }
+
+    override fun activityThemeButtonColor(context: Context): Int {
+        return ContextCompat.getColor(context, R.color.black)
+    }
+
 }

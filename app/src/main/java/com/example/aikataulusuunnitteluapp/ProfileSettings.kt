@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
-import android.widget.CompoundButton
 import android.widget.NumberPicker
 import android.widget.TimePicker
 import android.widget.Toast
@@ -71,7 +70,7 @@ class ProfileSettings : ThemeActivity(), TimePickerDialog.OnTimeSetListener {
         userId = myIdPreferences.getString("idUser", "").toString()
 
         val username = myIdPreferences.getString("username", "").toString()
-        binder.tvUsername.text = "Tervetuloa takaisin: $username"
+        binder.tvUsername.text = "Käyttäjänimi: $username"
 
         themePreferences = getSharedPreferences("mySettings", Context.MODE_PRIVATE)
         sleepTimeStart = themePreferences.getString("sleepTimeStart", "").toString()
@@ -307,31 +306,27 @@ class ProfileSettings : ThemeActivity(), TimePickerDialog.OnTimeSetListener {
         // set background color
         binder.root.setBackgroundColor(myAppTheme.activityBackgroundColor(this))
         //change the color of the buttons
-        binder.switchChangeNotificationStatus.setBackgroundColor(myAppTheme.activityThemeButtonColor(this))
         binder.btnSaveUserSettings.setBackgroundColor((myAppTheme.activityThemeButtonColor(this)))
-        binder.switchChangePremiumStatus.setBackgroundColor(myAppTheme.activityBackgroundColor(this))
         binder.btnUpdatePassword.setBackgroundColor(myAppTheme.activityThemeButtonColor(this))
         binder.btnGoToBedAt.setBackgroundColor(myAppTheme.activityThemeButtonColor(this))
         //change the color of the text views
         binder.tvSettingsText.setTextColor(myAppTheme.activityTextColor(this))
-        binder.tvChooseATheme.setTextColor(myAppTheme.activityTextColor(this))
-        binder.tvEnableNotifications.setTextColor(myAppTheme.activityTextColor(this))
+        binder.tvChooseATheme.setTextColor(myAppTheme.activityHintColor(this))
+        binder.tvEnableNotifications.setTextColor(myAppTheme.activityHintColor(this))
         binder.tvGoToBedAt.setTextColor(myAppTheme.activityTextColor(this))
-        binder.tvSleepDurationHeader.setTextColor(myAppTheme.activityTextColor(this))
-        binder.tvProfile.setTextColor(myAppTheme.activityTextColor(this))
-        binder.tvNewPassword.setTextColor(myAppTheme.activityTextColor(this))
+        binder.tvSleepDurationHeader.setTextColor(myAppTheme.activityHintColor(this))
+        binder.tvProfile.setTextColor(myAppTheme.activityHintColor(this))
+        binder.tvNewPassword.setTextColor(myAppTheme.activityHintColor(this))
         binder.tvUsername.setTextColor(myAppTheme.activityTextColor(this))
         binder.tvHours.setTextColor(myAppTheme.activityTextColor(this))
-        binder.switchChangeNotificationStatus.setTextColor(myAppTheme.activityTextColor(this))
-        //change the color of all the edit texts
         binder.tvUsername.setHintTextColor(myAppTheme.activityHintColor(this))
-        binder.etOldPassword.setHintTextColor(myAppTheme.activityHintColor(this))
-        binder.etNewPassword.setHintTextColor(myAppTheme.activityHintColor(this))
-        binder.etNewPassWordRepeat.setHintTextColor(myAppTheme.activityHintColor(this))
+        //change the color of all the edit texts
+        binder.etOldPassword.setHintTextColor(myAppTheme.activityTextColor(this))
+        binder.etNewPassword.setHintTextColor(myAppTheme.activityTextColor(this))
+        binder.etNewPassWordRepeat.setHintTextColor(myAppTheme.activityTextColor(this))
         //switch
         binder.switchChangePremiumStatus.setTextColor(myAppTheme.activityTextColor(this))
-        binder.switchChangePremiumStatus.setBackgroundColor(myAppTheme.activityBackgroundColor(this))
-        //change the background of the arrow icon
+        binder.switchChangeNotificationStatus.setTextColor(myAppTheme.activityTextColor(this))
         //change the color of the arrow
         binder.backOutFromSettings.setColorFilter(myAppTheme.activityIconColor(this))
         //change number picker text color
