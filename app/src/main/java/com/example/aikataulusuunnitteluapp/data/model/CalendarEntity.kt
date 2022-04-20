@@ -21,7 +21,8 @@ sealed class CalendarEntity {
         val location: CharSequence,
         val color: Int,
         val isAllDay: Boolean,
-        val isCanceled: Boolean
+        val isCanceled: Boolean,
+        val idTask: Int
     ) : CalendarEntity()
 
     data class BlockedTimeSlot(
@@ -63,7 +64,7 @@ fun CalendarEntity.Event.toWeekViewEntity(): WeekViewEntity {
     }
 
     return WeekViewEntity.Event.Builder(this)
-        .setId(id)
+        .setId(idTask.toLong())
         .setTitle(title)
         .setStartTime(startTime)
         .setEndTime(endTime)
