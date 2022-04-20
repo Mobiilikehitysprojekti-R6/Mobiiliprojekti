@@ -50,6 +50,16 @@
     <string name="valitse_aloitusaika">Valitse aloitusaika</string>
     <string name="valitse_kesto">Valitse kesto</string>
     <string name="_60">60</string>
+    <string name="paivitaUniaika">Päivitä uniaika</string>
+    <string name="hoursStringResource">Tunnit</string>
+    <string name="exampleTime">23:00</string>
+    <string name="WhenToGoToBed">Menen nukkumaan arkisin kello:</string>
+    <string name="ChangeNofticationSettings">Vaihda ilmoitusasetuksia</string>
+    <string name="uusi_kayttaj">Uusi käyttäjä?</string>
+    <string name="salasana">Salasana</string>
+    <string name="kirjaudu">Kirjaudu</string>
+    <string name="rekisteroidy">Rekisteröidy</string>
+    <string name="kayttaja_tunnuts">Käyttäjätunnuts</string>
 
 
 </resources>

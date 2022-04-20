@@ -132,14 +132,13 @@ class AddTask : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePickerD
         binder.backOutFromAddTask.setColorFilter(myAppTheme.activityIconColor(this))
         //buttons
         binder.btnTimePicker.setBackgroundColor(myAppTheme.activityThemeButtonColor(this))
-        binder.btnColor.setBackgroundColor(myAppTheme.activityThemeButtonColor(this))
         binder.btnSubmitTask.setBackgroundColor(myAppTheme.activityThemeButtonColor(this))
         //texts
-        binder.tvAddNewTaskTitle.setTextColor(myAppTheme.activityTextColor(this))
-        binder.tvAddTask.setTextColor(myAppTheme.activityTextColor(this))
-        binder.tvTaskLocation.setTextColor(myAppTheme.activityTextColor(this))
-        binder.tvTaskStartTime.setTextColor(myAppTheme.activityTextColor(this))
-        binder.tvStartingtime.setTextColor(myAppTheme.activityTextColor(this))
+        //binder.tvAddNewTaskTitle.setTextColor(myAppTheme.activityTextColor(this))
+        //binder.tvAddTask.setTextColor(myAppTheme.activityTextColor(this))
+        //binder.tvTaskLocation.setTextColor(myAppTheme.activityTextColor(this))
+        //binder.tvTaskStartTime.setTextColor(myAppTheme.activityTextColor(this))
+        //binder.tvStartingtime.setTextColor(myAppTheme.activityTextColor(this))
         binder.tvTaskDuration.setTextColor(myAppTheme.activityTextColor(this))
         //edit texts
         binder.etAddTaskHeader.setHintTextColor(myAppTheme.activityHintColor(this))

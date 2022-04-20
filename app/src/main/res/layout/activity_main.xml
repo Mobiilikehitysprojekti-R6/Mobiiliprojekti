@@ -14,7 +14,7 @@
         android:radius="50.5dp"
         android:autofillHints=""
         android:ems="10"
-        android:hint="@string/Username"
+        android:hint="@string/kayttaja_tunnuts"
         android:inputType="textEmailAddress"
         android:background="@color/light_grey"
         android:textColorHint="@color/palm_green"
@@ -28,10 +28,10 @@
 
     <Button
         android:id="@+id/btn_login"
-        android:layout_width="150dp"
+        android:layout_width="190dp"
         android:layout_height="50dp"
         android:radius="50.5dp"
-        android:text="@string/login"
+        android:text="@string/kirjaudu"
         android:textSize="17sp"
         android:textColor="@color/white"
         android:backgroundTint="@color/palm_green"
@@ -44,9 +44,9 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="150dp"
-        android:layout_height="34dp"
-        android:text="@string/NotAMember"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/uusi_kayttaj"
         android:textSize="17sp"
         android:textColor="@color/sunKissed_black"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -58,10 +58,10 @@
 
     <Button
         android:id="@+id/btn_login2"
-        android:layout_width="150dp"
+        android:layout_width="190dp"
         android:layout_height="50dp"
         android:radius="50.5dp"
-        android:text="@string/Register"
+        android:text="@string/rekisteroidy"
         android:textSize="17sp"
         android:textColor="@color/white"
         android:backgroundTint="@color/palm_green"
@@ -80,7 +80,7 @@
         android:radius="50.5dp"
         android:autofillHints=""
         android:ems="10"
-        android:hint="@string/Password"
+        android:hint="@string/salasana"
         android:inputType="textPassword"
         android:background="@color/light_grey"
         android:textColorHint="@color/palm_green"

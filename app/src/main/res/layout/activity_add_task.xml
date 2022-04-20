@@ -22,7 +22,7 @@
 
 
             <ImageButton
-                android:id="@+id/backOutFromSettings"
+                android:id="@+id/backOutFromAddTask"
                 android:layout_width="56dp"
                 android:layout_height="37dp"
                 android:background="@color/white"
