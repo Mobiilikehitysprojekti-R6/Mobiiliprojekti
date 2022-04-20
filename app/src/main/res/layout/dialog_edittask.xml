@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/otsikko" />
+
+    <EditText
+        android:id="@+id/et_edit_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Otsikko"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/paikka" />
+
+    <EditText
+        android:id="@+id/et_edit_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Paikka"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:textColorHint="#757575" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/kesto_minuutteina" />
+
+    <EditText
+        android:id="@+id/et_editDuration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Kesto"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/btn_editTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/muuta_ajankohta" />
+
+</LinearLayout>

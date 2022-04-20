@@ -1,47 +1,48 @@
 package com.example.aikataulusuunnitteluapp
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.RectF
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
-import android.widget.PopupMenu
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.alamkanak.weekview.WeekViewDisplayable
 import com.alamkanak.weekview.WeekViewEntity
 import com.alamkanak.weekview.jsr310.WeekViewPagingAdapterJsr310
 import com.alamkanak.weekview.jsr310.scrollToDateTime
 import com.alamkanak.weekview.jsr310.setDateFormatter
-import com.example.aikataulusuunnitteluapp.data.model.CalendarEntity
-import com.example.aikataulusuunnitteluapp.data.model.toWeekViewEntity
 import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.common.Priority
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.JSONArrayRequestListener
-import com.androidnetworking.interfaces.JSONObjectRequestListener
 import com.androidnetworking.interfaces.StringRequestListener
 import com.example.aikataulusuunnitteluapp.data.SERVER_URL
+import com.example.aikataulusuunnitteluapp.data.model.CalendarEntity
+import com.example.aikataulusuunnitteluapp.data.model.toWeekViewEntity
 import com.example.aikataulusuunnitteluapp.databinding.ActivityCalendarBinding
 import com.example.aikataulusuunnitteluapp.util.*
 import com.google.android.material.snackbar.Snackbar
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
-import org.json.JSONStringer
+import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 import java.util.*
+import kotlin.properties.Delegates
 
 
-class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
+class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener  {
 
     lateinit var userId: String
     private val weekdayFormatter = DateTimeFormatter.ofPattern("EEE", Locale.getDefault())
@@ -50,12 +51,18 @@ class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
     lateinit var preferencesSettings: SharedPreferences
     private lateinit var calendarView: com.alamkanak.weekview.WeekView
 
+    private val cal: Calendar = Calendar.getInstance()
+    private var dayOfMonth by Delegates.notNull<Int>()
+    private var month by Delegates.notNull<Int>()
+    private var year by Delegates.notNull<Int>()
+    private var hour by Delegates.notNull<Int>()
+    private var minute by Delegates.notNull<Int>()
+
     private val binding: ActivityCalendarBinding by lazy {
         ActivityCalendarBinding.inflate(layoutInflater)
     }
 
     private val viewModel by genericViewModel()
-
     override fun onBackPressed() {
         val builder = AlertDialog.Builder(this@Frontpage)
         builder.setTitle("Do you want to log out?")
@@ -122,16 +129,13 @@ class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
     override fun onResume() {
         super.onResume()
 
-
-        println("OnResume printline")
-
         AndroidNetworking.get("$SERVER_URL/settings/$userId")
             .setPriority(Priority.HIGH)
             .build()
             .getAsJSONArray(object : JSONArrayRequestListener {
                 override fun onResponse(response: JSONArray) {
                     val toast = Toast.makeText(applicationContext, response.toString(), Toast.LENGTH_SHORT)
-                    toast.show()
+                    //toast.show()
                     println("response = $response")
 
                     val objectList: JSONObject = response.get(0) as JSONObject
@@ -222,8 +226,93 @@ class Frontpage : AppCompatActivity(), PopupMenu.OnMenuItemClickListener  {
         calendarView =  findViewById(R.id.weekView)
         with(calendarView) { scrollToDateTime(dateTime = LocalDateTime.now()) }
         }
-}
 
+    fun refreshCalendar() {
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(intent);
+        overridePendingTransition(0, 0);
+    }
+
+
+
+    @SuppressLint("SimpleDateFormat")
+    fun openEditDialog(eventTitle: String, eventLoc: String, eventTime: String, idTask: Int, eventEndTime: String) {
+        val inflater = LayoutInflater.from(this)
+        val dialogLayout: View = inflater.inflate(R.layout.dialog_edittask, null)
+        val dialog = AlertDialog.Builder(this)
+
+        dialog.setView(dialogLayout)
+        dialog.setTitle("Muokkaa")
+
+        val editTitle: EditText = dialogLayout.findViewById(R.id.et_edit_title)
+        val editLocation: EditText = dialogLayout.findViewById(R.id.et_edit_location)
+        val editTimeBtn: Button = dialogLayout.findViewById(R.id.btn_editTime)
+        val editDuration: EditText = dialogLayout.findViewById(R.id.et_editDuration)
+        val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm")
+
+
+        val date: Date = sdf.parse(eventTime)
+        val endTimeDate: Date = sdf.parse(eventEndTime)
+        cal.time = date
+        dayOfMonth = cal.get(Calendar.DAY_OF_MONTH)
+        month = cal.get(Calendar.MONTH)
+        year = cal.get(Calendar.YEAR)
+        hour = cal.get(Calendar.HOUR_OF_DAY)
+        minute = cal.get(Calendar.MINUTE)
+
+        val duration: Long = (endTimeDate.time - date.time) / 60000
+        editDuration.setText(duration.toString())
+
+        editTitle.setText(eventTitle)
+        editLocation.setText(eventLoc)
+
+        editTimeBtn.setOnClickListener {
+            DatePickerDialog(this, this, year, month, dayOfMonth).show()
+        }
+        dialog.setPositiveButton("Muokkaa") { _, which ->
+            val timeFormat = SimpleDateFormat("HH:mm")
+            val obj = JSONObject()
+            obj.put("title", editTitle.text.toString())
+            obj.put("location", editLocation.text.toString())
+            obj.put("start_time", timeFormat.format(cal.time))
+            obj.put("day_of_month", dayOfMonth)
+            obj.put("idTask", idTask)
+            obj.put("duration", editDuration.text.toString().toInt())
+
+            AndroidNetworking.put("${SERVER_URL}/tasks")
+                .addJSONObjectBody(obj)
+                .build()
+                .getAsString(object : StringRequestListener {
+                    override fun onResponse(res: String?) {
+                        println(res.toString())
+                    }
+
+                    override fun onError(err: ANError?) {
+                        println(err.toString())
+                    }
+                })
+            refreshCalendar()
+        }
+        dialog.setNegativeButton("Peru") { _, which -> }
+
+        dialog.show()
+    }
+
+    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+        this.year = year
+        this.month = month+1 // java.util.Calendar january = 0 :D
+        this.dayOfMonth = dayOfMonth
+        TimePickerDialog(this,this, hour, minute, true).show() // Opens timepicker when clicking ok in datepicker
+    }
+
+    override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minuteOfHour: Int) {
+        cal.set(Calendar.HOUR_OF_DAY, hourOfDay)
+        cal.set(Calendar.MINUTE, minuteOfHour)
+    }
+
+
+}
 
 private class BasicActivityWeekViewAdapter(
     private val loadMoreHandler: (List<YearMonth>) -> Unit
@@ -233,7 +322,7 @@ private class BasicActivityWeekViewAdapter(
 
     override fun onEventClick(data: CalendarEntity, bounds: RectF) {
         if (data is CalendarEntity.Event) {
-            context.showToast("Clicked ${data.title}")
+            context.showToast("Task id:  ${data.idTask}")
         }
     }
     override fun onEmptyViewClick(time: LocalDateTime) {
@@ -247,4 +336,47 @@ private class BasicActivityWeekViewAdapter(
     override fun onLoadMore(startDate: LocalDate, endDate: LocalDate) {
         loadMoreHandler(yearMonthsBetween(startDate, endDate))
     }
+
+    override fun onEventLongClick(data: CalendarEntity, bounds: RectF) {
+
+        if (data is CalendarEntity.Event) {
+            val dialog = AlertDialog.Builder(context)
+            dialog.setTitle("Haluatko poistaa tämän tehtävän?")
+            dialog.setItems(arrayOf("Poista", "Muokkaa")) { _, index ->
+                when (index) {
+                    0 -> { // Delete clicked
+                        val obj = JSONObject()
+                        obj.put("idTask", data.idTask)
+                        AndroidNetworking.delete("${SERVER_URL}/tasks")
+                            .addJSONObjectBody(obj)
+                            .build()
+                            .getAsString(object : StringRequestListener{
+                                override fun onResponse(p0: String?) {
+                                    context.showToast("Deleted")
+                                    val frontpage = context as Frontpage
+                                    frontpage.refreshCalendar()
+
+                                }
+                                override fun onError(p0: ANError?) {
+                                    println(p0)
+                                }
+                            })
+                    }
+                    1 -> { // Edit clicked
+                        val frontpage = context as Frontpage
+                        frontpage.openEditDialog(data.title.toString(), data.location.toString(), data.startTime.toString(), data.idTask, data.endTime.toString())
+                    }
+                }
+            }
+            dialog.setNegativeButton("Peru"){dialogInterface, which ->
+
+            }
+            dialog.show()
+        }
+    }
+
+
+
 }
+
+

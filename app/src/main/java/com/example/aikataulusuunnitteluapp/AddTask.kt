@@ -56,7 +56,6 @@ class AddTask : AppCompatActivity(), DatePickerDialog.OnDateSetListener, TimePic
         startingTime = findViewById(R.id.tv_startingtime)
         colorPreview = findViewById(R.id.view_colorPreview)
 
-
         sharedPreferences = getSharedPreferences("myID", Context.MODE_PRIVATE)
         userId = sharedPreferences.getString("idUser","").toString()
 
@@ -94,7 +93,8 @@ class AddTask : AppCompatActivity(), DatePickerDialog.OnDateSetListener, TimePic
         }
 
         colorPickerButton.setOnClickListener{
-            @Suppress("DEPRECATION") val colorPicker: ColorPickerDialog = ColorPickerDialog.Builder()
+            @Suppress("DEPRECATION")
+            val colorPicker: ColorPickerDialog = ColorPickerDialog.Builder()
                 .setInitialColor(-65536)
                 .setColorModel(ColorModel.HSV)
                 .setColorModelSwitchEnabled(true)

@@ -29,6 +29,10 @@
     Tämä sovellus on luotu opiskelijaprojektina vuoden 2022 huhtikuussa. Projektin jäsenet: SM, SK, VE ja JV.
 
     </string>
+    <string name="otsikko">Otsikko:</string>
+    <string name="paikka">Paikka:</string>
+    <string name="kesto_minuutteina">Kesto minuutteina:</string>
+    <string name="muuta_ajankohta">Muuta ajankohta</string>
 
 
 </resources>
