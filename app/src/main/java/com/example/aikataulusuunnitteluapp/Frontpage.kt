@@ -152,7 +152,7 @@ class Frontpage : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePicke
                     val objectList: JSONObject = response.get(0) as JSONObject
                     val theme = objectList.get("ThemeColor").toString()
                     val enableNotifications = objectList.get("EnableNotifications").toString()
-                    val sleepTimeStart = objectList.get("SleepTimeStart").toString()
+                    val sleepTimeStart = objectList.get("WeekdaySleepTimeStart").toString()
                     val sleepTimeDuration = objectList.get("SleepTimeDuration").toString()
 
                     preferencesSettings = getSharedPreferences("mySettings", Context.MODE_PRIVATE)
