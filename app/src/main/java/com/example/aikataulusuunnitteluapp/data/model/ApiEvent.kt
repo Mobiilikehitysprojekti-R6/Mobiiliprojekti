@@ -18,7 +18,8 @@ data class ApiEvent(
     @SerializedName("duration") val duration: Int,
     @SerializedName("color") val color: String,
     @SerializedName("is_canceled") val isCanceled: Boolean,
-    @SerializedName("is_all_day") val isAllDay: Boolean
+    @SerializedName("is_all_day") val isAllDay: Boolean,
+    @SerializedName("idTask") val idTask: Int,
 ) : ApiResult {
 
     override fun toCalendarEntity(yearMonth: YearMonth, index: Int): CalendarEntity? {
@@ -34,7 +35,8 @@ data class ApiEvent(
                 endTime = endDateTime,
                 color = Color.parseColor(color),
                 isAllDay = isAllDay,
-                isCanceled = isCanceled
+                isCanceled = isCanceled,
+                idTask = idTask,
             )
         } catch (e: DateTimeException) {
             null
