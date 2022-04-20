@@ -29,10 +29,25 @@
     Tämä sovellus on luotu opiskelijaprojektina vuoden 2022 huhtikuussa. Projektin jäsenet: SM, SK, VE ja JV.
 
     </string>
+
     <string name="otsikko">Otsikko:</string>
     <string name="paikka">Paikka:</string>
     <string name="kesto_minuutteina">Kesto minuutteina:</string>
     <string name="muuta_ajankohta">Muuta ajankohta</string>
+    <string name="new_password">New Password</string>
+    <string name="profile_info">Profile Info</string>
+    <string name="tilaa_premium">Tilaa premium</string>
+    <string name="toista_uusi_salasana">Toista uusi salasana</string>
+    <string name="uusi_salasana">Uusi salasana</string>
+    <string name="vanha_salasana">Vanha salasana</string>
+    <string name="p_ivit_salasana">Päivitä salasana</string>
+    <string name="vaihda_teema">Vaihda teema</string>
+    <string name="notifikaatiot">Notifikaatiot</string>
+    <string name="paivitaUniaika">Päivitä uniaika</string>
+    <string name="hoursStringResource">Tunnit</string>
+    <string name="exampleTime">23:00</string>
+    <string name="WhenToGoToBed">Menen nukkumaan arkisin kello:</string>
+    <string name="ChangeNofticationSettings">Vaihda ilmoitusasetuksia</string>
 
 
 </resources>

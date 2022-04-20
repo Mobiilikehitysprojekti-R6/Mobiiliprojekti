@@ -14,18 +14,19 @@
 
         <ImageView
             android:id="@+id/iv_timecoachLogo"
+            android:background="@null"
             android:layout_width="404dp"
             android:layout_height="439dp"
             android:layout_gravity="center"
-            android:background="@color/white"
             android:contentDescription="@string/Logo_text"
             app:srcCompat="@drawable/timecoach_logo" />
 
         <ImageButton
-            android:id="@+id/backOutFromSettings"
+            android:id="@+id/backOutFromAboutUs"
+            android:background="@null"
+
             android:layout_width="64dp"
             android:layout_height="54dp"
-            android:background="@color/white"
             android:onClick="closeAboutUsPage"
             android:contentDescription="@string/Logo_text"
             app:srcCompat="@drawable/ic_back_arrow" />
@@ -33,7 +34,7 @@
     </FrameLayout>
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/tv_credits"
         android:layout_width="264dp"
         android:layout_height="153dp"
         android:layout_gravity="center"

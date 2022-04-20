@@ -10,275 +10,292 @@
     <ScrollView
         android:id="@+id/root_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_marginBottom="10dp"
         android:layout_height="wrap_content"
-        android:showDividers="middle"
-        android:divider="@drawable/layout_divider"
-        android:orientation="vertical">
-
-    <ImageButton
-        android:id="@+id/backOutFromSettings"
-        android:layout_width="56dp"
-        android:layout_height="37dp"
-        android:background="@color/white"
-        android:contentDescription="@string/Logo_text"
-        android:onClick="closeSettings"
-        app:srcCompat="@drawable/ic_back_arrow" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center"
         >
-
-    <TextView
-        android:id="@+id/tv_settingsText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Settings"
-        android:layout_gravity="center"
-        android:textSize="30sp" />
-
-    <LinearLayout
-        android:id="@+id/first_linearLayout"
-        android:layout_width="280sp"
-        android:layout_height="170sp"
-        android:background="@drawable/customborder_grey"
-        android:layout_gravity="center"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        >
-
-        <TextView
-            android:id="@+id/tv_chooseATheme"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Choose a theme" />
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/btn_changeTheme"
-            android:layout_width="200dp"
-            android:layout_height="55dp"
-            android:layout_margin="40dp"
-            android:textColor="@color/sunKissed_black"
-            app:cardBackgroundColor="@color/palm_green"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="3dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text">
-
-            <TextView
-                android:id="@+id/buttonTextView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="Night"
-                android:textColor="@color/light_grey" />
-
-        </com.google.android.material.card.MaterialCardView>
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/second_linearLayout"
-        android:layout_width="280sp"
-        android:layout_height="88dp"
-        android:background="@drawable/customborder_grey"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp">
-
-        <TextView
-            android:id="@+id/tv_enableNotifications"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Enable notifications"
-            android:layout_marginRight="10dp"
-            android:textSize="15sp" />
-
-        <Button
-            android:id="@+id/btn_enableNotifications"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Enable"
-            android:textSize="10sp"
-            tools:layout_editor_absoluteX="62dp"
-            tools:layout_editor_absoluteY="172dp" />
-    </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/third_linearLayout"
-            android:layout_width="280sp"
-            android:layout_height="234dp"
-            android:layout_gravity="center"
-            android:background="@drawable/customborder_grey"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@drawable/layout_divider"
             android:orientation="vertical"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp">
+            android:showDividers="middle">
+
+            <ImageButton
+                android:id="@+id/backOutFromSettings"
+                android:layout_width="56dp"
+                android:layout_height="37dp"
+                android:background="@null"
+                android:contentDescription="@string/Logo_text"
+                android:onClick="closeSettings"
+                app:srcCompat="@drawable/ic_back_arrow" />
 
             <TextView
-                android:id="@+id/tv_goToBedAt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Go to bed at:"
-                android:textSize="15sp" />
+                android:id="@+id/tv_settingsText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="25dp"
+                android:text="Asetukset"
+                android:textColor="@color/sunKissed_black"
+                android:textSize="23sp"
+                android:textStyle="bold" />
 
-
-            <EditText
-                android:id="@+id/et_goToBed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="22:00"
-                android:inputType="time"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/tv_whatAboutWeekends"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="What about weekends:"
-                android:textSize="15sp" />
-
-            <EditText
-                android:id="@+id/et_goToBedONWeekends"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="23:00"
-                android:inputType="time"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/tv_IwantToSleepFor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="I want to sleep for:"
-                android:textSize="15sp" />
-
-            <EditText
-                android:id="@+id/et_sleephours"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="8"
-                android:inputType="number"
-                android:textSize="20sp" />
-
-
-        </LinearLayout>
-
-        <Button
-        android:id="@+id/btn_saveUserSettings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Save changes"
-        />
-
-    </LinearLayout>
-
+            //profile premium
 
             <LinearLayout
-            android:id="@+id/fourth_linearLayout"
-            android:layout_width="280sp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/customborder_grey"
-            android:orientation="vertical"
-            android:layout_gravity="center"
-            >
+                android:id="@+id/first_linearLayout"
+                android:layout_width="365dp"
+                android:layout_height="170dp"
+                android:layout_marginLeft="25dp"
+                android:background="@drawable/customborder"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
 
                 <TextView
                     android:id="@+id/tv_profile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Profile"
-                    android:textSize="20sp"/>
-
-                <EditText
-                    android:id="@+id/et_username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="Profiilin tiedot"
+                    android:textColor="@color/palm_green"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="Tervetuloa"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:hint="Username" />
+                    android:inputType="textPersonName" />
 
-                <Button
-                    android:id="@+id/btn_orderPremium"
-                    android:layout_width="170sp"
+                <Switch
+                    android:id="@+id/switch_changePremiumStatus"
+                    android:layout_width="match_parent"
                     android:layout_gravity="center"
                     android:layout_height="wrap_content"
-                    android:text="Order premium" />
-                <Button
-                    android:id="@+id/btn_logOut"
-                    android:layout_width="170sp"
-                    android:layout_gravity="center"
-                    android:layout_height="wrap_content"
-                    android:onClick="logOut"
-                    android:text="Log out" />
-
-
+                    android:text="Order premium"
+                    android:textSize="18sp"
+                    tools:ignore="UseSwitchCompatOrMaterialXml" />
             </LinearLayout>
 
+            //change password
+
+
             <LinearLayout
-                android:id="@+id/fifth_linearLayout"
-                android:layout_width="280sp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/customborder_grey"
+                android:id="@+id/second_linearLayout"
+                android:layout_width="365dp"
+                android:layout_height="278dp"
+                android:layout_marginStart="25dp"
+                android:background="@drawable/customborder"
+                android:gravity="center"
                 android:orientation="vertical"
-                android:layout_gravity="center"
-                >
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
 
                 <TextView
                     android:id="@+id/tv_newPassword"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="New Password"
-                    android:textSize="20sp"/>
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/p_ivit_salasana"
+                    android:textColor="@color/palm_green"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/et_oldPassword"
-                    android:hint="old password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:hint="@string/vanha_salasana"
                     android:inputType="textPassword" />
 
                 <EditText
                     android:id="@+id/et_newPassword"
-                    android:hint="New password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:hint="@string/uusi_salasana"
                     android:inputType="textPassword" />
 
                 <EditText
                     android:id="@+id/et_newPassWord_repeat"
-                    android:hint="Repeat new password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:hint="@string/toista_uusi_salasana"
                     android:inputType="textPassword" />
+
+                <Button
+                    android:id="@+id/btn_update_password"
+                    android:layout_width="200sp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/p_ivit_salasana"
+                    android:textColor="@color/white" />
+
 
             </LinearLayout>
 
-            <Button
-                android:id="@+id/btn_update_password"
-                android:layout_width="200sp"
-                android:layout_gravity="center"
-                android:layout_height="wrap_content"
-                android:text="Update password" />
+            //choose theme
 
+            <LinearLayout
+                android:id="@+id/third_linearLayout"
+                android:layout_width="365dp"
+                android:layout_height="110dp"
+                android:layout_marginStart="25dp"
+                android:background="@drawable/customborder"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+
+                <TextView
+                    android:id="@+id/tv_chooseATheme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/vaihda_teema"
+                    android:textColor="@color/palm_green"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/btn_changeTheme"
+                    android:layout_width="206dp"
+                    android:layout_height="31dp"
+                    android:textColor="@color/sunKissed_black"
+                    app:cardBackgroundColor="@color/palm_green"
+                    app:cardCornerRadius="3dp"
+                    app:layout_constraintTop_toBottomOf="@id/text">
+
+                    <TextView
+                        android:id="@+id/buttonTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="NIGHT"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+            //Enable notifications
+
+            <LinearLayout
+                android:id="@+id/forth_linearLayout"
+                android:layout_width="365dp"
+                android:layout_height="115dp"
+                android:layout_marginLeft="25dp"
+                android:background="@drawable/customborder"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+
+                <TextView
+                    android:id="@+id/tv_enableNotifications"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/notifikaatiot"
+                    android:textColor="@color/palm_green"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <Switch
+                    android:id="@+id/switch_changeNotificationStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:text="@string/ChangeNofticationSettings"
+                    tools:ignore="UseSwitchCompatOrMaterialXml"
+                />
+            </LinearLayout>
+
+            //bedtimes
+
+            <LinearLayout
+                android:id="@+id/fifth_linearLayout"
+                android:layout_width="365dp"
+                android:layout_height="321dp"
+                android:layout_marginStart="25dp"
+                android:background="@drawable/customborder"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+
+                <TextView
+                    android:id="@+id/tv_sleepDurationHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/paivitaUniaika"
+                    android:textColor="@color/palm_green"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/tv_goToBedAt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/WhenToGoToBed"
+                    android:textSize="18sp" />
+
+                <Button
+                    android:id="@+id/btn_goToBedAt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/exampleTime"
+                    android:inputType="number"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="111dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvHours"
+                        android:layout_width="44dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="@string/hoursStringResource"
+                        android:textColor="@color/palm_green"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <NumberPicker
+                        android:id="@+id/numberPickerHours"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_saveUserSettings"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/white"
+                    android:text="@string/paivitaUniaika" />
+
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
