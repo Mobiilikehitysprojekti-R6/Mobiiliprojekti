@@ -110,7 +110,6 @@ class Frontpage : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePicke
             adapter.submitList(viewState.entities)
         }
 
-
         viewModel.actions.subscribeToEvents(this) { action ->
             when (action) {
                 is GenericAction.ShowSnackbar -> {
@@ -118,8 +117,6 @@ class Frontpage : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePicke
                         .make(binder.weekView, action.message, Snackbar.LENGTH_SHORT)
                         .setAction("Undo") { action.undoAction() }
                         .show()
-
-
                 }
             }
         }
@@ -128,6 +125,37 @@ class Frontpage : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePicke
         userId = preferences.getString("idUser","").toString()
         println("User ID from SharedPreferences in Frontpage: $userId")
 
+          AndroidNetworking.get("$SERVER_URL/settings/$userId")
+                .setPriority(Priority.HIGH)
+                .build()
+                .getAsJSONArray(object : JSONArrayRequestListener {
+                    override fun onResponse(response: JSONArray) {
+                        println("response = $response")
+
+                        val objectList: JSONObject = response.get(0) as JSONObject
+                        val theme = objectList.get("ThemeColor").toString()
+                        val enableNotifications = objectList.get("EnableNotifications").toString()
+                        val sleepTimeStart = objectList.get("WeekdaySleepTimeStart").toString()
+                        val sleepTimeDuration = objectList.get("SleepTimeDuration").toString()
+
+                        preferencesSettings = getSharedPreferences("mySettings", Context.MODE_PRIVATE)
+                        val edit: SharedPreferences.Editor = preferencesSettings.edit()
+                        try {
+                            edit.putString("userTheme", theme)
+                            edit.putString("enableNotifications", enableNotifications)
+                            edit.putString("sleepTimeStart", sleepTimeStart)
+                            edit.putString("sleepTimeDuration", sleepTimeDuration)
+                            edit.apply()
+                            println("Theme saved to SharedPreferences = $theme")
+                        } catch (e: JSONException) {
+                            e.printStackTrace()
+                        }
+                    }
+                    override fun onError(error: ANError) {
+                        //function does not return anything
+                        println("Failed to retrieve users settings")
+                    }
+                })
 
     }
 
@@ -137,47 +165,9 @@ class Frontpage : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePicke
         return true
     }
 
-    override fun onResume() {
-        super.onResume()
-
-        AndroidNetworking.get("$SERVER_URL/settings/$userId")
-            .setPriority(Priority.HIGH)
-            .build()
-            .getAsJSONArray(object : JSONArrayRequestListener {
-                override fun onResponse(response: JSONArray) {
-                    val toast = Toast.makeText(applicationContext, response.toString(), Toast.LENGTH_SHORT)
-                    //toast.show()
-                    println("response = $response")
-
-                    val objectList: JSONObject = response.get(0) as JSONObject
-                    val theme = objectList.get("ThemeColor").toString()
-                    val enableNotifications = objectList.get("EnableNotifications").toString()
-                    val sleepTimeStart = objectList.get("WeekdaySleepTimeStart").toString()
-                    val sleepTimeDuration = objectList.get("SleepTimeDuration").toString()
-
-                    preferencesSettings = getSharedPreferences("mySettings", Context.MODE_PRIVATE)
-                    val edit: SharedPreferences.Editor = preferencesSettings.edit()
-                    try {
-                        edit.putString("userTheme", theme)
-                        edit.putString("enableNotifications", enableNotifications)
-                        edit.putString("sleepTimeStart", sleepTimeStart)
-                        edit.putString("sleepTimeDuration", sleepTimeDuration)
-                        edit.apply()
-                        println("Theme saved to SharedPreferences = $theme")
-                    } catch (e: JSONException) {
-                        e.printStackTrace()
-                    }
-                }
-                override fun onError(error: ANError) {
-                    //TODO: handle error on task get request
-                }
-            })
-    }
-
     override fun syncTheme(appTheme: AppTheme) {
         // change ui colors with new appThem here
         val myAppTheme = appTheme as MyAppTheme
-
         binder.root.setBackgroundColor(myAppTheme.activityBackgroundColor(this))
         binder.weekView.headerBackgroundColor = myAppTheme.activityBackgroundColor(this)
         binder.weekView.timeColumnBackgroundColor = myAppTheme.activityBackgroundColor(this)
@@ -202,8 +192,6 @@ class Frontpage : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePicke
 
         preferencesSettings = getSharedPreferences("mySettings", Context.MODE_PRIVATE)
         val startTheme = preferencesSettings.getString("userTheme","").toString()
-        println("This is the theme in frontpage: $startTheme")
-
         //change the theme to match users theme
         if(startTheme.isNotEmpty()) {
             when {

@@ -17,6 +17,7 @@ import com.dolatkia.animatedThemeManager.AppTheme
 import com.dolatkia.animatedThemeManager.ThemeActivity
 import com.example.aikataulusuunnitteluapp.data.SERVER_URL
 import com.example.aikataulusuunnitteluapp.databinding.ActivityAddTaskBinding
+import com.example.aikataulusuunnitteluapp.themes.LightTheme
 import com.example.aikataulusuunnitteluapp.themes.MyAppTheme
 import com.example.aikataulusuunnitteluapp.themes.NightTheme
 import org.json.JSONObject
@@ -27,7 +28,9 @@ import java.util.*
 class AddTask : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var settingsPreferences: SharedPreferences
     private lateinit var userId: String
+    private lateinit var userTheme: String
     private  var hexColor: String = "#ff0000"
 
     private val cal: Calendar = Calendar.getInstance()
@@ -61,6 +64,8 @@ class AddTask : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePickerD
         title = findViewById(R.id.et_addTaskHeader)
         duration = findViewById(R.id.et_addTaskDuration)
         location = findViewById(R.id.et_location)
+        settingsPreferences = getSharedPreferences("mySettings", Context.MODE_PRIVATE)
+
         sharedPreferences = getSharedPreferences("myID", Context.MODE_PRIVATE)
         userId = sharedPreferences.getString("idUser","").toString()
 
@@ -88,7 +93,10 @@ class AddTask : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePickerD
                     }
 
                     override fun onError(err: ANError?) {
-                        //TODO("Not yet implemented")
+                        if (err != null) {
+                            println("Error: ${err.errorBody}")
+                        }
+                        println("There was an error submitting the task")
                     }
                 })
         }
@@ -137,6 +145,7 @@ class AddTask : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePickerD
         binder.tvChooseCategoty.setTextColor(myAppTheme.activityHintColor(this))
         binder.tvTaskDuration.setTextColor(myAppTheme.activityHintColor(this))
         binder.tvStartingTime.setTextColor(myAppTheme.activityHintColor(this))
+
         //edit texts
         binder.etAddTaskHeader.setHintTextColor(myAppTheme.activityHintColor(this))
         binder.etLocation.setHintTextColor(myAppTheme.activityHintColor(this))
@@ -162,7 +171,20 @@ class AddTask : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePickerD
     }
 
     override fun getStartTheme(): AppTheme {
-        return NightTheme()
+        settingsPreferences = getSharedPreferences("mySettings", Context.MODE_PRIVATE)
+        val startTheme = settingsPreferences.getString("userTheme", "").toString()
+        //change the theme to match users theme
+        if (startTheme.isNotEmpty()) {
+            when {
+                startTheme.contains("Night") -> {
+                    return NightTheme()
+                }
+                startTheme.contains("Light") -> {
+                    return LightTheme()
+                }
+            }
+        }
+        return LightTheme()
     }
 
 

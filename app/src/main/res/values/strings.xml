@@ -43,6 +43,7 @@
     <string name="kirjaudu">Kirjaudu</string>
     <string name="rekisteroidy">Rekisteröidy</string>
     <string name="kayttaja_tunnuts">Käyttäjätunnuts</string>
+    <string name="minuutit">Minuutit</string>
     <string name="asetukset">Asetukset</string>
     <string name="kayttaj_tiedot">Käyttäjä tiedot</string>
     <string name="toista_salasana">Toista salasana</string>

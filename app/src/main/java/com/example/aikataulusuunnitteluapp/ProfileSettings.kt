@@ -27,6 +27,8 @@ import com.example.aikataulusuunnitteluapp.themes.NightTheme
 import org.json.JSONException
 import org.json.JSONObject
 import java.text.SimpleDateFormat
+import java.time.Duration
+import java.time.LocalTime
 import java.util.*
 
 
@@ -40,64 +42,83 @@ class ProfileSettings : ThemeActivity(), TimePickerDialog.OnTimeSetListener {
     lateinit var themeId: String
     lateinit var sleepTimeStart: String
     lateinit var sleepTimeDuration: String
-    lateinit var enableNotfications: String
+    lateinit var enableNotifications: String
     lateinit var premiumMessage: String
     private var hour = cal.get(Calendar.HOUR_OF_DAY)
     private var minute = cal.get(Calendar.MINUTE)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // full screen app
-
+        // full screen app->makes a transparent status bar
         window.setFlags(
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )
-
-
         // create and bind views
         binder = ActivityProfileSettingsBinding.inflate(LayoutInflater.from(this))
         setContentView(binder.root)
 
+        //retrieve user id from shared preferences
         myIdPreferences = getSharedPreferences("myID", Context.MODE_PRIVATE)
         val premiumStatus = myIdPreferences.getString("premiumStatus", "").toString()
-        println("This is the premiumstatus: $premiumStatus")
         if (premiumStatus == "1") {
             //if premium status is checked
             println("premiumstatus if function works")
             binder.switchChangePremiumStatus.isChecked = true
         }
         userId = myIdPreferences.getString("idUser", "").toString()
-
         val username = myIdPreferences.getString("username", "").toString()
         binder.tvUsername.text = "Käyttäjänimi: $username"
 
+        //retrieve sleeptimestart and sleeptimeduration from shared preferences
         themePreferences = getSharedPreferences("mySettings", Context.MODE_PRIVATE)
         sleepTimeStart = themePreferences.getString("sleepTimeStart", "").toString()
-        println("This is the sleeptime of the user: $sleepTimeStart")
         sleepTimeDuration = themePreferences.getString("sleepTimeDuration", "").toString()
-        println("This is the users sleep duration: $sleepTimeDuration")
+        enableNotifications = themePreferences.getString("enableNotifications", "").toString()
+
+        //set button text to users sleeptimestart
         binder.btnGoToBedAt.text = sleepTimeStart
 
-        enableNotfications = themePreferences.getString("enableNotifications", "").toString()
-        if (enableNotfications == "1") {
+        //if user has notifications on --> set switch as checked
+        if (enableNotifications == "1") {
             //if premium status is checked
             println("premiumstatus if function works")
             binder.switchChangeNotificationStatus.isChecked = true
         }
 
-        //Number picker
+        //Number pickers
         val numberPickerHours = findViewById<NumberPicker>(R.id.numberPickerHours)
+        val numberPickerMinutes = findViewById<NumberPicker>(R.id.numberPickerMinutes)
+
+        //set min and max limits
         numberPickerHours.minValue = 1
-        numberPickerHours.maxValue = 12
-        numberPickerHours.value = sleepTimeDuration.toInt()
+        numberPickerHours.maxValue = 23
+        numberPickerMinutes.minValue = 1
+        numberPickerMinutes.maxValue = 60
+        //set number picker wheel not to wrap
         numberPickerHours.wrapSelectorWheel = false
+        numberPickerMinutes.wrapSelectorWheel = false
 
         numberPickerHours.setOnValueChangedListener { picker, oldVal, newVal ->
             //Display the newly selected number to text view
             println("Selected Hour Value : $newVal")
             sleepTimeDuration = binder.numberPickerHours.value.toString()
         }
+        //parse the sleeptimeduration from minutes to hours and minutes
+        val hours  = sleepTimeDuration.toInt().div(60)
+        val minutes = sleepTimeDuration.toInt()-hours*60
+        println("Users hours: $hours and minutes: $minutes")
+
+        //set number picker values to represent values of the sharedPrefs
+        if (hours== 0) {
+            numberPickerHours.value = 0
+            numberPickerMinutes.value = minutes
+        }
+        else {
+            numberPickerHours.value = hours
+            numberPickerMinutes.value = minutes
+        }
+
         // set change theme click listeners for buttons
         updateButtonText()
         binder.btnChangeTheme.setOnClickListener {
@@ -108,7 +129,6 @@ class ProfileSettings : ThemeActivity(), TimePickerDialog.OnTimeSetListener {
             } else if (ThemeManager.instance.getCurrentTheme()
                     ?.id() != NightTheme.ThemeId
             ) {
-                //TODO: create a new async function to disable the button for a few seconds
                 ThemeManager.instance.changeTheme(NightTheme(), it)
             }
             updateButtonText()
@@ -126,7 +146,6 @@ class ProfileSettings : ThemeActivity(), TimePickerDialog.OnTimeSetListener {
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
-
                 AndroidNetworking.put("$SERVER_URL/settings/editpassword")
                     .addJSONObjectBody(jsonObject)
                     .build()
@@ -144,7 +163,6 @@ class ProfileSettings : ThemeActivity(), TimePickerDialog.OnTimeSetListener {
                             println("password updated")
                             finish()
                         }
-
                         override fun onError(error: ANError?) {
                             if (error != null) {
                                 println("Error: ${error.errorBody}")
@@ -161,18 +179,13 @@ class ProfileSettings : ThemeActivity(), TimePickerDialog.OnTimeSetListener {
             }
         }
         binder.switchChangePremiumStatus.setOnCheckedChangeListener { buttonView, isChecked ->
-            // do something, the isChecked will be
-            // true if the switch is in the On position
             val jsonObject = JSONObject()
-            myIdPreferences = getSharedPreferences("myID", Context.MODE_PRIVATE)
-            val usersPremiumStatus = myIdPreferences.getString("premiumStatus", "").toString()
-            println("This is the premium status in SettingsProfile: $usersPremiumStatus")
             val userId = myIdPreferences.getString("idUser", "").toString()
-
             if (binder.switchChangePremiumStatus.isChecked) {
                 //if premium status is checked
                 try {
                     jsonObject.put("premiumStatus", 1)
+                    jsonObject.put("idUser", userId)
                     premiumMessage = "Premium ordered"
                 } catch (e: JSONException) {
                     e.printStackTrace()
@@ -186,8 +199,7 @@ class ProfileSettings : ThemeActivity(), TimePickerDialog.OnTimeSetListener {
                     e.printStackTrace()
                 }
             }
-
-            AndroidNetworking.put("$SERVER_URL/settings/editpremiumstatus/$userId")
+            AndroidNetworking.put("$SERVER_URL/settings/editpremiumstatus")
                 .addJSONObjectBody(jsonObject)
                 .build()
                 .getAsString(object : StringRequestListener {
@@ -198,8 +210,14 @@ class ProfileSettings : ThemeActivity(), TimePickerDialog.OnTimeSetListener {
                             Toast.LENGTH_SHORT
                         ).show()
                         println("premium status updated")
+                       val edit: SharedPreferences.Editor =  myIdPreferences.edit()
+                        try {
+                            edit.putString("premiumStatus", premiumStatus)
+                            edit.apply()
+                        } catch (e: JSONException) {
+                            e.printStackTrace()
+                        }
                     }
-
                     override fun onError(error: ANError?) {
                         if (error != null) {
                             println("Error: ${error.errorBody}")
@@ -211,29 +229,27 @@ class ProfileSettings : ThemeActivity(), TimePickerDialog.OnTimeSetListener {
 
         binder.switchChangeNotificationStatus.setOnCheckedChangeListener { buttonView, isChecked ->
             val jsonObject = JSONObject()
-            themePreferences = getSharedPreferences("mySettings", Context.MODE_PRIVATE)
-            val usersNotificationStatus = themePreferences.getString("enableNotifications", "").toString()
-            //val userId = themePreferences.getString("idUser", "").toString()
 
             if (binder.switchChangeNotificationStatus.isChecked) {
                 //if premium status is checked
                 try {
                     println("status 1")
                     jsonObject.put("notificationStatus", 1)
+                    jsonObject.put("idUser", userId)
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
-            } else
-                { //if premium status is unchecked
+            } else {
+                 //if premium status is unchecked
                 try {
                     println("status 0")
                     jsonObject.put("notificationStatus", 0)
+                    jsonObject.put("idUser", userId)
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
             }
-
-            AndroidNetworking.put("$SERVER_URL/settings/editnotificationstatus/$userId")
+            AndroidNetworking.put("$SERVER_URL/settings/editnotificationstatus")
                 .addJSONObjectBody(jsonObject)
                 .build()
                 .getAsString(object : StringRequestListener {
@@ -245,7 +261,6 @@ class ProfileSettings : ThemeActivity(), TimePickerDialog.OnTimeSetListener {
                         ).show()
                         println("Notifications enabled")
                     }
-
                     override fun onError(error: ANError?) {
                         if (error != null) {
                             println("Error: ${error.errorBody}")
@@ -257,16 +272,18 @@ class ProfileSettings : ThemeActivity(), TimePickerDialog.OnTimeSetListener {
 
         binder.btnSaveUserSettings.setOnClickListener {
             val jsonObject = JSONObject()
+            //count the hours and minutes together
+            val totalHours = (60*binder.numberPickerHours.value) + binder.numberPickerMinutes.value
 
             try {
                 jsonObject.put("sleepTimeStart", binder.btnGoToBedAt.text.toString())
-                jsonObject.put("sleepTimeDuration", binder.numberPickerHours.value)
+                jsonObject.put("sleepTimeDuration",totalHours.toString())
+                jsonObject.put("idUser", userId)
             } catch (e: JSONException) {
                 e.printStackTrace()
             }
-            AndroidNetworking.put("$SERVER_URL/settings/editSleepInformation/$userId")
+            AndroidNetworking.put("$SERVER_URL/settings/editSleepInformation")
                 .addJSONObjectBody(jsonObject)
-                .setPriority(Priority.MEDIUM)
                 .build()
                 .getAsString(object : StringRequestListener {
                     override fun onResponse(response: String?) {
@@ -277,7 +294,6 @@ class ProfileSettings : ThemeActivity(), TimePickerDialog.OnTimeSetListener {
                             Toast.LENGTH_SHORT
                         ).show()
                     }
-
                     override fun onError(error: ANError?) {
                         if (error != null) {
                             println("Error: ${error.errorBody}")
@@ -295,7 +311,6 @@ class ProfileSettings : ThemeActivity(), TimePickerDialog.OnTimeSetListener {
                 true
             ).show() // Opens timepicker when clicking ok in datepicker
         }
-
     }
 
     //this function changes the colors of the different views
@@ -319,6 +334,9 @@ class ProfileSettings : ThemeActivity(), TimePickerDialog.OnTimeSetListener {
         binder.tvNewPassword.setTextColor(myAppTheme.activityHintColor(this))
         binder.tvUsername.setTextColor(myAppTheme.activityTextColor(this))
         binder.tvHours.setTextColor(myAppTheme.activityTextColor(this))
+        binder.switchChangeNotificationStatus.setTextColor(myAppTheme.activityTextColor(this))
+        binder.tvMinutes.setTextColor(myAppTheme.activityTextColor(this))
+        //change the color of all the edit texts
         binder.tvUsername.setHintTextColor(myAppTheme.activityHintColor(this))
         //change the color of all the edit texts
         binder.etOldPassword.setHintTextColor(myAppTheme.activityTextColor(this))
@@ -326,8 +344,10 @@ class ProfileSettings : ThemeActivity(), TimePickerDialog.OnTimeSetListener {
         binder.etNewPassWordRepeat.setHintTextColor(myAppTheme.activityTextColor(this))
         //switch
         binder.switchChangePremiumStatus.setTextColor(myAppTheme.activityTextColor(this))
+        //binder.switchChangePremiumStatus.setBackgroundColor(myAppTheme.activityBackgroundColor(this))
+      //return arrow
         binder.switchChangeNotificationStatus.setTextColor(myAppTheme.activityTextColor(this))
-        //change the color of the arrow
+
         binder.backOutFromSettings.setColorFilter(myAppTheme.activityIconColor(this))
         //change number picker text color
         binder.btnChangeTheme.setCardBackgroundColor(appTheme.activityThemeButtonColor(this))
@@ -335,10 +355,10 @@ class ProfileSettings : ThemeActivity(), TimePickerDialog.OnTimeSetListener {
             binder.numberPickerHours.textColor = appTheme.activityTextColor(this)
         }
         //syncStatusBarIconColors
-        syncStatusBarIconColors(appTheme)
+       // syncStatusBarIconColors(appTheme)
     }
 
-    private fun syncStatusBarIconColors(theme: MyAppTheme) {
+/*    private fun syncStatusBarIconColors(theme: MyAppTheme) {
         ThemeManager.instance.syncStatusBarIconsColorWithBackground(
             this,
             theme.activityBackgroundColor(this)
@@ -347,7 +367,7 @@ class ProfileSettings : ThemeActivity(), TimePickerDialog.OnTimeSetListener {
             this,
             theme.activityBackgroundColor(this)
         )
-    }
+    }*/
 
     private fun updateButtonText() {
         if (ThemeManager.instance.getCurrentTheme()?.id() == NightTheme.ThemeId) {
@@ -390,9 +410,7 @@ class ProfileSettings : ThemeActivity(), TimePickerDialog.OnTimeSetListener {
                         e.printStackTrace()
                     }
                 }
-
                 override fun onError(error: ANError?) {
-                    //TODO: handle error
                     if (error != null) {
                         println("Error: ${error.errorBody}")
                     }

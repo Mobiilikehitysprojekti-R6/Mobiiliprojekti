@@ -294,7 +294,7 @@
 
                     <TextView
                         android:id="@+id/tvHours"
-                        android:layout_width="44dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text="@string/hoursStringResource"
@@ -304,6 +304,22 @@
 
                     <NumberPicker
                         android:id="@+id/numberPickerHours"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp" />
+
+                    <TextView
+                        android:id="@+id/tvMinutes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="@string/minuutit"
+                        android:textColor="@color/palm_green"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <NumberPicker
+                        android:id="@+id/numberPickerMinutes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="20dp" />
