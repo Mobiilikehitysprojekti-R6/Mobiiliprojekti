@@ -135,7 +135,6 @@ class AddTask : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePickerD
         binder.root.setBackgroundColor(myAppTheme.activityBackgroundColor(this))
         //change the color of the arrow
         binder.backOutFromAddTask.setColorFilter(myAppTheme.activityIconColor(this))
-        binder.backOutFromAddTask.setBackgroundColor(myAppTheme.activityBackgroundColor(this))
         //buttons
         binder.btnSubmitTask.setBackgroundColor(myAppTheme.activityThemeButtonColor(this))
         binder.btnTimePicker.setTextColor(myAppTheme.activityTextColor(this))

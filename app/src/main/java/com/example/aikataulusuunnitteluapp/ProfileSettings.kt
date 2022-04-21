@@ -194,6 +194,7 @@ class ProfileSettings : ThemeActivity(), TimePickerDialog.OnTimeSetListener {
                 //if premium status is unchecked
                 try {
                     jsonObject.put("premiumStatus", 0)
+                    jsonObject.put("idUser", userId)
                     premiumMessage = "Premium cancelled"
                 } catch (e: JSONException) {
                     e.printStackTrace()
@@ -344,36 +345,22 @@ class ProfileSettings : ThemeActivity(), TimePickerDialog.OnTimeSetListener {
         binder.etNewPassWordRepeat.setHintTextColor(myAppTheme.activityTextColor(this))
         //switch
         binder.switchChangePremiumStatus.setTextColor(myAppTheme.activityTextColor(this))
-        //binder.switchChangePremiumStatus.setBackgroundColor(myAppTheme.activityBackgroundColor(this))
-      //return arrow
+        //return arrow
         binder.switchChangeNotificationStatus.setTextColor(myAppTheme.activityTextColor(this))
-
         binder.backOutFromSettings.setColorFilter(myAppTheme.activityIconColor(this))
         //change number picker text color
         binder.btnChangeTheme.setCardBackgroundColor(appTheme.activityThemeButtonColor(this))
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             binder.numberPickerHours.textColor = appTheme.activityTextColor(this)
+            binder.numberPickerMinutes.textColor = appTheme.activityTextColor(this)
         }
-        //syncStatusBarIconColors
-       // syncStatusBarIconColors(appTheme)
     }
-
-/*    private fun syncStatusBarIconColors(theme: MyAppTheme) {
-        ThemeManager.instance.syncStatusBarIconsColorWithBackground(
-            this,
-            theme.activityBackgroundColor(this)
-        )
-        ThemeManager.instance.syncNavigationBarButtonsColorWithBackground(
-            this,
-            theme.activityBackgroundColor(this)
-        )
-    }*/
 
     private fun updateButtonText() {
         if (ThemeManager.instance.getCurrentTheme()?.id() == NightTheme.ThemeId) {
-            binder.buttonTextView.text = "Light"
+            "Light".also { binder.buttonTextView.text = it }
         } else {
-            binder.buttonTextView.text = "Night"
+            "Night".also { binder.buttonTextView.text = it }
         }
     }
 
