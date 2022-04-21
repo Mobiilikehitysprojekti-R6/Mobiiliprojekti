@@ -88,7 +88,7 @@ class AddTask : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePickerD
                     }
 
                     override fun onError(err: ANError?) {
-                        TODO("Not yet implemented")
+                        //TODO("Not yet implemented")
                     }
                 })
         }

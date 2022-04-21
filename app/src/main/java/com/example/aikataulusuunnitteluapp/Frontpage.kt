@@ -187,7 +187,7 @@ class Frontpage : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePicke
         binder.weekView.dayBackgroundColor = myAppTheme.activityHintColor(this)
         //change the color of the floating action button
         //binder.addTaskBtn.backgroundTintList = ColorStateList.valueOf(myAppTheme.activityThemeButtonColor(this))
-        binder.addTaskBtn.backgroundTintList = ColorStateList.valueOf(myAppTheme.activityHintColor(this))
+        binder.addTaskBtn.backgroundTintList = ColorStateList.valueOf(myAppTheme.activityButtonColor(this))
     }
 
     override fun getStartTheme(): AppTheme {

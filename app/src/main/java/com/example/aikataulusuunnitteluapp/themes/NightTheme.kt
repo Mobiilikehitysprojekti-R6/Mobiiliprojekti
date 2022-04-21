@@ -32,6 +32,11 @@ class NightTheme : MyAppTheme {
     override fun activityTextColor(context: Context): Int {
         return ContextCompat.getColor(context, R.color.light_grey)
     }
+
+    override fun activityButtonColor(context: Context): Int {
+        return ContextCompat.getColor(context, R.color.sunKissed_green)
+    }
+
     override fun activityHintColor(context: Context): Int {
         return ContextCompat.getColor(context, R.color.palm_green)
     }
