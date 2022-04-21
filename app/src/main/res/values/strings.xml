@@ -60,6 +60,7 @@
     <string name="kirjaudu">Kirjaudu</string>
     <string name="rekisteroidy">Rekisteröidy</string>
     <string name="kayttaja_tunnuts">Käyttäjätunnuts</string>
+    <string name="minuutit">Minuutit</string>
 
 
 </resources>

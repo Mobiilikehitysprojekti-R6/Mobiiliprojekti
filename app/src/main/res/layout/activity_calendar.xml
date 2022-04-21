@@ -30,6 +30,7 @@
         app:headerBottomShadowRadius="4dp"
         app:headerPadding="8dp"
         app:headerTextColor="@color/sunKissed_black"
+        app:headerBackgroundColor="@null"
         app:hourHeight="60dp"
         app:nowLineDotRadius="5dp"
         app:nowLineStrokeWidth="2dp"
