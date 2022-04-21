@@ -1,23 +1,8 @@
 <resources>
     <string name="app_name">TimeCoach</string>
     <string name="Logo_text">App Logo</string>
-    <string name="login">Log in</string>
-    <string name="frontpagetext">You have arrived on the frontpage</string>
-    <string name="GoToCalendar">Go to calendar</string>
-    <string name="Username">Username</string>
-    <string name="Register">Register</string>
-    <string name="Password">Password</string>
-    <string name="Notifications">Do you want to enable notifications? (y/n)</string>
-    <string name="ThemeColor">What theme color do you want?</string>
-    <string name="SleepTimeStart">When do you want to go to sleep? Example: 21:00</string>
-    <string name="SleepTimeDuration">How many hours do you want to sleep for? Example: 9</string>
-    <string name="NotAMember">Not a member yet?</string>
-    <string name="TimeOfDay">Monday 21.03.2022</string>
     <string name="seuraava">Seuraava</string>
     <string name="lisaaTehtava">Lisää tehtävä</string>
-    <string name="Apply">Apply</string>
-
-
 
     <string name="TimeCoachAbout">
     Tämä sovellus on luotu opiskelijaprojektina vuoden 2022 huhtikuussa. Projektin jäsenet: SM, SK, VE ja JV.
@@ -28,8 +13,6 @@
     <string name="paikka">Paikka:</string>
     <string name="kesto_minuutteina">Kesto minuutteina:</string>
     <string name="muuta_ajankohta">Muuta ajankohta</string>
-    <string name="new_password">New Password</string>
-    <string name="profile_info">Profile Info</string>
     <string name="tilaa_premium">Tilaa premium</string>
     <string name="toista_uusi_salasana">Toista uusi salasana</string>
     <string name="uusi_salasana">Uusi salasana</string>
@@ -61,6 +44,16 @@
     <string name="rekisteroidy">Rekisteröidy</string>
     <string name="kayttaja_tunnuts">Käyttäjätunnuts</string>
     <string name="minuutit">Minuutit</string>
+    <string name="asetukset">Asetukset</string>
+    <string name="kayttaj_tiedot">Käyttäjä tiedot</string>
+    <string name="toista_salasana">Toista salasana</string>
+    <string name="tallenna">Tallenna</string>
+    <string name="minuutteja">Minuutteja</string>
+    <string name="tunteja">Tunteja</string>
+    <string name="nukkumaanmenoaika">Nukkumaanmenoaika</string>
+    <string name="lisaa_aika">Lisää aika</string>
+    <string name="lisaa_tavoite_nukkumamenoaika">Lisää tavoite nukkumamenoaika</string>
+    <string name="tavoite_uniaika">Tavoite uniaika?</string>
 
 
 </resources>

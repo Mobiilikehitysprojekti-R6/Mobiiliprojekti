@@ -10,9 +10,8 @@
     <ScrollView
         android:id="@+id/root_layout"
         android:layout_width="match_parent"
-        android:layout_marginBottom="10dp"
         android:layout_height="wrap_content"
-        >
+        android:layout_marginBottom="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,8 +33,8 @@
                 android:id="@+id/tv_settingsText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="25dp"
-                android:text="Asetukset"
+                android:layout_marginStart="25dp"
+                android:text="@string/asetukset"
                 android:textColor="@color/sunKissed_black"
                 android:textSize="23sp"
                 android:textStyle="bold" />
@@ -46,7 +45,7 @@
                 android:id="@+id/first_linearLayout"
                 android:layout_width="365dp"
                 android:layout_height="170dp"
-                android:layout_marginLeft="25dp"
+                android:layout_marginStart="25dp"
                 android:background="@drawable/customborder"
                 android:gravity="center"
                 android:orientation="vertical"
@@ -58,28 +57,30 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:text="Profiilin tiedot"
+                    android:text="Premium"
                     android:textColor="@color/palm_green"
                     android:textSize="20sp"
                     android:textStyle="bold" />
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp" />
 
                 <TextView
                     android:id="@+id/tv_username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:text="Tervetuloa"
                     android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:ems="10"
-                    android:inputType="textPersonName" />
+                    android:textSize="18sp" />
 
                 <Switch
                     android:id="@+id/switch_changePremiumStatus"
                     android:layout_width="match_parent"
-                    android:layout_gravity="center"
                     android:layout_height="wrap_content"
-                    android:text="Order premium"
+                    android:layout_gravity="center"
+                    android:text="Aktivoi premium tilisi"
                     android:textSize="18sp"
                     tools:ignore="UseSwitchCompatOrMaterialXml" />
             </LinearLayout>
@@ -107,6 +108,11 @@
                     android:textColor="@color/palm_green"
                     android:textSize="20sp"
                     android:textStyle="bold" />
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp" />
 
                 <EditText
                     android:id="@+id/et_oldPassword"
@@ -167,6 +173,11 @@
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp" />
+
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/btn_changeTheme"
                     android:layout_width="206dp"
@@ -209,17 +220,22 @@
                     android:layout_marginBottom="10dp"
                     android:text="@string/notifikaatiot"
                     android:textColor="@color/palm_green"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp" />
 
                 <Switch
                     android:id="@+id/switch_changeNotificationStatus"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"
+                    android:layout_gravity="center"
                     android:text="@string/ChangeNofticationSettings"
-                    tools:ignore="UseSwitchCompatOrMaterialXml"
-                />
+                    android:textSize="18sp"
+                    tools:ignore="UseSwitchCompatOrMaterialXml" />
             </LinearLayout>
 
             //bedtimes
@@ -245,11 +261,18 @@
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp" />
+
 
                 <TextView
                     android:id="@+id/tv_goToBedAt"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="15sp"
                     android:text="@string/WhenToGoToBed"
                     android:textSize="18sp" />
 
@@ -308,8 +331,8 @@
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:textColor="@color/white"
-                    android:text="@string/paivitaUniaika" />
+                    android:text="@string/paivitaUniaika"
+                    android:textColor="@color/white" />
 
             </LinearLayout>
 

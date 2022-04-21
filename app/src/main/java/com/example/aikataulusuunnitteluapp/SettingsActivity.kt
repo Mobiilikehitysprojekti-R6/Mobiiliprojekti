@@ -49,6 +49,7 @@ class SettingsActivity : AppCompatActivity(), TimePickerDialog.OnTimeSetListener
 
         timepickerButton.setOnClickListener {
             TimePickerDialog(this,this, hour, minute, true).show()
+
         }
 
         numberPickerHours.setOnValueChangedListener { picker, oldVal, newVal ->

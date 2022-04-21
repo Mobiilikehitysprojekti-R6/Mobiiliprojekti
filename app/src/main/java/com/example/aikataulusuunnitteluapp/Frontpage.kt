@@ -77,15 +77,15 @@ class Frontpage : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePicke
 
     override fun onBackPressed() {
         val builder = AlertDialog.Builder(this@Frontpage)
-        builder.setTitle("Do you want to log out?")
-        builder.setPositiveButton("YES"){dialogInterface, which ->
+        builder.setTitle("Halutko Kirjautua ulos??")
+        builder.setPositiveButton("KYLLÄ"){dialogInterface, which ->
             val editor : SharedPreferences.Editor = preferences.edit()
             editor.clear()
             editor.apply()
             startActivity(Intent(this@Frontpage, MainActivity::class.java))
             finish()
         }
-        builder.setNegativeButton("NO"){dialogInterface, which ->
+        builder.setNegativeButton("EI"){dialogInterface, which ->
         }
         builder.show()
     }
@@ -176,8 +176,8 @@ class Frontpage : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePicke
         //the color change of the days doesn't work
         binder.weekView.dayBackgroundColor = myAppTheme.activityHintColor(this)
         //change the color of the floating action button
-        binder.addTaskBtn.backgroundTintList = ColorStateList.valueOf(myAppTheme.activityThemeButtonColor(this))
-        binder.addTaskBtn.setColorFilter(myAppTheme.activityIconColor(this))
+        //binder.addTaskBtn.backgroundTintList = ColorStateList.valueOf(myAppTheme.activityThemeButtonColor(this))
+        binder.addTaskBtn.backgroundTintList = ColorStateList.valueOf(myAppTheme.activityButtonColor(this))
     }
 
     override fun getStartTheme(): AppTheme {
@@ -241,7 +241,7 @@ class Frontpage : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePicke
         if(calendarView.numberOfVisibleDays != 1) {
             calendarView.numberOfVisibleDays = 1
         } else {
-            val toast = Toast.makeText(applicationContext, "The number of days is already 1!", Toast.LENGTH_SHORT)
+            val toast = Toast.makeText(applicationContext, "Päivien määrät ovat jo 1!", Toast.LENGTH_SHORT)
             toast.show()
         }
     }
@@ -250,7 +250,7 @@ class Frontpage : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePicke
         if(calendarView.numberOfVisibleDays != 3) {
             calendarView.numberOfVisibleDays = 3
         } else {
-            val toast = Toast.makeText(applicationContext, "The number of days is already 3!", Toast.LENGTH_SHORT)
+            val toast = Toast.makeText(applicationContext, "Päivien määrät ovat jo 3!", Toast.LENGTH_SHORT)
             toast.show()
         }
     }
@@ -259,7 +259,7 @@ class Frontpage : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePicke
         if(calendarView.numberOfVisibleDays != 7) {
             calendarView.numberOfVisibleDays = 7
         } else {
-            val toast = Toast.makeText(applicationContext, "The number of days is already 7!", Toast.LENGTH_SHORT)
+            val toast = Toast.makeText(applicationContext, "Päivien määrät ovat jo 7!", Toast.LENGTH_SHORT)
             toast.show()
         }
     }

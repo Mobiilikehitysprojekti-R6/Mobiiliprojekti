@@ -11,4 +11,5 @@ interface MyAppTheme : AppTheme {
     fun activityTextColor(context: Context): Int
     fun activityHintColor(context: Context): Int
     fun activityThemeButtonColor(context: Context): Int
+    fun activityButtonColor(context: Context): Int
 }
