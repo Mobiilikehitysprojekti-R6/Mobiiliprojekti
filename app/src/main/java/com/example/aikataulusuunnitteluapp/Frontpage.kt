@@ -245,6 +245,7 @@ class Frontpage : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePicke
 
     fun toAboutUsPage(item: MenuItem) {
         startActivity(Intent(this@Frontpage, AboutUs::class.java))
+        finish()
     }
 
     fun selectOneDay(item: MenuItem) {
