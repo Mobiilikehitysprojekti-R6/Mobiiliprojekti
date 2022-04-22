@@ -17,11 +17,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
-import android.view.*
-import android.widget.Button
-import android.widget.PopupMenu
-import android.widget.Toast
 import com.alamkanak.weekview.WeekViewEntity
 import com.alamkanak.weekview.jsr310.WeekViewPagingAdapterJsr310
 import com.alamkanak.weekview.jsr310.scrollToDateTime
@@ -33,7 +28,6 @@ import com.androidnetworking.interfaces.JSONArrayRequestListener
 import com.androidnetworking.interfaces.StringRequestListener
 import com.dolatkia.animatedThemeManager.AppTheme
 import com.dolatkia.animatedThemeManager.ThemeActivity
-import com.dolatkia.animatedThemeManager.ThemeManager
 import com.example.aikataulusuunnitteluapp.data.SERVER_URL
 import com.example.aikataulusuunnitteluapp.data.model.CalendarEntity
 import com.example.aikataulusuunnitteluapp.data.model.toWeekViewEntity
@@ -52,10 +46,10 @@ import java.time.LocalDateTime
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 import java.util.*
-import com.example.aikataulusuunnitteluapp.BasicActivityWeekViewAdapter
 import kotlin.properties.Delegates
 
-class Frontpage : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener  {
+class Frontpage : ThemeActivity(), DatePickerDialog.OnDateSetListener,
+    TimePickerDialog.OnTimeSetListener {
 
     lateinit var userId: String
     private val weekdayFormatter = DateTimeFormatter.ofPattern("EEE", Locale.getDefault())
@@ -63,23 +57,22 @@ class Frontpage : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePicke
     lateinit var preferences: SharedPreferences
     lateinit var preferencesSettings: SharedPreferences
     private lateinit var calendarView: com.alamkanak.weekview.WeekView
-
     private val cal: Calendar = Calendar.getInstance()
     private var dayOfMonth by Delegates.notNull<Int>()
     private var month by Delegates.notNull<Int>()
     private var year by Delegates.notNull<Int>()
     private var hour by Delegates.notNull<Int>()
     private var minute by Delegates.notNull<Int>()
-
     private lateinit var binder: ActivityCalendarBinding
 
     private val viewModel by genericViewModel()
 
+    //override backbutton to trigger a dialog window that asks if the user want to log out
     override fun onBackPressed() {
         val builder = AlertDialog.Builder(this@Frontpage)
         builder.setTitle("Haluatko Kirjautua ulos?")
-        builder.setPositiveButton("KYLLÄ"){dialogInterface, which ->
-            var editor : SharedPreferences.Editor = preferences.edit()
+        builder.setPositiveButton("KYLLÄ") { dialogInterface, which ->
+            var editor: SharedPreferences.Editor = preferences.edit()
             editor.clear()
             editor.apply()
             editor = preferencesSettings.edit()
@@ -88,7 +81,7 @@ class Frontpage : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePicke
             startActivity(Intent(this@Frontpage, MainActivity::class.java))
             finish()
         }
-        builder.setNegativeButton("EI"){dialogInterface, which ->
+        builder.setNegativeButton("EI") { dialogInterface, which ->
         }
         builder.show()
     }
@@ -98,11 +91,11 @@ class Frontpage : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePicke
         binder = ActivityCalendarBinding.inflate(LayoutInflater.from(this))
         setContentView(binder.root)
 
+        //crete an adapter that processes the content of the frontpage Weekview-component
         val adapter = BasicActivityWeekViewAdapter(
             loadMoreHandler = viewModel::fetchEvents,
         )
         binder.weekView.adapter = adapter
-
         binder.weekView.setDateFormatter { date: LocalDate ->
             val weekdayLabel = weekdayFormatter.format(date)
             val dateLabel = dateFormatter.format(date)
@@ -112,7 +105,6 @@ class Frontpage : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePicke
         viewModel.viewState.observe(this) { viewState ->
             adapter.submitList(viewState.entities)
         }
-
         viewModel.actions.subscribeToEvents(this) { action ->
             when (action) {
                 is GenericAction.ShowSnackbar -> {
@@ -123,115 +115,101 @@ class Frontpage : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePicke
                 }
             }
         }
-        //user authentication
+        //user authentication request
         preferences = getSharedPreferences("myID", Context.MODE_PRIVATE)
-        userId = preferences.getString("idUser","").toString()
-        println("User ID from SharedPreferences in Frontpage: $userId")
-
-          AndroidNetworking.get("$SERVER_URL/settings/$userId")
-                .setPriority(Priority.HIGH)
-                .build()
-                .getAsJSONArray(object : JSONArrayRequestListener {
-                    override fun onResponse(response: JSONArray) {
-                        println("response = $response")
-
-                        val objectList: JSONObject = response.get(0) as JSONObject
-                        val theme = objectList.get("ThemeColor").toString()
-                        val enableNotifications = objectList.get("EnableNotifications").toString()
-                        val sleepTimeStart = objectList.get("WeekdaySleepTimeStart").toString()
-                        val sleepTimeDuration = objectList.get("SleepTimeDuration").toString()
-
-                        preferencesSettings = getSharedPreferences("mySettings", Context.MODE_PRIVATE)
-                        val edit: SharedPreferences.Editor = preferencesSettings.edit()
-                        try {
-                            edit.putString("userTheme", theme)
-                            edit.putString("enableNotifications", enableNotifications)
-                            edit.putString("sleepTimeStart", sleepTimeStart)
-                            edit.putString("sleepTimeDuration", sleepTimeDuration)
-                            edit.apply()
-                            println("Theme saved to SharedPreferences = $theme")
-                        } catch (e: JSONException) {
-                            e.printStackTrace()
-                        }
+        userId = preferences.getString("idUser", "").toString()
+        AndroidNetworking.get("$SERVER_URL/settings/$userId")
+            .setPriority(Priority.HIGH)
+            .build()
+            .getAsJSONArray(object : JSONArrayRequestListener {
+                override fun onResponse(response: JSONArray) {
+                    println("response = $response")
+                    val objectList: JSONObject = response.get(0) as JSONObject
+                    val theme = objectList.get("ThemeColor").toString()
+                    val enableNotifications = objectList.get("EnableNotifications").toString()
+                    val sleepTimeStart = objectList.get("WeekdaySleepTimeStart").toString()
+                    val sleepTimeDuration = objectList.get("SleepTimeDuration").toString()
+                    preferencesSettings = getSharedPreferences("mySettings", Context.MODE_PRIVATE)
+                    val edit: SharedPreferences.Editor = preferencesSettings.edit()
+                    try {
+                        edit.putString("userTheme", theme)
+                        edit.putString("enableNotifications", enableNotifications)
+                        edit.putString("sleepTimeStart", sleepTimeStart)
+                        edit.putString("sleepTimeDuration", sleepTimeDuration)
+                        edit.apply()
+                        println("Theme saved to SharedPreferences = $theme")
+                    } catch (e: JSONException) {
+                        e.printStackTrace()
                     }
-                    override fun onError(error: ANError) {
-                        //function does not return anything
-                        println("Failed to retrieve users settings")
-                    }
-                })
+                }
+                override fun onError(error: ANError) {
+                    println("Failed to retrieve users settings")
+                }
+            })
 
     }
-
-/*    override fun onResume() {
-        super.onResume()
-        refreshCalendar()
-    }*/
-
+    //adds items to the action bar
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        //adds items to the action bar
         menuInflater.inflate(R.menu.menu, menu)
         return true
     }
-
+    //function for the theme manager library that changes the colors of the UI components
     override fun syncTheme(appTheme: AppTheme) {
-        // change ui colors with new appThem here
         val myAppTheme = appTheme as MyAppTheme
         binder.root.setBackgroundColor(myAppTheme.activityBackgroundColor(this))
         binder.weekView.headerBackgroundColor = myAppTheme.activityBackgroundColor(this)
         binder.weekView.timeColumnBackgroundColor = myAppTheme.activityBackgroundColor(this)
-        //binder.weekView.todayBackgroundColor = myAppTheme.activityBackgroundColor(this)
         binder.weekView.timeColumnTextColor = myAppTheme.activityTextColor(this)
         binder.weekView.weekNumberTextColor = myAppTheme.activityTextColor(this)
         binder.weekView.weekNumberBackgroundColor = myAppTheme.activityHintColor(this)
-       //doesnt work binder.weekView.headerBackgroundColor = (@color/palm_green)
-
-        //app:weekNumberBackgroundColor="@color/black"
-        //the color change of the days doesn't work
         binder.weekView.dayBackgroundColor = myAppTheme.activityHintColor(this)
-        //change the color of the floating action button
-        //binder.addTaskBtn.backgroundTintList = ColorStateList.valueOf(myAppTheme.activityThemeButtonColor(this))
-        binder.addTaskBtn.backgroundTintList = ColorStateList.valueOf(myAppTheme.activityButtonColor(this))
+        binder.addTaskBtn.backgroundTintList =
+            ColorStateList.valueOf(myAppTheme.activityButtonColor(this))
     }
-
+    //theme manager function that gets the theme that will used
     override fun getStartTheme(): AppTheme {
-        //actionbar+back-button
+        //change actionbar text and color
         val actionbar = supportActionBar
         actionbar!!.title = ""
         supportActionBar!!.setBackgroundDrawable(
             ColorDrawable(
-                Color.parseColor("#9E9696"))
+                Color.parseColor("#9E9696")
+            )
         )
-
-
+        //gets user theme from sharedPreferences and then return the wanted theme
         preferencesSettings = getSharedPreferences("mySettings", Context.MODE_PRIVATE)
-        val startTheme = preferencesSettings.getString("userTheme","").toString()
+        val startTheme = preferencesSettings.getString("userTheme", "").toString()
         //change the theme to match users theme
-        if(startTheme.isNotEmpty()) {
+        if (startTheme.isNotEmpty()) {
             when {
                 startTheme.contains("Night") -> {
                     supportActionBar!!.setBackgroundDrawable(
                         ColorDrawable(
-                            Color.parseColor("#373232")))
+                            Color.parseColor("#373232")
+                        )
+                    )
                     return NightTheme()
                 }
                 startTheme.contains("Light") -> {
                     supportActionBar!!.setBackgroundDrawable(
                         ColorDrawable(
-                            Color.parseColor("#9E9696")))
+                            Color.parseColor("#9E9696")
+                        )
+                    )
                     return LightTheme()
                 }
             }
         }
         return LightTheme()
     }
-
+    //opens add task activity, this is linked to the frontpage menu
     fun openAddTask(view: View) {
         startActivity(Intent(this@Frontpage, AddTask::class.java))
         finish()
     }
-
+    //clears all sharedPreferences and finish activity
     fun logOut(item: MenuItem) {
-        var editor : SharedPreferences.Editor = preferences.edit()
+        var editor: SharedPreferences.Editor = preferences.edit()
         editor.clear()
         editor.apply()
         editor = preferencesSettings.edit()
@@ -240,61 +218,71 @@ class Frontpage : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePicke
         startActivity(Intent(this@Frontpage, MainActivity::class.java))
         finish()
     }
-
+    //opens ProfileSettings activity, this is linked to the frontpage menu
     fun toProfileAndSettings(item: MenuItem) {
         startActivity(Intent(this@Frontpage, ProfileSettings::class.java))
         finish()
     }
-
+    //opens AboutUs activity, this is linked to the frontpage menu
     fun toAboutUsPage(item: MenuItem) {
         startActivity(Intent(this@Frontpage, AboutUs::class.java))
         finish()
     }
-
+    //menu activity that changes the visible days in the calendar to 1
     fun selectOneDay(item: MenuItem) {
-        calendarView =  findViewById(R.id.weekView)
-        if(calendarView.numberOfVisibleDays != 1) {
+        calendarView = findViewById(R.id.weekView)
+        if (calendarView.numberOfVisibleDays != 1) {
             calendarView.numberOfVisibleDays = 1
         } else {
-            val toast = Toast.makeText(applicationContext, "Päivien määrät ovat jo 1!", Toast.LENGTH_SHORT)
+            val toast =
+                Toast.makeText(applicationContext, "Päivien määrät ovat jo 1!", Toast.LENGTH_SHORT)
             toast.show()
         }
     }
+    //menu activity button that changes the visible days in the calendar to 3
     fun selectThreeDays(item: MenuItem) {
-        calendarView =  findViewById(R.id.weekView)
-        if(calendarView.numberOfVisibleDays != 3) {
+        calendarView = findViewById(R.id.weekView)
+        if (calendarView.numberOfVisibleDays != 3) {
             calendarView.numberOfVisibleDays = 3
         } else {
-            val toast = Toast.makeText(applicationContext, "Päivien määrät ovat jo 3!", Toast.LENGTH_SHORT)
+            val toast =
+                Toast.makeText(applicationContext, "Päivien määrät ovat jo 3!", Toast.LENGTH_SHORT)
             toast.show()
         }
     }
+    //menu activity button that changes the visible days in the calendar to 7
     fun selectSevenDays(item: MenuItem) {
-        calendarView =  findViewById(R.id.weekView)
-        if(calendarView.numberOfVisibleDays != 7) {
+        calendarView = findViewById(R.id.weekView)
+        if (calendarView.numberOfVisibleDays != 7) {
             calendarView.numberOfVisibleDays = 7
         } else {
-            val toast = Toast.makeText(applicationContext, "Päivien määrät ovat jo 7!", Toast.LENGTH_SHORT)
+            val toast =
+                Toast.makeText(applicationContext, "Päivien määrät ovat jo 7!", Toast.LENGTH_SHORT)
             toast.show()
         }
     }
+    //menu activity button that jumps to the current day in the weekview
     fun toCurrentDay(item: MenuItem) {
-        calendarView =  findViewById(R.id.weekView)
+        calendarView = findViewById(R.id.weekView)
         with(calendarView) { scrollToDateTime(dateTime = LocalDateTime.now()) }
-        }
+    }
 
-
+    //closes and reopens the calendar activity
     fun refreshCalendar() {
         finish();
         overridePendingTransition(0, 0);
         startActivity(intent);
         overridePendingTransition(0, 0);
     }
-
-
-
+    //dialog function to change the calendar tasks
     @SuppressLint("SimpleDateFormat")
-    fun openEditDialog(eventTitle: String, eventLoc: String, eventTime: String, idTask: Int, eventEndTime: String) {
+    fun openEditDialog(
+        eventTitle: String,
+        eventLoc: String,
+        eventTime: String,
+        idTask: Int,
+        eventEndTime: String
+    ) {
         val inflater = LayoutInflater.from(this)
         val dialogLayout: View = inflater.inflate(R.layout.dialog_edittask, null)
         val dialog = AlertDialog.Builder(this)
@@ -307,7 +295,6 @@ class Frontpage : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePicke
         val editTimeBtn: Button = dialogLayout.findViewById(R.id.btn_editTime)
         val editDuration: EditText = dialogLayout.findViewById(R.id.et_editDuration)
         val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm")
-
 
         val date: Date = sdf.parse(eventTime)
         val endTimeDate: Date = sdf.parse(eventEndTime)
@@ -352,25 +339,28 @@ class Frontpage : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePicke
             refreshCalendar()
         }
         dialog.setNegativeButton("Peru") { _, which -> }
-
         dialog.show()
     }
 
+    // Opens timepicker when clicking ok in datepicker
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         this.year = year
-        this.month = month+1 // java.util.Calendar january = 0 :D
+        this.month = month + 1 // java.util.Calendar january = 0 :D
         this.dayOfMonth = dayOfMonth
-        TimePickerDialog(this,this, hour, minute, true).show() // Opens timepicker when clicking ok in datepicker
+        TimePickerDialog(
+            this,
+            this,
+            hour,
+            minute,
+            true
+        ).show()
     }
-
     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minuteOfHour: Int) {
         cal.set(Calendar.HOUR_OF_DAY, hourOfDay)
         cal.set(Calendar.MINUTE, minuteOfHour)
     }
-
-
 }
-
+//Adapter class for the weekview calender library
 private class BasicActivityWeekViewAdapter(
     private val loadMoreHandler: (List<YearMonth>) -> Unit
 ) : WeekViewPagingAdapterJsr310<CalendarEntity>() {
@@ -382,6 +372,7 @@ private class BasicActivityWeekViewAdapter(
             context.showToast("Task id:  ${data.idTask}")
         }
     }
+
     override fun onEmptyViewClick(time: LocalDateTime) {
         context.showToast("Empty view clicked at ${defaultDateTimeFormatter.format(time)}")
     }
@@ -393,7 +384,7 @@ private class BasicActivityWeekViewAdapter(
     override fun onLoadMore(startDate: LocalDate, endDate: LocalDate) {
         loadMoreHandler(yearMonthsBetween(startDate, endDate))
     }
-
+    //function where we have coded the calendar librarys onEventLongClick to open a dialog to update the state of the tasks
     override fun onEventLongClick(data: CalendarEntity, bounds: RectF) {
 
         if (data is CalendarEntity.Event) {
@@ -407,12 +398,13 @@ private class BasicActivityWeekViewAdapter(
                         AndroidNetworking.delete("${SERVER_URL}/tasks")
                             .addJSONObjectBody(obj)
                             .build()
-                            .getAsString(object : StringRequestListener{
+                            .getAsString(object : StringRequestListener {
                                 override fun onResponse(p0: String?) {
                                     context.showToast("Deleted")
                                     val frontpage = context as Frontpage
                                     frontpage.refreshCalendar()
                                 }
+
                                 override fun onError(p0: ANError?) {
                                     println(p0)
                                 }
@@ -420,11 +412,17 @@ private class BasicActivityWeekViewAdapter(
                     }
                     1 -> { // Edit clicked
                         val frontpage = context as Frontpage
-                        frontpage.openEditDialog(data.title.toString(), data.location.toString(), data.startTime.toString(), data.idTask, data.endTime.toString())
+                        frontpage.openEditDialog(
+                            data.title.toString(),
+                            data.location.toString(),
+                            data.startTime.toString(),
+                            data.idTask,
+                            data.endTime.toString()
+                        )
                     }
                 }
             }
-            dialog.setNegativeButton("Peru"){dialogInterface, which ->
+            dialog.setNegativeButton("Peru") { dialogInterface, which ->
 
             }
             dialog.show()
