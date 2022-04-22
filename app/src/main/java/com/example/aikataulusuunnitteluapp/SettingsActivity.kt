@@ -29,6 +29,7 @@ class SettingsActivity : AppCompatActivity(), TimePickerDialog.OnTimeSetListener
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
+        // init 2 different numberPickers, for hours and for minutes.
         val numberPickerHours = findViewById<NumberPicker>(R.id.numberPickerHours)
         numberPickerHours.minValue = 1
         numberPickerHours.maxValue = 12
@@ -43,31 +44,23 @@ class SettingsActivity : AppCompatActivity(), TimePickerDialog.OnTimeSetListener
         val button: Button = findViewById<Button>(R.id.btnApply)
         val timepickerButton: Button = findViewById(R.id.btn_SleepStart)
 
+        // we will be building the total time in minutes with these
         var sleepTimeHours: Int = 0
         var sleepTimeMinutes: Int = 0
         var totalSleepTime: Int = 0
 
         timepickerButton.setOnClickListener {
             TimePickerDialog(this,this, hour, minute, true).show()
-
         }
 
         numberPickerHours.setOnValueChangedListener { picker, oldVal, newVal ->
-
-            //Display the newly selected number to text view
-            println("Selected Hour Value : $newVal")
             sleepTimeHours = newVal
             totalSleepTime = (sleepTimeHours * 60) + sleepTimeMinutes
-            println("$totalSleepTime ; total sleep time in minutes")
         }
 
         numberPickerMinutes.setOnValueChangedListener { picker, oldVal, newVal ->
-
-            //Display the newly selected number to text view
-            println("Selected Minute Value : $newVal")
             sleepTimeMinutes = newVal
             totalSleepTime = (sleepTimeHours * 60) + sleepTimeMinutes
-            println("$totalSleepTime ; total sleep time in minutes")
         }
 
 
@@ -80,6 +73,7 @@ class SettingsActivity : AppCompatActivity(), TimePickerDialog.OnTimeSetListener
 
     private fun postSettings(weekDaySleepTimeStart: String, sleepTimeDuration: Int) {
 
+        // get userID for settings post to API -> DB
         val userIDString = intent.getStringExtra("userID")
         val userIDInt = userIDString?.toInt()
 
@@ -89,7 +83,7 @@ class SettingsActivity : AppCompatActivity(), TimePickerDialog.OnTimeSetListener
             jsonObject.put("sleepTimeDuration", sleepTimeDuration)
         } catch (e: JSONException) {
             e.printStackTrace()
-        }
+        } // build json object for typical sleeping hours
 
         AndroidNetworking.post("$SERVER_URL/settings/$userIDInt")
             .addJSONObjectBody(jsonObject)
@@ -99,14 +93,13 @@ class SettingsActivity : AppCompatActivity(), TimePickerDialog.OnTimeSetListener
                     println("Got response from API: $res")
                     if (res.toString() == "Created") {
 
-                        val toast = Toast.makeText(applicationContext, "Settings created," +
-                                " please login", Toast.LENGTH_SHORT)
+                        val toast = Toast.makeText(applicationContext, "Asetukset luotu," +
+                                " ole hyvä ja kirjaudu", Toast.LENGTH_SHORT)
                         toast.show()
                         val intent =
                             Intent(this@SettingsActivity, MainActivity::class.java)
                         startActivity(intent)
                         finish()
-
                     }
                 }
 
@@ -115,15 +108,15 @@ class SettingsActivity : AppCompatActivity(), TimePickerDialog.OnTimeSetListener
                     println("Error: ${error.errorBody}")
 
                     val builder = AlertDialog.Builder(this@SettingsActivity)
-                    builder.setTitle("Network error!")
+                    builder.setTitle("Verkkovirhe!")
                     if (error.errorBody == null) {
-                        builder.setMessage("Unknown error")
+                        builder.setMessage("Tuntematon virhe")
                     } else {
                         builder.setMessage(error.errorBody.toString())
                     }
 
                     builder.setPositiveButton("OK") { dialogInterface, which ->
-                        println("Failed API Call, not retried")
+                        println("Failed api call")
                     }
 
                     builder.show()
