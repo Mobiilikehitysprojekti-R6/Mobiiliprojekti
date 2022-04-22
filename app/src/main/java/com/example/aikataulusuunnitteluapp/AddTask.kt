@@ -144,7 +144,6 @@ class AddTask : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePickerD
         binder.tvChooseCategoty.setTextColor(myAppTheme.activityHintColor(this))
         binder.tvTaskDuration.setTextColor(myAppTheme.activityHintColor(this))
         binder.tvStartingTime.setTextColor(myAppTheme.activityHintColor(this))
-
         //edit texts
         binder.etAddTaskHeader.setHintTextColor(myAppTheme.activityHintColor(this))
         binder.etLocation.setHintTextColor(myAppTheme.activityHintColor(this))
