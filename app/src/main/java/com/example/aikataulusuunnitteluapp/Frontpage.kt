@@ -159,6 +159,11 @@ class Frontpage : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePicke
 
     }
 
+/*    override fun onResume() {
+        super.onResume()
+        refreshCalendar()
+    }*/
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         //adds items to the action bar
         menuInflater.inflate(R.menu.menu, menu)
@@ -173,6 +178,11 @@ class Frontpage : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePicke
         binder.weekView.timeColumnBackgroundColor = myAppTheme.activityBackgroundColor(this)
         //binder.weekView.todayBackgroundColor = myAppTheme.activityBackgroundColor(this)
         binder.weekView.timeColumnTextColor = myAppTheme.activityTextColor(this)
+        binder.weekView.weekNumberTextColor = myAppTheme.activityTextColor(this)
+        binder.weekView.weekNumberBackgroundColor = myAppTheme.activityHintColor(this)
+       //doesnt work binder.weekView.headerBackgroundColor = (@color/palm_green)
+
+        //app:weekNumberBackgroundColor="@color/black"
         //the color change of the days doesn't work
         binder.weekView.dayBackgroundColor = myAppTheme.activityHintColor(this)
         //change the color of the floating action button
@@ -397,7 +407,6 @@ private class BasicActivityWeekViewAdapter(
                                     context.showToast("Deleted")
                                     val frontpage = context as Frontpage
                                     frontpage.refreshCalendar()
-
                                 }
                                 override fun onError(p0: ANError?) {
                                     println(p0)

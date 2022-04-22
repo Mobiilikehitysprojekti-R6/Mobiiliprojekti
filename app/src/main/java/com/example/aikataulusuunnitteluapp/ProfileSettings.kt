@@ -2,6 +2,7 @@ package com.example.aikataulusuunnitteluapp
 
 import android.app.TimePickerDialog
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
@@ -30,6 +31,7 @@ import java.text.SimpleDateFormat
 import java.time.Duration
 import java.time.LocalTime
 import java.util.*
+import kotlin.concurrent.schedule
 
 
 class ProfileSettings : ThemeActivity(), TimePickerDialog.OnTimeSetListener {
@@ -93,7 +95,7 @@ class ProfileSettings : ThemeActivity(), TimePickerDialog.OnTimeSetListener {
         //set min and max limits
         numberPickerHours.minValue = 1
         numberPickerHours.maxValue = 23
-        numberPickerMinutes.minValue = 1
+        numberPickerMinutes.minValue = 0
         numberPickerMinutes.maxValue = 60
         //set number picker wheel not to wrap
         numberPickerHours.wrapSelectorWheel = false
@@ -294,6 +296,11 @@ class ProfileSettings : ThemeActivity(), TimePickerDialog.OnTimeSetListener {
                             "Your sleep settings have been updated",
                             Toast.LENGTH_SHORT
                         ).show()
+                        //closes ProfileSettings page in 2 seconds and thusly refreshes the Frontpage
+                        Timer().schedule(2000) {
+                            startActivity(Intent(this@ProfileSettings, Frontpage::class.java))
+                            finish()
+                        }
                     }
                     override fun onError(error: ANError?) {
                         if (error != null) {
@@ -374,11 +381,12 @@ class ProfileSettings : ThemeActivity(), TimePickerDialog.OnTimeSetListener {
         val jsonObject = JSONObject()
         try {
             jsonObject.put("newColor", themeId)
+            jsonObject.put("idUser", userId)
         } catch (e: JSONException) {
             e.printStackTrace()
         }
 
-        AndroidNetworking.put("$SERVER_URL/settings/edittheme/${userId}")
+        AndroidNetworking.put("$SERVER_URL/settings/edittheme")
             .addJSONObjectBody(jsonObject)
             .build()
             .getAsString(object : StringRequestListener {
