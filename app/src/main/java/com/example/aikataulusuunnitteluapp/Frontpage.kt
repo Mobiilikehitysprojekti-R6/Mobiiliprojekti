@@ -240,6 +240,7 @@ class Frontpage : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePicke
 
     fun toProfileAndSettings(item: MenuItem) {
         startActivity(Intent(this@Frontpage, ProfileSettings::class.java))
+        finish()
     }
 
     fun toAboutUsPage(item: MenuItem) {

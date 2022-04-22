@@ -434,6 +434,14 @@ class ProfileSettings : ThemeActivity(), TimePickerDialog.OnTimeSetListener {
     }
 
     fun closeSettings(view: View) {
+        val intent = Intent(this@ProfileSettings, Frontpage::class.java)
+        startActivity(intent)
+        finish()
+    }
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(this@ProfileSettings, Frontpage::class.java)
+        startActivity(intent)
         finish()
     }
 
