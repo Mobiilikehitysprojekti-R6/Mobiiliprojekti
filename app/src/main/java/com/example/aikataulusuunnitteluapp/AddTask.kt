@@ -1,9 +1,11 @@
 package com.example.aikataulusuunnitteluapp
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -31,7 +33,7 @@ class AddTask : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePickerD
     private lateinit var settingsPreferences: SharedPreferences
     private lateinit var userId: String
     private lateinit var userTheme: String
-    private  var hexColor: String = "#ff0000"
+    private  var hexColor: String = "#5493D6"
 
     private val cal: Calendar = Calendar.getInstance()
     private var dayOfMonth = cal.get(Calendar.DAY_OF_MONTH)
@@ -81,24 +83,33 @@ class AddTask : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePickerD
             jsonObject.put("color", hexColor)
             println(jsonObject)
 
-            AndroidNetworking.post("${SERVER_URL}/tasks")
-                .addJSONObjectBody(jsonObject)
-                .build()
-                .getAsString(object : StringRequestListener {
-                    override fun onResponse(res: String?) {
-                        finish()
-                        val intent = Intent(this@AddTask, Frontpage::class.java)
-                        startActivity(intent)
-                        Toast.makeText(applicationContext,"$res",Toast.LENGTH_SHORT).show()
-                    }
-
-                    override fun onError(err: ANError?) {
-                        if (err != null) {
-                            println("Error: ${err.errorBody}")
+            if(jsonObject["title"] != ""){
+                AndroidNetworking.post("${SERVER_URL}/tasks")
+                    .addJSONObjectBody(jsonObject)
+                    .build()
+                    .getAsString(object : StringRequestListener {
+                        override fun onResponse(res: String?) {
+                            finish()
+                            val intent = Intent(this@AddTask, Frontpage::class.java)
+                            startActivity(intent)
+                            Toast.makeText(applicationContext,"$res",Toast.LENGTH_SHORT).show()
                         }
-                        println("There was an error submitting the task")
-                    }
-                })
+
+                        override fun onError(err: ANError?) {
+                            if (err != null) {
+                                println("Error: ${err.errorBody}")
+                            }
+                            println("There was an error submitting the task")
+                        }
+                    })
+            } else {
+                val errorDialog = AlertDialog.Builder(this)
+                errorDialog.setTitle("Otsikko puuttuu!")
+                errorDialog.setMessage("Otsikko ei voi olla tyhjä")
+                errorDialog.setPositiveButton("Ok",{_, i->})
+                errorDialog.show()
+            }
+
         }
 
         timepickerButton.setOnClickListener{
