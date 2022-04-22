@@ -77,9 +77,12 @@ class Frontpage : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePicke
 
     override fun onBackPressed() {
         val builder = AlertDialog.Builder(this@Frontpage)
-        builder.setTitle("Halutko Kirjautua ulos??")
+        builder.setTitle("Haluatko Kirjautua ulos?")
         builder.setPositiveButton("KYLLÄ"){dialogInterface, which ->
-            val editor : SharedPreferences.Editor = preferences.edit()
+            var editor : SharedPreferences.Editor = preferences.edit()
+            editor.clear()
+            editor.apply()
+            editor = preferencesSettings.edit()
             editor.clear()
             editor.apply()
             startActivity(Intent(this@Frontpage, MainActivity::class.java))

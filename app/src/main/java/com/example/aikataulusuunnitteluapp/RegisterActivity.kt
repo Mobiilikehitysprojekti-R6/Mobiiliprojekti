@@ -23,6 +23,7 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
+        // init buttons and edittext resources
         val etUsername = findViewById<EditText>(R.id.etUsernameRegister)
         val etPassword = findViewById<EditText>(R.id.etPasswordRegister)
         val etPassword2 = findViewById<EditText>(R.id.etPasswordRegisterRepeat)
@@ -31,13 +32,16 @@ class RegisterActivity : AppCompatActivity() {
         button.setOnClickListener {
             if (etPassword.text.toString() == etPassword2.text.toString()) {
 
+                // if "password" and "repeat password" fields match,
+                // we begin to post the new user to API
+
                 val jsonObject = JSONObject()
                 try {
                     jsonObject.put("username", etUsername.text.toString())
                     jsonObject.put("password", etPassword.text.toString())
                 } catch (e: JSONException) {
                     e.printStackTrace()
-                } // lähetetään käyttäjätunnus + salasana rekisteröintiä varten JSON-objektina
+                } // send username + password as a JSON-object for registration
 
                 AndroidNetworking.post("$SERVER_URL/register")
                     .addJSONObjectBody(jsonObject)
@@ -47,8 +51,11 @@ class RegisterActivity : AppCompatActivity() {
                             println("Got response from API: $res")
                             if (res?.get("message").toString() == "Created") {
 
-                                val toast = Toast.makeText(applicationContext, "Account created," +
-                                        " please create starting settings", Toast.LENGTH_SHORT)
+                                // if we get Created code back, registration was successful.
+                                // redirect to SettingsActivity
+
+                                val toast = Toast.makeText(applicationContext, "Tili luotu," +
+                                        " ole hyvä ja anna alustavat asetukset", Toast.LENGTH_SHORT)
                                 toast.show()
 
                                 val intent = Intent(this@RegisterActivity,
@@ -61,8 +68,8 @@ class RegisterActivity : AppCompatActivity() {
                             if (res.toString() == "Username is already taken") {
 
                                 val builder = AlertDialog.Builder(this@RegisterActivity)
-                                builder.setTitle("Username is taken")
-                                builder.setMessage("Username has been taken!")
+                                builder.setTitle("Käyttäjänimi on jo otettu")
+                                builder.setMessage("Käyttäjänimi on jo otettu, yritä uudelleen.")
                                 builder.setPositiveButton("OK") { dialogInterface, which ->
 
                                     etUsername.setText("")
@@ -77,17 +84,16 @@ class RegisterActivity : AppCompatActivity() {
                             println("Error: ${error.errorBody}")
 
                             val builder = AlertDialog.Builder(this@RegisterActivity)
-                            builder.setTitle("Network error!")
+                            builder.setTitle("Verkkovirhe!")
                             if (error.errorBody == null) {
-                                builder.setMessage("Unknown error")
+                                builder.setMessage("Tuntematon virhe")
                             } else {
                                 builder.setMessage(error.errorBody.toString())
-                            } // alerttia ei tule jos errorBody on null
-                            // errorBody on null esim. jos API-yhteyttä ei saada
-                            // siihen tehtiin tarkistus että alert tulee jokatapauxessa
+                            } // no alert if errorBody is NULL
+                            // errorBody is NULL if we don't get an API connection
+                            // i made a check that you should get an error nevertheless
 
                             builder.setPositiveButton("OK") { dialogInterface, which ->
-                                println("Failed API Call, not retried")
                             }
 
                             builder.setNegativeButton("Retry") { dialogInterface, which ->
@@ -98,11 +104,10 @@ class RegisterActivity : AppCompatActivity() {
                         }
                     })
             } else {
-                println("Passwords didn't match")
 
                 val builder = AlertDialog.Builder(this@RegisterActivity)
-                builder.setTitle("Passwords don't match!")
-                builder.setMessage("Your passwords don't match, please, try again.")
+                builder.setTitle("Salasanat eivät ole samat!")
+                builder.setMessage("Salasanasi eivät täsmänneet, yritä uudelleen.")
                 builder.setPositiveButton("OK") { dialogInterface, which ->
                     etUsername.setText("")
                     etPassword.setText("")
