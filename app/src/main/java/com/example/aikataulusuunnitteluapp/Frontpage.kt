@@ -323,7 +323,7 @@ class Frontpage : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePicke
         editTimeBtn.setOnClickListener {
             DatePickerDialog(this, this, year, month, dayOfMonth).show()
         }
-        dialog.setPositiveButton("Muokkaa") { _, which ->
+        dialog.setPositiveButton("Ok") { _, which ->
             val timeFormat = SimpleDateFormat("HH:mm")
             val obj = JSONObject()
             obj.put("title", editTitle.text.toString())
