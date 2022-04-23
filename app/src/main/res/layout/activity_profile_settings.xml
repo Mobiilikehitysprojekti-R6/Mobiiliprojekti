@@ -45,7 +45,7 @@
                 android:id="@+id/first_linearLayout"
                 android:layout_width="365dp"
                 android:layout_height="170dp"
-                android:layout_marginStart="25dp"
+                android:layout_gravity="center"
                 android:background="@drawable/customborder"
                 android:gravity="center"
                 android:orientation="vertical"
@@ -87,12 +87,11 @@
 
             //change password
 
-
             <LinearLayout
                 android:id="@+id/second_linearLayout"
                 android:layout_width="365dp"
                 android:layout_height="278dp"
-                android:layout_marginStart="25dp"
+                android:layout_gravity="center"
                 android:background="@drawable/customborder"
                 android:gravity="center"
                 android:orientation="vertical"
@@ -156,7 +155,7 @@
                 android:id="@+id/third_linearLayout"
                 android:layout_width="365dp"
                 android:layout_height="110dp"
-                android:layout_marginStart="25dp"
+                android:layout_gravity="center"
                 android:background="@drawable/customborder"
                 android:gravity="center"
                 android:orientation="vertical"
@@ -206,7 +205,7 @@
                 android:id="@+id/forth_linearLayout"
                 android:layout_width="365dp"
                 android:layout_height="115dp"
-                android:layout_marginLeft="25dp"
+                android:layout_gravity="center"
                 android:background="@drawable/customborder"
                 android:gravity="center"
                 android:orientation="vertical"
@@ -244,7 +243,7 @@
                 android:id="@+id/fifth_linearLayout"
                 android:layout_width="365dp"
                 android:layout_height="321dp"
-                android:layout_marginStart="25dp"
+                android:layout_gravity="center"
                 android:background="@drawable/customborder"
                 android:gravity="center"
                 android:orientation="vertical"

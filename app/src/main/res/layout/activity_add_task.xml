@@ -18,7 +18,8 @@
             android:orientation="vertical"
             android:showDividers="middle"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp">
+            android:paddingRight="10dp"
+            tools:ignore="ExtraText">
 
 
             <ImageButton
@@ -30,8 +31,6 @@
                 android:onClick="closeTaskSetter"
                 android:src="@drawable/ic_back_arrow" />
 
-            //Add title
-
             <TextView
                 android:id="@+id/tv_taskSetterText"
                 android:layout_width="match_parent"
@@ -42,13 +41,14 @@
                 android:textSize="23sp"
                 android:textStyle="bold" />
 
+            //Add title
+
             <LinearLayout
                 android:id="@+id/first_linearLayout"
                 android:layout_width="354dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
                 android:background="@drawable/customborder"
-                android:gravity="center"
+                android:layout_gravity="center"
                 android:orientation="vertical"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp">
@@ -71,9 +71,9 @@
                 android:id="@+id/second_linearLayout"
                 android:layout_width="354dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
                 android:background="@drawable/customborder"
                 android:orientation="vertical"
+                android:layout_gravity="center"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp">
 
@@ -147,9 +147,9 @@
                 android:id="@+id/third_linearLayout"
                 android:layout_width="354dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
                 android:background="@drawable/customborder"
                 android:orientation="vertical"
+                android:layout_gravity="center"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp">
 
@@ -170,7 +170,7 @@
                 android:id="@+id/fourth_linearLayout"
                 android:layout_width="354dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
+                android:layout_gravity="center"
                 android:background="@drawable/customborder"
                 android:baselineAligned="false"
                 android:fadingEdge="horizontal"

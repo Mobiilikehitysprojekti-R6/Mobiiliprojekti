@@ -62,7 +62,6 @@ class AddTask : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePickerD
         val btnHobby: Button = findViewById(R.id.btn_hobby)
         val btnOther: Button = findViewById(R.id.btn_other)
 
-
         title = findViewById(R.id.et_addTaskHeader)
         duration = findViewById(R.id.et_addTaskDuration)
         location = findViewById(R.id.et_location)
@@ -71,6 +70,8 @@ class AddTask : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePickerD
         sharedPreferences = getSharedPreferences("myID", Context.MODE_PRIVATE)
         userId = sharedPreferences.getString("idUser","").toString()
 
+        // On clicking to submit the task, all given values is put into jsonObjects
+        // and then into a jsonBody that is sent forward to be saved in the database.
         submitTaskButton.setOnClickListener {
             val timeFormat = SimpleDateFormat("HH:mm")
             val jsonObject = JSONObject()
@@ -88,13 +89,15 @@ class AddTask : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePickerD
                     .addJSONObjectBody(jsonObject)
                     .build()
                     .getAsString(object : StringRequestListener {
+                        // When the response is a string the task is saved it closes the AddTask activity and the FrontPage opens.
                         override fun onResponse(res: String?) {
                             finish()
                             val intent = Intent(this@AddTask, Frontpage::class.java)
                             startActivity(intent)
                             Toast.makeText(applicationContext,"$res",Toast.LENGTH_SHORT).show()
                         }
-
+                        // If there is an error given wrong values an AlertDialog will pop up with information.
+                        // If the error is something else an error line is printed en the task will not be submitted.
                         override fun onError(err: ANError?) {
                             if (err != null) {
                                 println("Error: ${err.errorBody}")
@@ -112,27 +115,33 @@ class AddTask : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePickerD
 
         }
 
+        // On clicking the choose time button open the DatePickerDialog that then opens the timepicker after Clicking OK.
         timepickerButton.setOnClickListener{
             DatePickerDialog(this, this, year, month, dayOfMonth).show()
         }
 
-        //Category color buttons
+        //Category color buttons changes to the color of the of the activity chosen from the category.
+        //Free-time beach
         btnFreeTime.setOnClickListener{
             hexColor = java.lang.String.format("#E5BB7A")
             println(hexColor)
         }
+        //Work sunkissed_green
         btnWork.setOnClickListener{
             hexColor = java.lang.String.format("#96A88C")
             println(hexColor)
         }
+        //Meeting pastel_green
         btnMeeting.setOnClickListener{
             hexColor = java.lang.String.format("#A7CB92")
             println(hexColor)
         }
+        //Hobby dry_orange
         btnHobby.setOnClickListener{
             hexColor = java.lang.String.format("#DB813C")
             println(hexColor)
         }
+        // other sunkissed_blue
         btnOther.setOnClickListener{
             hexColor = java.lang.String.format("#5493D6")
             println(hexColor)
@@ -141,7 +150,7 @@ class AddTask : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePickerD
     }
 
     override fun syncTheme(appTheme: AppTheme) {
-        // change ui colors with new appThem here
+        // The UI color following the users Theme of choice.
         val myAppTheme = appTheme as MyAppTheme
         binder.root.setBackgroundColor(myAppTheme.activityBackgroundColor(this))
         //change the color of the arrow
@@ -164,9 +173,9 @@ class AddTask : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePickerD
     // This function takes year, month and day values from DatePicker widget and puts them in variables
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         this.year = year
-        this.month = month+1 // java.util.Calendar january = 0 :D
+        this.month = month+1 // java.util.Calendar january = 0
         this.dayOfMonth = dayOfMonth
-        TimePickerDialog(this,this, hour, minute, true).show() // Opens timepicker when clicking ok in datepicker
+        TimePickerDialog(this,this, hour, minute, true).show() // Opens timepicker when clicking ok in datePicker
     }
     // This function takes hours and minutes from TimePicker widget and puts them in variables
     @SuppressLint("SetTextI18n")
@@ -174,11 +183,12 @@ class AddTask : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePickerD
 
         cal.set(Calendar.HOUR_OF_DAY, hourOfDay)
         cal.set(Calendar.MINUTE, minute)
-
+        // The timepickerButton now takes the chosen date and time and changes the text on the invisible borderline button to chosen date and time.
         val timepickerButton: Button = findViewById(R.id.btn_timePicker)
         timepickerButton.text = String.format(Locale.getDefault(),"%02d.%02d.%02d  %02d:%02d",dayOfMonth,month, year, hourOfDay, minute);
     }
 
+    // get the Theme the user have chosen.
     override fun getStartTheme(): AppTheme {
         settingsPreferences = getSharedPreferences("mySettings", Context.MODE_PRIVATE)
         val startTheme = settingsPreferences.getString("userTheme", "").toString()
@@ -196,14 +206,14 @@ class AddTask : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePickerD
         return LightTheme()
     }
 
-
+     //overrides the backbutton and goes back to the frontpage and closes AddTask.
     override fun onBackPressed() {
         super.onBackPressed()
         val intent = Intent(this@AddTask, Frontpage::class.java)
         startActivity(intent)
         finish()
     }
-
+    //Backbutton goes back to the frontpage and closes AddTask.
     fun closeTaskSetter(view: View) {
         val intent = Intent(this@AddTask, Frontpage::class.java)
         startActivity(intent)

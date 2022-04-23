@@ -18,8 +18,7 @@ import org.json.JSONException
 import org.json.JSONObject
 import com.example.aikataulusuunnitteluapp.data.SERVER_URL
 
-// koodista n. 40% pelkkää AlertDialog -paskaa mitä ei voinut oikein optimoida
-// ilman että appi rupes kaatuileen
+// In this part of the Code there mostly code involving the Alert Dialog that is not possible to optimise any further.
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,14 +27,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //actionbar+back-button
-        //val actionbar = supportActionBar
-        //actionbar!!.title = "TimeCoach 1.0.0 "
-
+        // initializing the okHttpClient
         AndroidNetworking.initialize(applicationContext)
         val okHttpClient = OkHttpClient().newBuilder().build()
         AndroidNetworking.initialize(applicationContext, okHttpClient)
-        // alustetaan okHttpClient
 
         val btnLogin = findViewById<Button>(R.id.btn_login)
         val btnRegister = findViewById<Button>(R.id.btn_login2)
@@ -46,19 +41,21 @@ class MainActivity : AppCompatActivity() {
 
             println("${etUsername.text}, ${etPassword.text}")
 
-            // okHttp -kirjastossa on Credentials -luokka, johon pistetään tunnukset meidän EditTexteistä,
-            // jotka lähetetään Authorization headerin mukana API:iin
+
+            // The login credentials gotten from the EditText is put into the okHttp-library's Credentials -class.
+            // From  where the are sent forward to the API inside the Authorization header.
+
             AndroidNetworking.post("$SERVER_URL/login")
                 .addHeaders("Authorization", Credentials.basic(etUsername.text.toString(), etPassword.text.toString()))
                 .build()
                 .getAsJSONObject(object : JSONObjectRequestListener {
+                    // When the userID comes back the login is Accepted and the FrontPage opens.
                     override fun onResponse(res: JSONObject) {
                         startActivity(Intent(this@MainActivity, Frontpage::class.java))
                         finish()
-                        // kun userID tulee takas eli login ok, lähtään etusivulle
 
                         println(res.get("idUser"))
-
+                        // Save the UserID into the SharedPreferences so it can be used while user is logged in, in all of the activities.
                         val prefs: SharedPreferences = getSharedPreferences("myID", Context.MODE_PRIVATE)
                         val edit: SharedPreferences.Editor = prefs.edit()
                         try {
@@ -70,24 +67,23 @@ class MainActivity : AppCompatActivity() {
                         } catch (e: JSONException) {
                             e.printStackTrace()
                         }
-                        // tallennetaan User ID SharedPreferences -olioon, jota voi käyttää muualla
-                        // sama idea kuin LocalStorage Reactissa
                     }
-
+                    // Build an AlertDialog object for MainActivity
                     @SuppressLint("SetTextI18n")
                     override fun onError(error: ANError) {
                         println("Error: ${error.errorBody}")
                         if(error.errorCode == 401) {
                             val builder = AlertDialog.Builder(this@MainActivity)
-                            // kasataan AlertDialog -olio MainActivity -kontekstiin (ei ottanut tätä kontekstiksi)
+
+                            // The title and message for the alert.
                             builder.setTitle("Invalid username or password!")
                             builder.setMessage(error.errorBody)
-                            // alerttiin title ja message
+                            // When the OK button in the dialog is tapped the login credentials from the edit text empties.
                             builder.setPositiveButton("OK"){dialogInterface, which ->
                                 etUsername.setText("")
                                 etPassword.setText("")
-                            } // tyhjennetään napista kentät kun on väärä käyttäjätunnus/salasana
-                            builder.show() // olio pitää vielä kutsua näkyviin
+                            }
+                            builder.show() // display the alertDialog
                         }
                     }
                 })

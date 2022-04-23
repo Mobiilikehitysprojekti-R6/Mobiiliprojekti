@@ -5,24 +5,21 @@
       <map>
         <entry key="..\:/Users/admin/Documents/Mobiiliprojekti/6opMobiiliprojekti/app/src/main/res/layout/activity_calendar.xml" value="0.33967391304347827" />
         <entry key="..\:/Users/admin/Documents/Mobiiliprojekti/6opMobiiliprojekti/app/src/main/res/layout/activity_main.xml" value="0.33967391304347827" />
-        <entry key="..\:/Users/admin/Documents/Mobiiliprojekti/Mobiiliprojekti/app/src/main/res/layout/activity_about_us.xml" value="0.371875" />
-        <entry key="..\:/Users/admin/Documents/Mobiiliprojekti/Mobiiliprojekti/app/src/main/res/layout/activity_register.xml" value="0.371875" />
         <entry key="..\:/Users/admin/Documents/Mobiiliprojekti/main/Mobiiliprojekti/app/src/main/res/layout/activity_main.xml" value="0.3875" />
         <entry key="..\:/Users/admin/Documents/Mobiiliprojekti/main/Mobiiliprojekti/app/src/main/res/layout/fragment_register.xml" value="0.3875" />
         <entry key="..\:/Users/samul/StudioProjects/6opMobiiliprojekti/app/src/main/res/layout/activity_calendar.xml" value="0.25" />
         <entry key="..\:/Users/samul/StudioProjects/6opMobiiliprojekti/app/src/main/res/layout/activity_frontpage.xml" value="0.22407407407407406" />
         <entry key="..\:/Users/samul/StudioProjects/6opMobiiliprojekti/app/src/main/res/layout/activity_main.xml" value="0.33" />
-        <entry key="..\:/Users/samul/StudioProjects/Mobiiliprojekti/app/src/main/res/drawable/circle_shape_with_border.xml" value="0.156" />
         <entry key="..\:/Users/samul/StudioProjects/Mobiiliprojekti/app/src/main/res/drawable/customborder.xml" value="0.17" />
         <entry key="..\:/Users/samul/StudioProjects/Mobiiliprojekti/app/src/main/res/drawable/ic_back_arrow.xml" value="0.1825" />
         <entry key="..\:/Users/samul/StudioProjects/Mobiiliprojekti/app/src/main/res/drawable/layout_divider.xml" value="0.2535" />
-        <entry key="..\:/Users/samul/StudioProjects/Mobiiliprojekti/app/src/main/res/layout/activity_about_us.xml" value="0.1" />
-        <entry key="..\:/Users/samul/StudioProjects/Mobiiliprojekti/app/src/main/res/layout/activity_add_task.xml" value="0.12052117263843648" />
-        <entry key="..\:/Users/samul/StudioProjects/Mobiiliprojekti/app/src/main/res/layout/activity_calendar.xml" value="0.1" />
+        <entry key="..\:/Users/samul/StudioProjects/Mobiiliprojekti/app/src/main/res/layout/activity_about_us.xml" value="0.22" />
+        <entry key="..\:/Users/samul/StudioProjects/Mobiiliprojekti/app/src/main/res/layout/activity_add_task.xml" value="0.2" />
+        <entry key="..\:/Users/samul/StudioProjects/Mobiiliprojekti/app/src/main/res/layout/activity_calendar.xml" value="0.25" />
         <entry key="..\:/Users/samul/StudioProjects/Mobiiliprojekti/app/src/main/res/layout/activity_daily_calendar.xml" value="0.21979166666666666" />
         <entry key="..\:/Users/samul/StudioProjects/Mobiiliprojekti/app/src/main/res/layout/activity_daily_calendar_daily.xml" value="0.21979166666666666" />
         <entry key="..\:/Users/samul/StudioProjects/Mobiiliprojekti/app/src/main/res/layout/activity_main.xml" value="0.2617702448210923" />
-        <entry key="..\:/Users/samul/StudioProjects/Mobiiliprojekti/app/src/main/res/layout/activity_profile_settings.xml" value="0.2032967032967033" />
+        <entry key="..\:/Users/samul/StudioProjects/Mobiiliprojekti/app/src/main/res/layout/activity_profile_settings.xml" value="0.18" />
         <entry key="..\:/Users/samul/StudioProjects/Mobiiliprojekti/app/src/main/res/layout/activity_register.xml" value="0.25" />
         <entry key="..\:/Users/samul/StudioProjects/Mobiiliprojekti/app/src/main/res/layout/fragment_task_adder.xml" value="0.33697916666666666" />
         <entry key="..\:/Users/samul/StudioProjects/Mobiiliprojekti/app/src/main/res/layout/hour_cell.xml" value="0.33" />
@@ -45,7 +42,7 @@
         <entry key="..\:/Users/sanna/AndroidStudioProjects/Mobiiliprojekti/app/src/main/res/layout/activity_profile_settings.xml" value="0.3605072463768116" />
         <entry key="..\:/Users/sanna/AndroidStudioProjects/Mobiiliprojekti/app/src/main/res/layout/activity_register.xml" value="0.39895833333333336" />
         <entry key="..\:/Users/sanna/AndroidStudioProjects/Mobiiliprojekti/app/src/main/res/layout/activity_settings.xml" value="0.39895833333333336" />
-        <entry key="..\:/Users/sanna/AndroidStudioProjects/Mobiiliprojekti/app/src/main/res/layout/dialog_edittask.xml" value="0.1524822695035461" />
+        <entry key="..\:/Users/sanna/AndroidStudioProjects/Mobiiliprojekti/app/src/main/res/layout/dialog_edittask.xml" value="0.33" />
         <entry key="..\:/Users/sanna/AndroidStudioProjects/Mobiiliprojekti/app/src/main/res/menu/menu.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/sanna/AndroidStudioProjects/Mobiiliprojekti/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2725" />
         <entry key="..\:/Users/sanna/AndroidStudioProjects/Mobiiliprojekti/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.344" />
