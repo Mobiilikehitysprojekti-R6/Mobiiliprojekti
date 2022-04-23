@@ -66,7 +66,6 @@ class AddTask : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePickerD
         duration = findViewById(R.id.et_addTaskDuration)
         location = findViewById(R.id.et_location)
         settingsPreferences = getSharedPreferences("mySettings", Context.MODE_PRIVATE)
-
         sharedPreferences = getSharedPreferences("myID", Context.MODE_PRIVATE)
         userId = sharedPreferences.getString("idUser","").toString()
 
@@ -80,7 +79,7 @@ class AddTask : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePickerD
             jsonObject.put("location", location.editableText.toString())
             jsonObject.put("day_of_month", dayOfMonth)
             jsonObject.put("start_time", timeFormat.format(cal.time))
-            jsonObject.put("duration", duration.editableText)
+            jsonObject.put("duration", duration.editableText.toString().toInt() + 60)
             jsonObject.put("color", hexColor)
             println(jsonObject)
 
@@ -183,6 +182,7 @@ class AddTask : ThemeActivity(), DatePickerDialog.OnDateSetListener, TimePickerD
 
         cal.set(Calendar.HOUR_OF_DAY, hourOfDay)
         cal.set(Calendar.MINUTE, minute)
+        cal.add(Calendar.MINUTE, -30)
         // The timepickerButton now takes the chosen date and time and changes the text on the invisible borderline button to chosen date and time.
         val timepickerButton: Button = findViewById(R.id.btn_timePicker)
         timepickerButton.text = String.format(Locale.getDefault(),"%02d.%02d.%02d  %02d:%02d",dayOfMonth,month, year, hourOfDay, minute);
