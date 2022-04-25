@@ -188,7 +188,7 @@ class ProfileSettings : ThemeActivity(), TimePickerDialog.OnTimeSetListener {
                 try {
                     jsonObject.put("premiumStatus", 1)
                     jsonObject.put("idUser", userId)
-                    premiumMessage = "Premium ordered"
+                    premiumMessage = "Premium tilattu"
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
@@ -197,7 +197,7 @@ class ProfileSettings : ThemeActivity(), TimePickerDialog.OnTimeSetListener {
                 try {
                     jsonObject.put("premiumStatus", 0)
                     jsonObject.put("idUser", userId)
-                    premiumMessage = "Premium cancelled"
+                    premiumMessage = "Premium peruttu"
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
@@ -293,7 +293,7 @@ class ProfileSettings : ThemeActivity(), TimePickerDialog.OnTimeSetListener {
                         println("sleep settings updated")
                         Toast.makeText(
                             applicationContext,
-                            "Sinun uniasetukset ovat päivittynyt",
+                            "Sinun uniasetuksesi ovat päivittyneet",
                             Toast.LENGTH_SHORT
                         ).show()
                         //closes ProfileSettings page in 2 seconds and thusly refreshes the Frontpage
@@ -393,7 +393,7 @@ class ProfileSettings : ThemeActivity(), TimePickerDialog.OnTimeSetListener {
                 override fun onResponse(response: String?) {
                     Toast.makeText(
                         applicationContext,
-                        "Your theme color has been updated to $themeId",
+                        "Teemasi on vaihdettu $themeId teemaan",
                         Toast.LENGTH_SHORT).show()
                     themePreferences = getSharedPreferences("mySettings", Context.MODE_PRIVATE)
                     val edit: SharedPreferences.Editor = themePreferences.edit()
