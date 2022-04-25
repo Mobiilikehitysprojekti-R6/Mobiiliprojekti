@@ -288,7 +288,6 @@ class Frontpage : ThemeActivity(), DatePickerDialog.OnDateSetListener,
         val dialog = AlertDialog.Builder(this)
 
         dialog.setView(dialogLayout)
-        dialog.setTitle("Muokkaa")
 
         val editTitle: EditText = dialogLayout.findViewById(R.id.et_edit_title)
         val editLocation: EditText = dialogLayout.findViewById(R.id.et_edit_location)
