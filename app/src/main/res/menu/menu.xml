@@ -5,40 +5,40 @@
     <item
         android:id="@+id/logout_item"
         android:onClick="logOut"
-        android:title="Logout" />
+        android:title="@string/kirjadu_ulos" />
     <item
         android:id="@+id/ProfileAndSettings"
-        android:title="Profile and Settings"
+        android:title="@string/profiili_ja_asennukset"
         android:onClick="toProfileAndSettings"
         android:visible="true"/>
     <item
         android:id="@+id/about_action"
-        android:title="About us"
+        android:title="@string/tieto_meist"
         android:onClick="toAboutUsPage"
         android:visible="true"/>
     <item
         android:id="@+id/scrollToCurrentDay"
-        android:title="Scroll to current day"
+        android:title="@string/t_m_p_iv"
         android:onClick="toCurrentDay"
         android:visible="true"/>
     <item
         android:id="@+id/changeCalendarView"
-        android:title="Change calendar view"
+        android:title="@string/muuta_kalenteri_n_kym"
         android:visible="true">
         <menu>
             <item
                 android:id="@+id/clickOnOneDay"
-                android:title="1 day"
+                android:title="@string/_1_p_iv"
                 android:onClick="selectOneDay"
                 android:visible="true" />
             <item
                 android:id="@+id/clickOnThreeDays"
-                android:title="3 days"
+                android:title="@string/_3_p_iv"
                 android:onClick="selectThreeDays"
                 android:visible="true" />
             <item
                 android:id="@+id/clickOnSevenDays"
-                android:title="7 days"
+                android:title="@string/_7_p_iv"
                 android:onClick="selectSevenDays"
                 android:visible="true" />
         </menu>

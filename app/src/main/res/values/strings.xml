@@ -54,6 +54,14 @@
     <string name="lisaa_aika">Lisää aika</string>
     <string name="lisaa_tavoite_nukkumamenoaika">Lisää tavoite nukkumamenoaika</string>
     <string name="tavoite_uniaika">Tavoite uniaika?</string>
+    <string name="kirjadu_ulos">Kirjadu ulos</string>
+    <string name="profiili_ja_asennukset">Profiili ja asennukset</string>
+    <string name="tieto_meist">Tieto meistä</string>
+    <string name="t_m_p_iv">Tämä päivä</string>
+    <string name="muuta_kalenteri_n_kym">Muuta kalenteri näkymä</string>
+    <string name="_1_p_iv">1 Päivä</string>
+    <string name="_3_p_iv">3 Päivää</string>
+    <string name="_7_p_iv">7 Päivä</string>
 
 
 </resources>

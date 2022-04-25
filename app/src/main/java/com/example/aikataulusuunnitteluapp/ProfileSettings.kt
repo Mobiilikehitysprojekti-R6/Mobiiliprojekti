@@ -259,10 +259,10 @@ class ProfileSettings : ThemeActivity(), TimePickerDialog.OnTimeSetListener {
                     override fun onResponse(response: String?) {
                         Toast.makeText(
                             applicationContext,
-                            "Notifications enabled",
+                            "Ilmoitukset päivitetty",
                             Toast.LENGTH_SHORT
                         ).show()
-                        println("Notifications enabled")
+                        println("Ilmoitukset päivitetty")
                     }
                     override fun onError(error: ANError?) {
                         if (error != null) {
@@ -293,7 +293,7 @@ class ProfileSettings : ThemeActivity(), TimePickerDialog.OnTimeSetListener {
                         println("sleep settings updated")
                         Toast.makeText(
                             applicationContext,
-                            "Your sleep settings have been updated",
+                            "Sinun uniasetukset ovat päivittynyt",
                             Toast.LENGTH_SHORT
                         ).show()
                         //closes ProfileSettings page in 2 seconds and thusly refreshes the Frontpage
